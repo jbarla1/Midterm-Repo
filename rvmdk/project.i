@@ -17810,49 +17810,159 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 #line 7 "src/Uart_helper.h"
 #line 8 "src/Uart_helper.h"
 #line 9 "src/Uart_helper.h"
+#line 10 "src/Uart_helper.h"
 
 
 void UartSetup(void);		
-void UartSetup2(void);	
+
+
+int fputc(int ch, FILE *f);
+
+
+
+int fgetc(FILE *f);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #line 45 "project.h"
 
 
 
 void SetupHardware(void);
 #line 2 "project.c"
-
+#line 3 "project.c"
 #line 4 "project.c"
-#line 5 "project.c"
-#line 11 "project.c"
+#line 10 "project.c"
+
+
+
+
+
 
 
 
 
 
 int  main(void) {
-	
-
-
-	
-	    SetupHardware();
+		char inputChar1;
+		uint32_t inputChar2;
+		SetupHardware();
 			
-	while(1){
+	 	printf("Would you like to flash an LED of ANY color you want!? \nOf course you do, but just to be sure, enter a one if so, and a zero if not.\n");
+		inputChar1 = getc((& __stdin));
 		
-		 GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-		 delayMS(1000);
-		 GPIOPinWrite(0x40025000, 0x00000008, 0x0);
-		 delayMS(1000);
+		if(inputChar1){
+				
+				printf("Red, blue, or green? Enter 1, 2, or 3 respectively.\n");
+				inputChar1 = getc((& __stdin));
+			  printf("How many times should it blink per second?\n");
+				inputChar2 = getc((& __stdin));
+				
+				switch(inputChar1){
+					case 1:
+					
+					while(1){
+					GPIOPinWrite(0x40025000, 0x00000002, 0xF);
+					delayMS(1000/inputChar2);
+					GPIOPinWrite(0x40025000, 0x00000002, 0x0);
+					delayMS(1000/inputChar2);
+					}
+										
+					case 2:
+					while(1){
+					GPIOPinWrite(0x40025000, 0x00000004, 0xF);
+					delayMS(1000/inputChar2);
+					GPIOPinWrite(0x40025000, 0x00000004, 0x0);
+					delayMS(1000/inputChar2);
+
+					}
+					case 3:
+						while(1){
+					GPIOPinWrite(0x40025000, 0x00000008, 0xF);
+					delayMS(1000/inputChar2);
+					GPIOPinWrite(0x40025000, 0x00000008, 0x0);
+					delayMS(1000/inputChar2);
+					
+						}
+					default:
+						
+					printf("sorry, that wasnt an option");
+				
+					break;
+				
+			
+				}
+		}
 	
 	
-
-}
-
+	
+	
+	
+	
 }
 
 
 void SetupHardware(){
-	ClockSetup();
-	GPIO_Setup();
-	UartSetup();	
+		ClockSetup();
+		GPIO_Setup();
+		UartSetup();	
 	
 }

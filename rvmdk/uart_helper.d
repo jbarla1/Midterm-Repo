@@ -8,3 +8,4 @@
 .\rvmdk\uart_helper.o: .\driverlib\gpio.h
 .\rvmdk\uart_helper.o: .\driverlib\uart.h
 .\rvmdk\uart_helper.o: src\../inc/tm4c123gh6pm.h
+.\rvmdk\uart_helper.o: .\driverlib\pin_map.h

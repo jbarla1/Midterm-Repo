@@ -9996,10 +9996,767 @@ extern void UARTLoopbackEnable(uint32_t ui32Base);
 
 
 #line 9 "src\\Uart_helper.h"
+#line 1 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 213 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 384 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 555 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 726 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 875 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 1024 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 1250 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 1399 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 1625 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 1774 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 2000 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 2171 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 2342 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 2513 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 2684 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 2833 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 2982 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 3208 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 3357 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 3583 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 3732 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 3958 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 4136 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 4314 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 4492 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 4646 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 4880 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 5034 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 5268 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 5422 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 5656 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 5880 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 6104 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 6288 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 6593 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 6777 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 7082 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 7313 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 7544 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 7733 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 8046 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 8125 ".\\driverlib\\pin_map.h"
+
+#line 8132 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+
+
+
+
+#line 8148 ".\\driverlib\\pin_map.h"
+
+#line 8155 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 8208 ".\\driverlib\\pin_map.h"
+
+#line 8216 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 8548 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 8857 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 9166 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 9483 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 9886 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 10338 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 10749 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 11209 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 11669 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 12041 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 12536 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 12930 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 13455 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 13811 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 14167 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 14671 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 15197 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 15732 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 16267 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 16639 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 17134 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 17528 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 18053 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 18409 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 18765 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 19269 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 19804 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 20378 ".\\driverlib\\pin_map.h"
+
+
+
+
+
+
+#line 20952 ".\\driverlib\\pin_map.h"
+
+#line 10 "src\\Uart_helper.h"
 
 
 void UartSetup(void);		
-void UartSetup2(void);	
+
+
+int fputc(int ch, FILE *f);
+
+
+
+int fgetc(FILE *f);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #line 2 "src\\Uart_helper.c"
 
 
@@ -10008,34 +10765,33 @@ void UartSetup2(void);
 
 
 
-void UART_OutChar(char data);
-int fputc(int ch, FILE *f);
+
 
 void UartSetup()
 {
-		
-		
-		
-		SysCtlPeripheralEnable(0xf0001800);
-		
-		
-		
+		SysCtlPeripheralEnable(0xf0001800);		
 		while(!SysCtlPeripheralReady(0xf0001800))
 		{
+			
 		}
-		SysCtlClockSet(0x07800000 | 0x00003800 | 0x00000000 | 0x00000540);
-		SysCtlPeripheralEnable(0xf0000800); 
+		
+		SysCtlPeripheralEnable(0xf0000800); 		
+		GPIOPinConfigure(0x00000001); 								
+		GPIOPinConfigure(0x00000401); 								
 		
 		
-		GPIOPinTypeUART(0x40004000, 0x00000004|0x00000002);
+		GPIOPinTypeUART(0x40004000, 0x00000002|0x00000002);
+		GPIOPinTypeUART(0x40004000, 0x00000001|0x00000002);
 		
 		
 		
-		
+		SysCtlClockSet(0x07800000 | 0x00003800 | 0x00000000 | 0x00000540);   
 		UARTConfigSetExpClk(0x4000C000, SysCtlClockGet(), 38400,(0x00000060 | 0x00000000 |0x00000000));
-		
-		
 }
+
+
+
+
 
 void UART_OutChar(char data){
   while(((*((volatile uint32_t *)0x4000C018))&0x00000020) != 0);
@@ -10057,17 +10813,20 @@ int fputc(int ch, FILE *f){
 
 
 
-
-void UartSetup2()
+char UART_InChar()
 {
-	(*((volatile uint32_t *)0x400FE104)) |= 0x00000001; 
-  (*((volatile uint32_t *)0x400FE108)) |= 0x00000001; 
-  (*((volatile uint32_t *)0x4000C030)) &= ~0x00000001;      
-  (*((volatile uint32_t *)0x4000C024)) = 27;                    
-  (*((volatile uint32_t *)0x4000C028)) = 8;                     
-                                        
-  (*((volatile uint32_t *)0x4000C02C)) = (0x00000060|0x00000010);
-  (*((volatile uint32_t *)0x4000C030)) |= 0x00000001;       
-  (*((volatile uint32_t *)0x40004420)) |= 0x03;           
-  (*((volatile uint32_t *)0x4000451C)) |= 0x03;             
+	while(((*((volatile uint32_t *)0x4000C018))&0x00000010) !=0){};
+	return ((char)((*((volatile uint32_t *)0x4000C000))&0xFF)); 
 }
+
+
+int fgetc(FILE *f){
+  return UART_InChar();
+}
+
+
+int ferror(FILE *f){
+   
+  return 1;
+}
+

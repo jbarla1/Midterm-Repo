@@ -18128,10 +18128,78 @@ extern void WatchdogStallDisable(uint32_t ui32Base);
 #line 7 "src/Uart_helper.h"
 #line 8 "src/Uart_helper.h"
 #line 9 "src/Uart_helper.h"
+#line 10 "src/Uart_helper.h"
 
 
 void UartSetup(void);		
-void UartSetup2(void);	
+
+
+int fputc(int ch, FILE *f);
+
+
+
+int fgetc(FILE *f);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #line 45 "project.h"
 
 
@@ -18147,10 +18215,78 @@ void SetupHardware(void);
 #line 7 ".\\src\\Uart_helper.h"
 #line 8 ".\\src\\Uart_helper.h"
 #line 9 ".\\src\\Uart_helper.h"
+#line 10 ".\\src\\Uart_helper.h"
 
 
 void UartSetup(void);		
-void UartSetup2(void);	
+
+
+int fputc(int ch, FILE *f);
+
+
+
+int fgetc(FILE *f);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #line 7 "systic.h"
 
 

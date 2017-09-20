@@ -17810,10 +17810,78 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 #line 7 "src/Uart_helper.h"
 #line 8 "src/Uart_helper.h"
 #line 9 "src/Uart_helper.h"
+#line 10 "src/Uart_helper.h"
 
 
 void UartSetup(void);		
-void UartSetup2(void);	
+
+
+int fputc(int ch, FILE *f);
+
+
+
+int fgetc(FILE *f);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 #line 45 "GPIO_init.h"
 
 
@@ -17827,7 +17895,9 @@ void GPIO_Setup(void);
 
 void GPIO_Setup(void) {
 
- volatile uint32_t ui32Loop;
+		volatile uint32_t ui32Loop;
 		SysCtlPeripheralEnable(0xf0000805);
- GPIOPinTypeGPIOOutput(0x40025000, 0x00000008);
+		GPIOPinTypeGPIOOutput(0x40025000, 0x00000002);
+		GPIOPinTypeGPIOOutput(0x40025000, 0x00000004);
+		GPIOPinTypeGPIOOutput(0x40025000, 0x00000008);
 }

@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.24.2.0
 Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Jacob Clark, LTU, LIC=----
+License Information: Jacob Clark, Lawrence Technological University, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.24.1
@@ -21,7 +21,7 @@ Target DLL:      lmidk-agdi.dll V???
 Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
-C:\Users\jclark2\Documents\GitHub\ES_Project\project.uvprojx
+C:\Users\Jake\Documents\GitHub\Midterm-Repo\project.uvprojx
 Project File Date:  09/20/2017
 
 <h2>Output:</h2>
@@ -32,11 +32,12 @@ assembling startup_rvmdk.S...
 creating preprocessor file for Systic.c...
 creating preprocessor file for Uart_helper.c...
 compiling Uart_helper.c...
-src\Uart_helper.h(12): warning:  #1-D: last line of file ends without a newline
-  void UartSetup2(void);	//sets up Uart for my configuration registers
-src\Uart_helper.c(71): warning:  #1-D: last line of file ends without a newline
-  }
+src\Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
+  //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+src\Uart_helper.c(73): warning:  #1-D: last line of file ends without a newline
+  // this function does the same thing as UartSetup(), but uses direct register access method
 src\Uart_helper.c: 2 warnings, 0 errors
+creating preprocessor file for GPIO_init.c...
 compiling project.c...
 driverlib/hibernate.h(229): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarSet(struct tm *psTime);
@@ -46,15 +47,19 @@ driverlib/hibernate.h(231): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchSet(uint32_t ui32Index, struct tm *psTime);
 driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
-src/Uart_helper.h(12): warning:  #1-D: last line of file ends without a newline
-  void UartSetup2(void);	//sets up Uart for my configuration registers
-project.c(26): warning:  #223-D: function "delayMS" declared implicitly
-  		 delayMS(1000);
-project.c(38): warning:  #223-D: function "ClockSetup" declared implicitly
-  	ClockSetup();
-project.c(39): warning:  #223-D: function "GPIO_Setup" declared implicitly
-  	GPIO_Setup();
-project.c: 8 warnings, 0 errors
+src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
+  //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+project.c(40): warning:  #223-D: function "delayMS" declared implicitly
+  					delayMS(1000/inputChar2);
+project.c(48): warning:  #223-D: function "delayMS" declared implicitly
+  					delayMS(1000/inputChar2);
+project.c(56): warning:  #223-D: function "delayMS" declared implicitly
+  					delayMS(1000/inputChar2);
+project.c(80): warning:  #223-D: function "ClockSetup" declared implicitly
+  		ClockSetup();
+project.c(81): warning:  #223-D: function "GPIO_Setup" declared implicitly
+  		GPIO_Setup();
+project.c: 10 warnings, 0 errors
 compiling Systic.c...
 driverlib/hibernate.h(229): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarSet(struct tm *psTime);
@@ -64,16 +69,15 @@ driverlib/hibernate.h(231): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchSet(uint32_t ui32Index, struct tm *psTime);
 driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
-src/Uart_helper.h(12): warning:  #1-D: last line of file ends without a newline
-  void UartSetup2(void);	//sets up Uart for my configuration registers
-.\src\Uart_helper.h(12): warning:  #1-D: last line of file ends without a newline
-  void UartSetup2(void);	//sets up Uart for my configuration registers
+src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
+  //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+.\src\Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
+  //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 Systic.h(129): warning:  #1-D: last line of file ends without a newline
   #endif // __DRIVERLIB_SYSTICK_H__
-Systic.c(40): warning:  #1-D: last line of file ends without a newline
-  }
+Systic.c(42): warning:  #1-D: last line of file ends without a newline
+  // rtert
 Systic.c: 8 warnings, 0 errors
-creating preprocessor file for GPIO_init.c...
 creating preprocessor file for PWM.c...
 compiling GPIO_init.c...
 driverlib/hibernate.h(229): warning:  #231-D: declaration is not visible outside of function
@@ -84,8 +88,8 @@ driverlib/hibernate.h(231): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchSet(uint32_t ui32Index, struct tm *psTime);
 driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
-src/Uart_helper.h(12): warning:  #1-D: last line of file ends without a newline
-  void UartSetup2(void);	//sets up Uart for my configuration registers
+src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
+  //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 GPIO_init.c: 5 warnings, 0 errors
 compiling PWM.c...
 driverlib/hibernate.h(229): warning:  #231-D: declaration is not visible outside of function
@@ -96,20 +100,20 @@ driverlib/hibernate.h(231): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchSet(uint32_t ui32Index, struct tm *psTime);
 driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
-src/Uart_helper.h(12): warning:  #1-D: last line of file ends without a newline
-  void UartSetup2(void);	//sets up Uart for my configuration registers
-.\src\Uart_helper.h(12): warning:  #1-D: last line of file ends without a newline
-  void UartSetup2(void);	//sets up Uart for my configuration registers
+src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
+  //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+.\src\Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
+  //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 systic.h(129): warning:  #1-D: last line of file ends without a newline
   #endif // __DRIVERLIB_SYSTICK_H__
 PWM.c(52): warning:  #223-D: function "delayMS" declared implicitly
           delayMS(20);
 PWM.c: 8 warnings, 0 errors
 linking...
-Program Size: Code=2240 RO-data=612 RW-data=0 ZI-data=256  
+Program Size: Code=2772 RO-data=1316 RW-data=8 ZI-data=256  
 FromELF: creating hex file...
 After Build - User command #1: fromelf --bin --output .\rvmdk\project.bin .\rvmdk\project.axf
-".\rvmdk\project.axf" - 0 Error(s), 31 Warning(s).
+".\rvmdk\project.axf" - 0 Error(s), 33 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -132,7 +136,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.0.1
-Build Time Elapsed:  00:00:06
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
