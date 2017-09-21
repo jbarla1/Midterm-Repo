@@ -64583,6 +64583,8 @@ N
 N
 N
 Nvoid SetupHardware(void);
+W "project.h" 49 26 last line of file ends without a newline
+Nvoid SelectionMenu(void);
 L 6 "systic.h" 2
 N#include "Uart_helper.h"
 L 1 ".\src\Uart_helper.h" 1

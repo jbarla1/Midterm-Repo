@@ -18,11 +18,36 @@ __error__(char *pcFilename, uint32_t ui32Line)
 
 
 int  main(void) {
-		char inputChar1;
-		uint32_t inputChar2;
+		bool choice = 1;
 		SetupHardware();
+	
+		while(choice) {
+			SelectionMenu(); 	
 			
-	 	printf("Would you like to flash an LED of ANY color you want!? \nOf course you do, but just to be sure, enter a one if so, and a zero if not.\n");
+			printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
+			choice = getchar();
+			
+		
+		}
+
+			
+			
+}
+
+
+void SetupHardware(){
+		ClockSetup();
+		GPIO_Setup();
+		UartSetup();	
+	//	PWM_Setup();
+}
+
+
+
+void SelectionMenu() {
+			char inputChar1;
+		uint32_t inputChar2;
+		 	printf("Would you like to flash an LED of ANY color you want!? \nOf course you do, but just to be sure, enter a one if so, and a zero if not.\n");
 		inputChar1 = getchar();
 		
 		if(inputChar1){
@@ -67,18 +92,11 @@ int  main(void) {
 			
 				}
 		}
-	//	while(1){
-	//		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
-	//		delayMS(1000);
-	//		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
-	//		delayMS(1000);
-	//	}
-}
-
-
-void SetupHardware(){
-		ClockSetup();
-		GPIO_Setup();
-		UartSetup();	
-	//	PWM_Setup();
-}
+	
+	
+	
+	
+	
+	
+	
+}	

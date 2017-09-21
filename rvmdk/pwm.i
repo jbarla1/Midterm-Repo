@@ -18205,6 +18205,7 @@ int fgetc(FILE *f);
 
 
 void SetupHardware(void);
+void SelectionMenu(void);
 #line 6 "systic.h"
 #line 1 ".\\src\\Uart_helper.h"
 #line 2 ".\\src\\Uart_helper.h"

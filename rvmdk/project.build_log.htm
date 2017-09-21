@@ -49,17 +49,19 @@ driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
 src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
   //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-project.c(40): warning:  #223-D: function "delayMS" declared implicitly
-  					delayMS(1000/inputChar2);
-project.c(48): warning:  #223-D: function "delayMS" declared implicitly
-  					delayMS(1000/inputChar2);
-project.c(56): warning:  #223-D: function "delayMS" declared implicitly
-  					delayMS(1000/inputChar2);
-project.c(80): warning:  #223-D: function "ClockSetup" declared implicitly
+project.h(49): warning:  #1-D: last line of file ends without a newline
+  void SelectionMenu(void);
+project.c(39): warning:  #223-D: function "ClockSetup" declared implicitly
   		ClockSetup();
-project.c(81): warning:  #223-D: function "GPIO_Setup" declared implicitly
+project.c(40): warning:  #223-D: function "GPIO_Setup" declared implicitly
   		GPIO_Setup();
-project.c: 10 warnings, 0 errors
+project.c(65): warning:  #223-D: function "delayMS" declared implicitly
+  					delayMS(1000/inputChar2);
+project.c(73): warning:  #223-D: function "delayMS" declared implicitly
+  					delayMS(1000/inputChar2);
+project.c(81): warning:  #223-D: function "delayMS" declared implicitly
+  					delayMS(1000/inputChar2);
+project.c: 11 warnings, 0 errors
 compiling Systic.c...
 driverlib/hibernate.h(229): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarSet(struct tm *psTime);
@@ -71,13 +73,15 @@ driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
 src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
   //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+project.h(49): warning:  #1-D: last line of file ends without a newline
+  void SelectionMenu(void);
 .\src\Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
   //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 Systic.h(129): warning:  #1-D: last line of file ends without a newline
   #endif // __DRIVERLIB_SYSTICK_H__
-Systic.c(42): warning:  #1-D: last line of file ends without a newline
-  // rtert
-Systic.c: 8 warnings, 0 errors
+Systic.c(49): warning:  #1-D: last line of file ends without a newline
+  	//		delayMS(1000);
+Systic.c: 9 warnings, 0 errors
 creating preprocessor file for PWM.c...
 compiling GPIO_init.c...
 driverlib/hibernate.h(229): warning:  #231-D: declaration is not visible outside of function
@@ -102,18 +106,20 @@ driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
 src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
   //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+project.h(49): warning:  #1-D: last line of file ends without a newline
+  void SelectionMenu(void);
 .\src\Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
   //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 systic.h(129): warning:  #1-D: last line of file ends without a newline
   #endif // __DRIVERLIB_SYSTICK_H__
 PWM.c(52): warning:  #223-D: function "delayMS" declared implicitly
           delayMS(20);
-PWM.c: 8 warnings, 0 errors
+PWM.c: 9 warnings, 0 errors
 linking...
-Program Size: Code=2772 RO-data=1316 RW-data=8 ZI-data=256  
+Program Size: Code=2808 RO-data=1408 RW-data=8 ZI-data=256  
 FromELF: creating hex file...
 After Build - User command #1: fromelf --bin --output .\rvmdk\project.bin .\rvmdk\project.axf
-".\rvmdk\project.axf" - 0 Error(s), 33 Warning(s).
+".\rvmdk\project.axf" - 0 Error(s), 36 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -136,7 +142,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.0.1
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

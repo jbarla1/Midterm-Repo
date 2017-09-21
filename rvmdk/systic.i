@@ -17892,6 +17892,7 @@ int fgetc(FILE *f);
 
 
 void SetupHardware(void);
+void SelectionMenu(void);
 #line 6 "Systic.h"
 #line 1 ".\\src\\Uart_helper.h"
 #line 2 ".\\src\\Uart_helper.h"
@@ -18096,3 +18097,10 @@ while (time < duration){
 }
  
 
+
+
+
+
+	
+	
+	

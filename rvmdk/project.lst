@@ -64188,6 +64188,8 @@ N
 N
 N
 Nvoid SetupHardware(void);
+W "project.h" 49 26 last line of file ends without a newline
+Nvoid SelectionMenu(void);
 L 2 "project.c" 2
 N#include <stdio.h>
 N#include <stdint.h>
@@ -64208,11 +64210,40 @@ N
 N
 N
 Nint  main(void) {
-N		char inputChar1;
-N		uint32_t inputChar2;
+N		bool choice = 1;
+X		_Bool choice = 1;
 N		SetupHardware();
+N	
+N		while(choice) {
+N			SelectionMenu(); 	
 N			
-N	 	printf("Would you like to flash an LED of ANY color you want!? \nOf course you do, but just to be sure, enter a one if so, and a zero if not.\n");
+N			printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
+N			choice = getchar();
+X			choice = getc((& __stdin));
+N			
+N		
+N		}
+N
+N			
+N			
+N}
+N
+N
+Nvoid SetupHardware(){
+W "project.c" 39 3 function "ClockSetup" declared implicitly
+N		ClockSetup();
+W "project.c" 40 3 function "GPIO_Setup" declared implicitly
+N		GPIO_Setup();
+N		UartSetup();	
+N	//	PWM_Setup();
+N}
+N
+N
+N
+Nvoid SelectionMenu() {
+N			char inputChar1;
+N		uint32_t inputChar2;
+N		 	printf("Would you like to flash an LED of ANY color you want!? \nOf course you do, but just to be sure, enter a one if so, and a zero if not.\n");
 N		inputChar1 = getchar();
 X		inputChar1 = getc((& __stdin));
 N		
@@ -64231,7 +64262,7 @@ N
 N					while(1){
 N					GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
 X					GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-W "project.c" 40 6 function "delayMS" declared implicitly
+W "project.c" 65 6 function "delayMS" declared implicitly
 N					delayMS(1000/inputChar2);
 N					GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
 X					GPIOPinWrite(0x40025000, 0x00000002, 0x0);
@@ -64242,7 +64273,7 @@ N					case 2:
 N					while(1){
 N					GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
 X					GPIOPinWrite(0x40025000, 0x00000004, 0xF);
-W "project.c" 48 6 function "delayMS" declared implicitly
+W "project.c" 73 6 function "delayMS" declared implicitly
 N					delayMS(1000/inputChar2);
 N					GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x0);
 X					GPIOPinWrite(0x40025000, 0x00000004, 0x0);
@@ -64253,7 +64284,7 @@ N					case 3:
 N						while(1){
 N					GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
 X					GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-W "project.c" 56 6 function "delayMS" declared implicitly
+W "project.c" 81 6 function "delayMS" declared implicitly
 N					delayMS(1000/inputChar2);
 N					GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
 X					GPIOPinWrite(0x40025000, 0x00000008, 0x0);
@@ -64269,20 +64300,11 @@ N
 N			
 N				}
 N		}
-N	//	while(1){
-N	//		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
-N	//		delayMS(1000);
-N	//		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
-N	//		delayMS(1000);
-N	//	}
-N}
-N
-N
-Nvoid SetupHardware(){
-W "project.c" 80 3 function "ClockSetup" declared implicitly
-N		ClockSetup();
-W "project.c" 81 3 function "GPIO_Setup" declared implicitly
-N		GPIO_Setup();
-N		UartSetup();	
-N	//	PWM_Setup();
-N}
+N	
+N	
+N	
+N	
+N	
+N	
+N	
+N}	

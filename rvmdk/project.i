@@ -17887,6 +17887,7 @@ int fgetc(FILE *f);
 
 
 void SetupHardware(void);
+void SelectionMenu(void);
 #line 2 "project.c"
 #line 3 "project.c"
 #line 4 "project.c"
@@ -17902,11 +17903,36 @@ void SetupHardware(void);
 
 
 int  main(void) {
-		char inputChar1;
-		uint32_t inputChar2;
+		_Bool choice = 1;
 		SetupHardware();
+	
+		while(choice) {
+			SelectionMenu(); 	
 			
-	 	printf("Would you like to flash an LED of ANY color you want!? \nOf course you do, but just to be sure, enter a one if so, and a zero if not.\n");
+			printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
+			choice = getc((& __stdin));
+			
+		
+		}
+
+			
+			
+}
+
+
+void SetupHardware(){
+		ClockSetup();
+		GPIO_Setup();
+		UartSetup();	
+	
+}
+
+
+
+void SelectionMenu() {
+			char inputChar1;
+		uint32_t inputChar2;
+		 	printf("Would you like to flash an LED of ANY color you want!? \nOf course you do, but just to be sure, enter a one if so, and a zero if not.\n");
 		inputChar1 = getc((& __stdin));
 		
 		if(inputChar1){
@@ -17957,12 +17983,5 @@ int  main(void) {
 	
 	
 	
-}
-
-
-void SetupHardware(){
-		ClockSetup();
-		GPIO_Setup();
-		UartSetup();	
 	
-}
+}	

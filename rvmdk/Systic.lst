@@ -64194,6 +64194,8 @@ N
 N
 N
 Nvoid SetupHardware(void);
+W "project.h" 49 26 last line of file ends without a newline
+Nvoid SelectionMenu(void);
 L 6 "Systic.h" 2
 N#include "Uart_helper.h"
 L 1 ".\src\Uart_helper.h" 1
@@ -64445,5 +64447,12 @@ N void delayMS(int ms) {
 N    SysCtlDelay( (SysCtlClockGet()/(3*1000))*ms ) ;
 N}
 N 
-W "Systic.c" 42 9 last line of file ends without a newline
-N// rtert
+N
+N
+N
+N
+N//		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
+N	//		delayMS(1000);
+N	//		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
+W "Systic.c" 49 20 last line of file ends without a newline
+N	//		delayMS(1000);
