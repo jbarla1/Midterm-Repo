@@ -17887,11 +17887,11 @@ int fgetc(FILE *f);
 
 
 void SetupHardware(void);
-void SelectionMenu(void);
 #line 2 "project.c"
 #line 3 "project.c"
 #line 4 "project.c"
 #line 10 "project.c"
+
 
 
 
@@ -17908,16 +17908,13 @@ int  main(void) {
 	
 		while(choice) {
 			SelectionMenu(); 	
-			
 			printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
 			choice = getc((& __stdin));
-			
-		
-		}
-
-			
-			
+		}		
 }
+
+
+
 
 
 void SetupHardware(){
@@ -17929,59 +17926,4 @@ void SetupHardware(){
 
 
 
-void SelectionMenu() {
-			char inputChar1;
-		uint32_t inputChar2;
-		 	printf("Would you like to flash an LED of ANY color you want!? \nOf course you do, but just to be sure, enter a one if so, and a zero if not.\n");
-		inputChar1 = getc((& __stdin));
-		
-		if(inputChar1){
-				
-				printf("Red, blue, or green? Enter 1, 2, or 3 respectively.\n");
-				inputChar1 = getc((& __stdin));
-			  printf("How many times should it blink per second?\n");
-				inputChar2 = getc((& __stdin));
-				
-				switch(inputChar1){
-					case 1:
-					
-					while(1){
-					GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-					delayMS(1000/inputChar2);
-					GPIOPinWrite(0x40025000, 0x00000002, 0x0);
-					delayMS(1000/inputChar2);
-					}
-										
-					case 2:
-					while(1){
-					GPIOPinWrite(0x40025000, 0x00000004, 0xF);
-					delayMS(1000/inputChar2);
-					GPIOPinWrite(0x40025000, 0x00000004, 0x0);
-					delayMS(1000/inputChar2);
 
-					}
-					case 3:
-						while(1){
-					GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-					delayMS(1000/inputChar2);
-					GPIOPinWrite(0x40025000, 0x00000008, 0x0);
-					delayMS(1000/inputChar2);
-					
-						}
-					default:
-						
-					printf("sorry, that wasnt an option");
-				
-					break;
-				
-			
-				}
-		}
-	
-	
-	
-	
-	
-	
-	
-}	

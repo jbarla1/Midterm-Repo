@@ -22,7 +22,7 @@ Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
 C:\Users\Jake\Documents\GitHub\Midterm-Repo\project.uvprojx
-Project File Date:  09/20/2017
+Project File Date:  09/21/2017
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
@@ -37,7 +37,6 @@ src\Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
 src\Uart_helper.c(73): warning:  #1-D: last line of file ends without a newline
   // this function does the same thing as UartSetup(), but uses direct register access method
 src\Uart_helper.c: 2 warnings, 0 errors
-creating preprocessor file for GPIO_init.c...
 compiling project.c...
 driverlib/hibernate.h(229): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarSet(struct tm *psTime);
@@ -49,19 +48,14 @@ driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
 src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
   //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-project.h(49): warning:  #1-D: last line of file ends without a newline
-  void SelectionMenu(void);
-project.c(39): warning:  #223-D: function "ClockSetup" declared implicitly
+project.c(26): warning:  #223-D: function "SelectionMenu" declared implicitly
+  			SelectionMenu(); 	
+project.c(37): warning:  #223-D: function "ClockSetup" declared implicitly
   		ClockSetup();
-project.c(40): warning:  #223-D: function "GPIO_Setup" declared implicitly
+project.c(38): warning:  #223-D: function "GPIO_Setup" declared implicitly
   		GPIO_Setup();
-project.c(65): warning:  #223-D: function "delayMS" declared implicitly
-  					delayMS(1000/inputChar2);
-project.c(73): warning:  #223-D: function "delayMS" declared implicitly
-  					delayMS(1000/inputChar2);
-project.c(81): warning:  #223-D: function "delayMS" declared implicitly
-  					delayMS(1000/inputChar2);
-project.c: 11 warnings, 0 errors
+project.c: 8 warnings, 0 errors
+creating preprocessor file for GPIO_init.c...
 compiling Systic.c...
 driverlib/hibernate.h(229): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarSet(struct tm *psTime);
@@ -73,16 +67,15 @@ driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
 src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
   //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-project.h(49): warning:  #1-D: last line of file ends without a newline
-  void SelectionMenu(void);
 .\src\Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
   //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 Systic.h(129): warning:  #1-D: last line of file ends without a newline
   #endif // __DRIVERLIB_SYSTICK_H__
 Systic.c(49): warning:  #1-D: last line of file ends without a newline
   	//		delayMS(1000);
-Systic.c: 9 warnings, 0 errors
+Systic.c: 8 warnings, 0 errors
 creating preprocessor file for PWM.c...
+creating preprocessor file for Menu.c...
 compiling GPIO_init.c...
 driverlib/hibernate.h(229): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarSet(struct tm *psTime);
@@ -95,6 +88,30 @@ driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside
 src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
   //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 GPIO_init.c: 5 warnings, 0 errors
+compiling Menu.c...
+driverlib/hibernate.h(229): warning:  #231-D: declaration is not visible outside of function
+  extern void HibernateCalendarSet(struct tm *psTime);
+driverlib/hibernate.h(230): warning:  #231-D: declaration is not visible outside of function
+  extern int HibernateCalendarGet(struct tm *psTime);
+driverlib/hibernate.h(231): warning:  #231-D: declaration is not visible outside of function
+  extern void HibernateCalendarMatchSet(uint32_t ui32Index, struct tm *psTime);
+driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside of function
+  extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
+src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
+  //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+Menu.c(5): warning:  #177-D: variable "inputChar2"  was declared but never referenced
+  		uint32_t inputChar2;
+Menu.c(32): warning:  #223-D: function "delayMS" declared implicitly
+  					delayMS(1000/Char2);
+Menu.c(40): warning:  #223-D: function "delayMS" declared implicitly
+  					delayMS(1000/Char2);
+Menu.c(48): warning:  #223-D: function "delayMS" declared implicitly
+  					delayMS(1000/Char2);
+Menu.c(59): warning:  #1-D: last line of file ends without a newline
+  }
+Menu.c(18): warning:  #550-D: variable "Char3"  was set but never used
+  		char Char1, Char2, Char3;
+Menu.c: 11 warnings, 0 errors
 compiling PWM.c...
 driverlib/hibernate.h(229): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarSet(struct tm *psTime);
@@ -106,20 +123,18 @@ driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
 src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
   //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-project.h(49): warning:  #1-D: last line of file ends without a newline
-  void SelectionMenu(void);
 .\src\Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
   //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 systic.h(129): warning:  #1-D: last line of file ends without a newline
   #endif // __DRIVERLIB_SYSTICK_H__
 PWM.c(52): warning:  #223-D: function "delayMS" declared implicitly
           delayMS(20);
-PWM.c: 9 warnings, 0 errors
+PWM.c: 8 warnings, 0 errors
 linking...
-Program Size: Code=2808 RO-data=1408 RW-data=8 ZI-data=256  
+Program Size: Code=2908 RO-data=1272 RW-data=8 ZI-data=256  
 FromELF: creating hex file...
 After Build - User command #1: fromelf --bin --output .\rvmdk\project.bin .\rvmdk\project.axf
-".\rvmdk\project.axf" - 0 Error(s), 36 Warning(s).
+".\rvmdk\project.axf" - 0 Error(s), 42 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -142,7 +157,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.0.1
-Build Time Elapsed:  00:00:04
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

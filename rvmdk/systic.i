@@ -17892,7 +17892,6 @@ int fgetc(FILE *f);
 
 
 void SetupHardware(void);
-void SelectionMenu(void);
 #line 6 "Systic.h"
 #line 1 ".\\src\\Uart_helper.h"
 #line 2 ".\\src\\Uart_helper.h"
@@ -18073,9 +18072,9 @@ void SysCtlClockSet(uint32_t ui32Config);
 
 
 void ClockSetup() {
-SysCtlClockSet(0x07800000 | 0x00003800 |   0x00000000 | 0x00000540);
-SysTickEnable(); 
-SysTickPeriodSet(16000000); 
+	SysCtlClockSet(0x07800000 | 0x00003800 |   0x00000000 | 0x00000540);
+	SysTickEnable(); 
+	SysTickPeriodSet(16000000); 
 }
 
 
