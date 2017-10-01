@@ -65407,22 +65407,166 @@ N
 N
 N
 N
-Nvoid CAN_Set(void);
+Nvoid CAN_Master(void);
 Nvoid CANIntHandler(void);
 Nvoid CAN_Init(void);
+W "CAN.h" 22 22 last line of file ends without a newline
+Nvoid CAN_Slave(void);
 L 2 "CAN.c" 2
 N#include <stdio.h>
 N#include <stdint.h>
+N#include "menu.h"
+L 1 "menu.h" 1
+N#include <stdbool.h>
+N#include <stdint.h>
 N
+N#include "inc/hw_memmap.h"
+N#include "driverlib/adc.h"
+N#include "driverlib/aes.h"
+N#include "driverlib/can.h"
+N#include "driverlib/comp.h"
+N#include "driverlib/cpu.h"
+N#include "driverlib/crc.h"
+N#include "driverlib/debug.h"
+N#include "driverlib/des.h"
+N#include "driverlib/eeprom.h"
+N#include "driverlib/emac.h"
+N#include "driverlib/epi.h"
+N#include "driverlib/flash.h"
+N#include "driverlib/fpu.h"
+N#include "driverlib/gpio.h"
+N#include "driverlib/hibernate.h"
+N#include "driverlib/i2c.h"
+N#include "driverlib/interrupt.h"
+N#include "driverlib/lcd.h"
+N#include "driverlib/mpu.h"
+N#include "driverlib/onewire.h"
+N#include "driverlib/pin_map.h"
+N#include "driverlib/pwm.h"
+N#include "driverlib/qei.h"
+N#include "driverlib/rom.h"
+N#include "driverlib/rom_map.h"
+N#include "driverlib/rtos_bindings.h"
+N#include "driverlib/shamd5.h"
+N#include "driverlib/ssi.h"
+N#include "driverlib/sw_crc.h"
+N#include "driverlib/sysctl.h"
+N#include "driverlib/sysexc.h"
+N#include "driverlib/systick.h"
+N#include "driverlib/timer.h"
+N#include "driverlib/uart.h"
+N#include "driverlib/udma.h"
+N#include "driverlib/usb.h"
+N#include "driverlib/watchdog.h"
+N#include "tm4c123gh6pm.h"
+N#include "src/Uart_helper.h"
+L 1 "src/Uart_helper.h" 1
+N#include <stdbool.h>
+N#include <stdint.h>
+N#include <stdio.h>
+N#include "sysctl.h"
+N#include "hw_memmap.h"
+N#include "gpio.h"
+N#include "uart.h"
+N#include "../inc/tm4c123gh6pm.h"
+N#include "pin_map.h"
+N
+N
+Nvoid UartSetup(void);		//sets up Uart for my configuration using library
+N
+N//redirect for printf.
+Nint fputc(int ch, FILE *f);
+N
+N//redirect input from serial port
+N//read info edit by: Sir Hutson
+Nint fgetc(FILE *f);
+N
+N
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNNNNNNNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM8O+++?7IIII7ZNMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMD+++II7IIIIIII7IIODMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMN+?IIIIIIIIIIIIIIIIINMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMN7IIIIIIIIIDIIIIIIIIII77NMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMDNZI7IIIIIIIIIIIID,.NZ7IIIIIIIZMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMD77IIIIIIIIIIIIIIIDN.,DNNIIIIIIIIIDMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMNOZOIIIIIIIIIIIIIIONNNNNNNOIIIIIIIIZMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMDZZOZIIIIIIIIIIII7NNNNNNNDOIIIIIIIIINMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMN8888ZND7IIIIIIIINZNNNNDD,7IIIIIIIIIDMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMN88888888N$IIIIII7DOZZZZ+N7IIIIIIIIIMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMND88888888DZIIIIIII7ODN$77IIIIIIIINMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMDD88888888O88IIIIIIIIIIIIIIIIIIIINMMMMMMMMMMMMMMM8MMO=MMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMN888888D$$8IIIIIIIIIIIIIIIIII7MMMMMMMMMMMMMMMM7+++++MMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMDN8O8O??$$$D8OIIIIIIIIIIIIIIOMMMMMMMMMMMMMMM$=+++=+7MMMMMM
+N//MMMMMMMMMMMMMNMMMMMMMMM88N?+???7$$8IIIIIIIIIIIIIIIDMMMMMMMMMMMMMMM=++++++=MMMMMM
+N//MMMMMMMMMMMMDIINMMMMMNN8D+?++??$NIIIIIIIIIIIIIIII7MMMMMMMMMMMMMMMM=+++++++=MMMMM
+N//MMMMMMMMMM8IIIIII?OMDD88O??O?IN7IIIIIIIIIIIIIIIIIDMMMMMMMMMMMMMN=+=+++777++OMMMM
+N//MMMMMMMMMMD7IIIIIII+NN887??D8IIIIIIIIIIIIIIIIIIIINM8DZ7IIIIIDMM=+++++?777777ZMMM
+N//MMMMMMMMM8$7IIIIIII7DZNND7IIIIIIIII77IIIIIII77NZ=+++IIIIIII$MMM++++++7777777MMMM
+N//MMMMMMMMMMMD7IIIIIIIIINN$III$ONNNO777IIII7ID=++++IIIIIIIIIIIIM$=+++++?77777ZMMMM
+N//MMMMMMMMMMMMM7IIIIIIIIIII77?N777777IIIIIID7I77IIIIIIIIIIIIIIDMM8=+???7777777MMMM
+N//MMMMMMMMMMMMMNIIIIIIIIIIII78NNNO77IIIIIIIIIIIIIIIIIIIIIIIIIZNMMM+=777777777ZMMMM
+N//MMMMMMMMMMMMMMM87IIIIIIIII$~~~~~=NIIIIIIIIIIIIIIIIIIIIIIIZNMMMMM?7$777I777$MMMMM
+N//MMMMMMMMMMMMMMMMD77IIIII$+~~~~~~~~I7IIIIIIIIIIIIIIIII77DMMMMMMMMMMMMN7ID7DMMMMMM
+N//MMMMMMMMMMMMMMMMMD$7III7=~~~~~~~~~~I7IIIIIIIIIIIII7788MMMMMMMMMMMMMMM7I$MMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMN77IN~~~~~~~~~~~~87IIIIIIII777ONMMMMMMMMMMMMMMMMMM7IIMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMND~~~~~~~~~~~~~~ZIIIIIII8NO7I7MMMMMMMMMMMMMMMMMM7IINMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMM:~~~~~~~~~~~~~~87IIIIIIIIIIIINMMMMMMMMMMMMMMMMN7I$NMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMN~~~~~~~~~~~~~~~+IIIIIIIIIIIIINMMMMMMMMMMMMMMMMNII8NMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMM+~~~~~~~~~~~~~~~~Z7IIIIIIIIIIIOMMMMMMMMMMMMMMM87I7NNMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMD~~~~~~~~~~~~~~~~~NIIIIIIIIIIIIIDMMMMMMMMMMMMMNIII$~DMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMN~~~~~~~~~~~~~~~~~NIIIIIIIIIIIIINMMMMMMMMMMMMD$IIIN~MMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMN~~~~~~~~~~~~~~~~~NIIIIIIIIIIIIINMMMMMMMMMMMNIIII8~NMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMN~~~~~~~~~~~~~~~~~Z7IIIIIIIIIIIIDMMMMMMMMMD$7III7?~DMMMMMMMM
+N//MMMMMMMMMMMMMN=+?IIIN~~~~~~~~~~~~~~~~=IIIIIIIIIIIIIIZMMMMMM8NIIIIIIID~NMMMMMMMMM
+N//MMMMMMMMMMMN7++IIIII7~~~~~~~~~~~~~~~~Z77IIIIIIIIIIII$NNN87IIIIIIII78~OMMMMMMMMMM
+N//MMMMMMMMMMM?++IIIIII7D~~~~~~~~~~~~~~~NIIIIIIIIIIIIII$7I7IIIIIIII7Z?+8MMMMMMMMMMM
+N//MMMMMMMMMMM+?IIIIII777~~~~~~~~~~~~~ZZIIIIIIIIIIIIIII87IIIIIIIII7D++NMMMMMMMMMMMM
+N//MMMMMMMMMM8IIIII777777D=~~~~~~~~~~D7IIIIIIIIIIIIIII7N777IIIIIID7+?DMMMMMMMMMMMMM
+N//NNNN777ONNNIII777777777O+~~~~~~~~NIIIIIIIIIIIIIIIII$Z7777778D+++ZDMMMMMMMMMMMMMM
+N//MD~,.7III7IZII7777777777O+++=~~~N7IIIIIIIIIIIIIIII7N7777ND++++=NMMMMMMMMMMMMMMMM
+N//MMMNNIIIIIIIII77777777777$D+++++Z777IIIIIIIIIIII777O$?++++++IDMMMMMMMMMMMMMMMMMM
+N//MMMMMNZ777777I777777777777Z8DI?+$777I7IIIIIIIII777O++++++?OMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMM877777777777777DNMMMMMMM8N777777IIIII777777O++?$NMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMN$77777777$NMMMMMMMMMMMM$777777777777777NNDMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMN$777777DMMMMMMMMMMMMMMD7777777777777DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMN7777NMMMMMMMMMMMMMMMMN7777777777ODMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMNDMMMMMMMMMMMMMMMMMMO$7777777DZMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD77777777777DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM7NDN7DN87NND8MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMNN=O7?~I7?~NMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMOMMM~DNN8MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+W "src/Uart_helper.h" 80 83 last line of file ends without a newline
+N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
+L 44 "menu.h" 2
+N
+N
+N//extern char inputChar2;
+N
+Nvoid LedMenu(void);
+N
+N
+N
+N
+N
+N
+L 5 "CAN.c" 2
+N//volatile bool slave_check;
 Nunsigned int sysClock; // clockspeed in hz
 Nvolatile bool errFlag = 0; // transmission error flag
 Xvolatile _Bool errFlag = 0; 
+Nvolatile bool rxFlag = 0; // msg recieved flag
+Xvolatile _Bool rxFlag = 0; 
 N
 Nvoid CAN_Init(){
 N	
 N	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
 X	SysCtlPeripheralEnable(0xf0000804);
-N	printf("Initializing CAN0RX...\n");
+N	printf("\n Initializing CAN0RX...\n");
 N	GPIOPinConfigure(GPIO_PE4_CAN0RX);
 X	GPIOPinConfigure(0x00041008);
 N	printf("Initializing CAN0TX...\n");
@@ -65462,6 +65606,7 @@ N		errFlag = 1;
 N	} else if(status == 1) { // message object 1
 N		CANIntClear(CAN0_BASE, 1); // clear interrupt
 X		CANIntClear(0x40040000, 1); 
+N	  rxFlag = 1; // set rx flag
 N		errFlag = 0; // clear any error flags
 N	} else { // should never happen
 N	printf("Unexpected CAN bus interrupt\n");
@@ -65469,7 +65614,16 @@ N	}
 N}
 N
 N
-Nvoid CAN_Set(void) {
+N
+N
+N
+N
+N
+N
+N
+Nvoid CAN_Master(void) {
+N	
+N//	slave_check = 0;
 N	tCANMsgObject msg; // the CAN message object
 N	unsigned int msgData; // the message data is four bytes long which we can allocate as an int32
 N	unsigned char *msgDataPtr = (unsigned char *)&msgData; // make a pointer to msgData so we can access individual bytes
@@ -65527,7 +65681,7 @@ N		if(x == 100){
 N			x = 20;
 N		}
 N		
-W "CAN.c" 100 3 function "delayMS" declared implicitly
+W "CAN.c" 112 3 function "delayMS" declared implicitly
 N		delayMS(x); // wait 100ms
 N		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
 X		GPIOPinWrite(0x40025000, 0x00000002, 0xF);
@@ -65542,7 +65696,90 @@ N
 N		t++; // overflow is fine
 N	}
 N	
-W "CAN.c" 58 8 variable "freq"  was declared but never referenced
+W "CAN.c" 70 8 variable "freq"  was declared but never referenced
 N}
 N
+N
+N
+Nvoid CAN_Slave(){
+N	
+N	//slave_check = 1;
+N	
+N	
+N
+N
+N
+N  volatile uint32_t ui32Loop;
+N	tCANMsgObject msg; // the CAN msg object
+N	unsigned char msgData[8]; // 8 byte buffer for rx message data
+N	
+N	
+N	msg.ui32MsgID = 0;
+N	msg.ui32MsgIDMask = 0;
+N	msg.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
+X	msg.ui32Flags = 0x00000002 | 0x00000008;
+N	msg.ui32MsgLen = 8; // allow up to 8 bytes
+N
+N	// Load msg into CAN peripheral message object 1 so it can trigger interrupts on any matched rx messages
+N	CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_RX);
+X	CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_RX);
+N 
+Nunsigned int colour[3];
+N	float intensity;
+N
+N
+N	while(1) {
+N	//	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
+N		if(rxFlag) { // rx interrupt has occured
+N			msg.pui8MsgData = msgData; // set pointer to rx buffer
+N			CANMessageGet(CAN0_BASE, 1, &msg, 0); // read CAN message object 1 from CAN peripheral
+X			CANMessageGet(0x40040000, 1, &msg, 0); 
+N			
+N			
+N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
+X			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
+N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x0);
+X			GPIOPinWrite(0x40025000, 0x00000004, 0x0);
+N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
+X			GPIOPinWrite(0x40025000, 0x00000008, 0x0);
+N			
+N			rxFlag = 0; // clear rx flag
+N
+N			if(msg.ui32Flags & MSG_OBJ_DATA_LOST) { // check msg flags for any lost messages
+X			if(msg.ui32Flags & 0x00000100) { 
+N	//			UARTprintf("CAN message loss detected\n");
+N			
+N			}
+N
+N			// read in colour data from rx buffer (scale from 0-255 to 0-0xFFFF for LED driver)
+N			colour[0] = msgData[0] * 0xFF;
+N			colour[1] = msgData[1] * 0xFF;
+N			colour[2] = msgData[2] * 0xFF;
+N			intensity = msgData[3] / 255.0f; // scale from 0-255 to float 0-1
+N
+N			// write to UART for debugging
+N	    printf("Received colour\tr: %d  g: %d  b: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
+N
+N			// set colour and intensity
+N			if (msgData[0] == 128){
+N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
+X			GPIOPinWrite(0x40025000, 0x00000002, 0xF);
+N			}
+N			if (msgData[1] == 128){
+N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
+X			GPIOPinWrite(0x40025000, 0x00000004, 0xF);
+N			}
+N			if (msgData[2] == 128){
+N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
+X			GPIOPinWrite(0x40025000, 0x00000008, 0xF);
+N			}
+N		}
+N	}
+N	
+N	
+N	
+N	
+W "CAN.c" 149 14 variable "colour"  was set but never used
+W "CAN.c" 150 8 variable "intensity"  was set but never used
+N}
 N

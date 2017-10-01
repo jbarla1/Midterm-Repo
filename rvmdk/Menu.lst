@@ -64185,7 +64185,7 @@ N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 L 44 "menu.h" 2
 N
 N
-N
+N//extern char inputChar2;
 N
 Nvoid LedMenu(void);
 N
@@ -64195,22 +64195,47 @@ N
 N
 N
 L 2 "Menu.c" 2
-N
+N//extern char inputChar2;
 Nvoid SelectionMenu() {
 N		char inputChar1, inputChar2;
-N	 	printf("Would you like to flash an LED on this board?\n (1 = Yes, 0 = No)\n");
+N	 	printf("To flash an onboard LED enter 1. To enable CAN functionality enter 2. To display PWM on onboard LED enter 3.");
 N		inputChar1 = getchar();
 X		inputChar1 = getc((& __stdin));
 N	
-N		if(inputChar1){
+N		switch(inputChar1) {
+N			case 1:
 N				LedMenu();	
+N			break; 
+N			case 2:
+W "Menu.c" 13 4 function "CAN_Init" declared implicitly
+N			CAN_Init();	
+N			
+N			printf("Enter 1 to set board as master, or 0 for slave.");
+N			inputChar2 = getchar();
+X			inputChar2 = getc((& __stdin));
+N			if(inputChar2){
+W "Menu.c" 18 5 function "CAN_Master" declared implicitly
+N				CAN_Master();
+N			}
+N			else{
+W "Menu.c" 21 5 function "CAN_Slave" declared implicitly
+N				CAN_Slave();
+N			}
+N			break;
+N			case 3:
+W "Menu.c" 25 5 function "PWM_Setup" declared implicitly
+N				PWM_Setup();
+N				printf("PWM Initialized");
+W "Menu.c" 27 5 function "pulse" declared implicitly
+N				pulse();
+N			break;
+N		
 N		}
 N		printf("Would you like to flash an LED on the slave board through the CAN?\n (1 = Yes, 0 = No\n");
-N	  inputChar2 = getchar();
-X	  inputChar2 = getc((& __stdin));
+N	  
 N		if(inputChar2){
-W "Menu.c" 14 4 function "CAN_Set" declared implicitly
-N			CAN_Set();
+W "Menu.c" 34 4 function "CAN_Master" declared implicitly
+N			CAN_Master();
 N		}
 N}	
 N
@@ -64236,7 +64261,7 @@ N
 N					while(1){
 N					GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
 X					GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-W "Menu.c" 36 6 function "delayMS" declared implicitly
+W "Menu.c" 56 6 function "delayMS" declared implicitly
 N					delayMS(1000/Char2);
 N					GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
 X					GPIOPinWrite(0x40025000, 0x00000002, 0x0);
@@ -64247,7 +64272,7 @@ N					case 2:
 N					while(1){
 N					GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
 X					GPIOPinWrite(0x40025000, 0x00000004, 0xF);
-W "Menu.c" 44 6 function "delayMS" declared implicitly
+W "Menu.c" 64 6 function "delayMS" declared implicitly
 N					delayMS(1000/Char2);
 N					GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x0);
 X					GPIOPinWrite(0x40025000, 0x00000004, 0x0);
@@ -64258,7 +64283,7 @@ N					case 3:
 N						while(1){
 N					GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
 X					GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-W "Menu.c" 52 6 function "delayMS" declared implicitly
+W "Menu.c" 72 6 function "delayMS" declared implicitly
 N					delayMS(1000/Char2);
 N					GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
 X					GPIOPinWrite(0x40025000, 0x00000008, 0x0);
@@ -64271,6 +64296,6 @@ N					printf("Sorry, that wasnt an option");
 N				
 N					break;
 N				}
-W "Menu.c" 63 2 last line of file ends without a newline
-W "Menu.c" 22 22 variable "Char3"  was set but never used
+W "Menu.c" 83 2 last line of file ends without a newline
+W "Menu.c" 42 22 variable "Char3"  was set but never used
 N}

@@ -38,12 +38,4 @@ while (time < duration){
  void delayMS(int ms) {
     SysCtlDelay( (SysCtlClockGet()/(3*1000))*ms ) ;
 }
- 
 
-
-
-
-//		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
-	//		delayMS(1000);
-	//		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
-	//		delayMS(1000);

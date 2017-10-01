@@ -1,14 +1,16 @@
 #include "CAN.h"
 #include <stdio.h>
 #include <stdint.h>
-
+#include "menu.h"
+//volatile bool slave_check;
 unsigned int sysClock; // clockspeed in hz
 volatile bool errFlag = 0; // transmission error flag
+volatile bool rxFlag = 0; // msg recieved flag
 
 void CAN_Init(){
 	
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
-	printf("Initializing CAN0RX...\n");
+	printf("\n Initializing CAN0RX...\n");
 	GPIOPinConfigure(GPIO_PE4_CAN0RX);
 	printf("Initializing CAN0TX...\n");
 	GPIOPinConfigure(GPIO_PE5_CAN0TX);
@@ -34,6 +36,7 @@ void CANIntHandler(void) {
 		errFlag = 1;
 	} else if(status == 1) { // message object 1
 		CANIntClear(CAN0_BASE, 1); // clear interrupt
+	  rxFlag = 1; // set rx flag
 		errFlag = 0; // clear any error flags
 	} else { // should never happen
 	printf("Unexpected CAN bus interrupt\n");
@@ -41,7 +44,16 @@ void CANIntHandler(void) {
 }
 
 
-void CAN_Set(void) {
+
+
+
+
+
+
+
+void CAN_Master(void) {
+	
+//	slave_check = 0;
 	tCANMsgObject msg; // the CAN message object
 	unsigned int msgData; // the message data is four bytes long which we can allocate as an int32
 	unsigned char *msgDataPtr = (unsigned char *)&msgData; // make a pointer to msgData so we can access individual bytes
@@ -111,4 +123,75 @@ void CAN_Set(void) {
 	
 }
 
+
+
+void CAN_Slave(){
+	
+	//slave_check = 1;
+	
+	
+
+
+
+  volatile uint32_t ui32Loop;
+	tCANMsgObject msg; // the CAN msg object
+	unsigned char msgData[8]; // 8 byte buffer for rx message data
+	
+	
+	msg.ui32MsgID = 0;
+	msg.ui32MsgIDMask = 0;
+	msg.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
+	msg.ui32MsgLen = 8; // allow up to 8 bytes
+
+	// Load msg into CAN peripheral message object 1 so it can trigger interrupts on any matched rx messages
+	CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_RX);
+ 
+unsigned int colour[3];
+	float intensity;
+
+
+	while(1) {
+	//	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
+		if(rxFlag) { // rx interrupt has occured
+			msg.pui8MsgData = msgData; // set pointer to rx buffer
+			CANMessageGet(CAN0_BASE, 1, &msg, 0); // read CAN message object 1 from CAN peripheral
+			
+			
+			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
+			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x0);
+			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
+			
+			rxFlag = 0; // clear rx flag
+
+			if(msg.ui32Flags & MSG_OBJ_DATA_LOST) { // check msg flags for any lost messages
+	//			UARTprintf("CAN message loss detected\n");
+			
+			}
+
+			// read in colour data from rx buffer (scale from 0-255 to 0-0xFFFF for LED driver)
+			colour[0] = msgData[0] * 0xFF;
+			colour[1] = msgData[1] * 0xFF;
+			colour[2] = msgData[2] * 0xFF;
+			intensity = msgData[3] / 255.0f; // scale from 0-255 to float 0-1
+
+			// write to UART for debugging
+	    printf("Received colour\tr: %d  g: %d  b: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
+
+			// set colour and intensity
+			if (msgData[0] == 128){
+			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
+			}
+			if (msgData[1] == 128){
+			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
+			}
+			if (msgData[2] == 128){
+			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
+			}
+		}
+	}
+	
+	
+	
+	
+}
 

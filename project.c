@@ -39,9 +39,7 @@ void SetupHardware(){
 		GPIO_Setup();
 		UartSetup();
 		printf("Debugging interface Initialized...\n\n");
-		CAN_Init();
-//		PWM_Setup();
-	printf("Set-up Complete.\n\n");
+		printf("Set-up Complete.\n\n");
 }
 
 

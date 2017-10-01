@@ -64808,7 +64808,7 @@ N
 N
 Nvoid PWM_Setup(){
 N	
-N
+N		
 N    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
 X    SysCtlPeripheralEnable(0xf0000805);
 N    SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM1);  //The Tiva Launchpad has two modules (0 and 1). Module 1 covers the LED pins

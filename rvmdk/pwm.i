@@ -18383,7 +18383,7 @@ void pulse(void);
 
 void PWM_Setup(){
 	
-
+		
     SysCtlPeripheralEnable(0xf0000805);
     SysCtlPeripheralEnable(0xf0004001);  
 

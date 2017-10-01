@@ -43,7 +43,7 @@
 #include "src/Uart_helper.h"
 
 
-
+//extern char inputChar2;
 
 void LedMenu(void);
 

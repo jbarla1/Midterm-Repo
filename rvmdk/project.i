@@ -17923,9 +17923,7 @@ void SetupHardware(){
 		GPIO_Setup();
 		UartSetup();
 		printf("Debugging interface Initialized...\n\n");
-		CAN_Init();
-
-	printf("Set-up Complete.\n\n");
+		printf("Set-up Complete.\n\n");
 }
 
 

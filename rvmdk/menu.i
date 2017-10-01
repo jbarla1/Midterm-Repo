@@ -17897,16 +17897,36 @@ void LedMenu(void);
 
 void SelectionMenu() {
 		char inputChar1, inputChar2;
-	 	printf("Would you like to flash an LED on this board?\n (1 = Yes, 0 = No)\n");
+	 	printf("To flash an onboard LED enter 1. To enable CAN functionality enter 2. To display PWM on onboard LED enter 3.");
 		inputChar1 = getc((& __stdin));
 	
-		if(inputChar1){
+		switch(inputChar1) {
+			case 1:
 				LedMenu();	
+			break; 
+			case 2:
+			CAN_Init();	
+			
+			printf("Enter 1 to set board as master, or 0 for slave.");
+			inputChar2 = getc((& __stdin));
+			if(inputChar2){
+				CAN_Master();
+			}
+			else{
+				CAN_Slave();
+			}
+			break;
+			case 3:
+				PWM_Setup();
+				printf("PWM Initialized");
+				pulse();
+			break;
+		
 		}
 		printf("Would you like to flash an LED on the slave board through the CAN?\n (1 = Yes, 0 = No\n");
-	  inputChar2 = getc((& __stdin));
+	  
 		if(inputChar2){
-			CAN_Set();
+			CAN_Master();
 		}
 }	
 

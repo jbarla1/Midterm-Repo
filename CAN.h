@@ -16,6 +16,7 @@
 
 
 
-void CAN_Set(void);
+void CAN_Master(void);
 void CANIntHandler(void);
 void CAN_Init(void);
+void CAN_Slave(void);

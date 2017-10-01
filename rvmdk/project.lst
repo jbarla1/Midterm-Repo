@@ -64234,10 +64234,7 @@ W "project.c" 39 3 function "GPIO_Setup" declared implicitly
 N		GPIO_Setup();
 N		UartSetup();
 N		printf("Debugging interface Initialized...\n\n");
-W "project.c" 42 3 function "CAN_Init" declared implicitly
-N		CAN_Init();
-N//		PWM_Setup();
-N	printf("Set-up Complete.\n\n");
+N		printf("Set-up Complete.\n\n");
 N}
 N
 N

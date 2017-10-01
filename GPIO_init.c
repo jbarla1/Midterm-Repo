@@ -8,4 +8,5 @@ void GPIO_Setup(void) {
 		GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1);
 		GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_2);
 		GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_3);
+
 }

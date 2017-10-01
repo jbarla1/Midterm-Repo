@@ -18513,20 +18513,159 @@ void SetupHardware(void);
 
 
 
-void CAN_Set(void);
+void CAN_Master(void);
 void CANIntHandler(void);
 void CAN_Init(void);
+void CAN_Slave(void);
 #line 2 "CAN.c"
 #line 3 "CAN.c"
 #line 4 "CAN.c"
+#line 1 "menu.h"
+#line 2 "menu.h"
+#line 3 "menu.h"
+
+#line 5 "menu.h"
+#line 6 "menu.h"
+#line 7 "menu.h"
+#line 8 "menu.h"
+#line 9 "menu.h"
+#line 10 "menu.h"
+#line 11 "menu.h"
+#line 12 "menu.h"
+#line 13 "menu.h"
+#line 14 "menu.h"
+#line 15 "menu.h"
+#line 16 "menu.h"
+#line 17 "menu.h"
+#line 18 "menu.h"
+#line 19 "menu.h"
+#line 20 "menu.h"
+#line 21 "menu.h"
+#line 22 "menu.h"
+#line 23 "menu.h"
+#line 24 "menu.h"
+#line 25 "menu.h"
+#line 26 "menu.h"
+#line 27 "menu.h"
+#line 28 "menu.h"
+#line 29 "menu.h"
+#line 30 "menu.h"
+#line 31 "menu.h"
+#line 32 "menu.h"
+#line 33 "menu.h"
+#line 34 "menu.h"
+#line 35 "menu.h"
+#line 36 "menu.h"
+#line 37 "menu.h"
+#line 38 "menu.h"
+#line 39 "menu.h"
+#line 40 "menu.h"
+#line 41 "menu.h"
+#line 42 "menu.h"
+#line 43 "menu.h"
+#line 1 "src/Uart_helper.h"
+#line 2 "src/Uart_helper.h"
+#line 3 "src/Uart_helper.h"
+#line 4 "src/Uart_helper.h"
+#line 5 "src/Uart_helper.h"
+#line 6 "src/Uart_helper.h"
+#line 7 "src/Uart_helper.h"
+#line 8 "src/Uart_helper.h"
+#line 9 "src/Uart_helper.h"
+#line 10 "src/Uart_helper.h"
+
+
+void UartSetup(void);		
+
+
+int fputc(int ch, FILE *f);
+
+
+
+int fgetc(FILE *f);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 44 "menu.h"
+
+
+
+
+void LedMenu(void);
+
+
+
+
+
+
+#line 5 "CAN.c"
 
 unsigned int sysClock; 
 volatile _Bool errFlag = 0; 
+volatile _Bool rxFlag = 0; 
 
 void CAN_Init(){
 	
 	SysCtlPeripheralEnable(0xf0000804);
-	printf("Initializing CAN0RX...\n");
+	printf("\n Initializing CAN0RX...\n");
 	GPIOPinConfigure(0x00041008);
 	printf("Initializing CAN0TX...\n");
 	GPIOPinConfigure(0x00041408);
@@ -18552,6 +18691,7 @@ void CANIntHandler(void) {
 		errFlag = 1;
 	} else if(status == 1) { 
 		CANIntClear(0x40040000, 1); 
+	  rxFlag = 1; 
 		errFlag = 0; 
 	} else { 
 	printf("Unexpected CAN bus interrupt\n");
@@ -18559,7 +18699,16 @@ void CANIntHandler(void) {
 }
 
 
-void CAN_Set(void) {
+
+
+
+
+
+
+
+void CAN_Master(void) {
+	
+
 	tCANMsgObject msg; 
 	unsigned int msgData; 
 	unsigned char *msgDataPtr = (unsigned char *)&msgData; 
@@ -18629,4 +18778,75 @@ void CAN_Set(void) {
 	
 }
 
+
+
+void CAN_Slave(){
+	
+	
+	
+	
+
+
+
+  volatile uint32_t ui32Loop;
+	tCANMsgObject msg; 
+	unsigned char msgData[8]; 
+	
+	
+	msg.ui32MsgID = 0;
+	msg.ui32MsgIDMask = 0;
+	msg.ui32Flags = 0x00000002 | 0x00000008;
+	msg.ui32MsgLen = 8; 
+
+	
+	CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_RX);
+ 
+unsigned int colour[3];
+	float intensity;
+
+
+	while(1) {
+	
+		if(rxFlag) { 
+			msg.pui8MsgData = msgData; 
+			CANMessageGet(0x40040000, 1, &msg, 0); 
+			
+			
+			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
+			GPIOPinWrite(0x40025000, 0x00000004, 0x0);
+			GPIOPinWrite(0x40025000, 0x00000008, 0x0);
+			
+			rxFlag = 0; 
+
+			if(msg.ui32Flags & 0x00000100) { 
+	
+			
+			}
+
+			
+			colour[0] = msgData[0] * 0xFF;
+			colour[1] = msgData[1] * 0xFF;
+			colour[2] = msgData[2] * 0xFF;
+			intensity = msgData[3] / 255.0f; 
+
+			
+	    printf("Received colour\tr: %d  g: %d  b: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
+
+			
+			if (msgData[0] == 128){
+			GPIOPinWrite(0x40025000, 0x00000002, 0xF);
+			}
+			if (msgData[1] == 128){
+			GPIOPinWrite(0x40025000, 0x00000004, 0xF);
+			}
+			if (msgData[2] == 128){
+			GPIOPinWrite(0x40025000, 0x00000008, 0xF);
+			}
+		}
+	}
+	
+	
+	
+	
+}
 
