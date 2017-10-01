@@ -65419,20 +65419,25 @@ Nvolatile bool errFlag = 0; // transmission error flag
 Xvolatile _Bool errFlag = 0; 
 N
 Nvoid CAN_Init(){
+N	
 N	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
 X	SysCtlPeripheralEnable(0xf0000804);
+N	printf("Initializing CAN0RX...\n");
 N	GPIOPinConfigure(GPIO_PE4_CAN0RX);
 X	GPIOPinConfigure(0x00041008);
+N	printf("Initializing CAN0TX...\n");
 N	GPIOPinConfigure(GPIO_PE5_CAN0TX);
 X	GPIOPinConfigure(0x00041408);
 N	GPIOPinTypeCAN(GPIO_PORTE_BASE, GPIO_PIN_4 | GPIO_PIN_5);
 X	GPIOPinTypeCAN(0x40024000, 0x00000010 | 0x00000020);
 N	SysCtlPeripheralEnable(SYSCTL_PERIPH_CAN0);
 X	SysCtlPeripheralEnable(0xf0003400);
+N	printf("Initializing CAN0_BASE...\n");
 N	CANInit(CAN0_BASE);
 X	CANInit(0x40040000);
 N	CANBitRateSet(CAN0_BASE, SysCtlClockGet(), 500000);
 X	CANBitRateSet(0x40040000, SysCtlClockGet(), 500000);
+N	printf("Setting CAN BitRate: 0.5 Megabytes/sec...\n");
 N	CANIntRegister(CAN0_BASE, CANIntHandler); // use dynamic vector table allocation
 X	CANIntRegister(0x40040000, CANIntHandler); 
 N	CANIntEnable(CAN0_BASE, CAN_INT_MASTER | CAN_INT_ERROR | CAN_INT_STATUS);
@@ -65441,6 +65446,7 @@ N	IntEnable(INT_CAN0);
 X	IntEnable(55);
 N	CANEnable(CAN0_BASE);
 X	CANEnable(0x40040000);
+N	printf("CAN Initialized.\n\n");
 N}
 N
 Nvoid CANIntHandler(void) {
@@ -65521,7 +65527,7 @@ N		if(x == 100){
 N			x = 20;
 N		}
 N		
-W "CAN.c" 94 3 function "delayMS" declared implicitly
+W "CAN.c" 100 3 function "delayMS" declared implicitly
 N		delayMS(x); // wait 100ms
 N		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
 X		GPIOPinWrite(0x40025000, 0x00000002, 0xF);
@@ -65536,7 +65542,7 @@ N
 N		t++; // overflow is fine
 N	}
 N	
-W "CAN.c" 52 8 variable "freq"  was declared but never referenced
+W "CAN.c" 58 8 variable "freq"  was declared but never referenced
 N}
 N
 N

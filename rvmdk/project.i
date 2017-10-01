@@ -17921,9 +17921,11 @@ int  main(void) {
 void SetupHardware(){
 		ClockSetup();
 		GPIO_Setup();
-		UartSetup();	
+		UartSetup();
+		printf("Debugging interface Initialized...\n\n");
 		CAN_Init();
-		PWM_Setup();
+
+	printf("Set-up Complete.\n\n");
 }
 
 

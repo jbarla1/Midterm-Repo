@@ -64198,7 +64198,7 @@ L 2 "Menu.c" 2
 N
 Nvoid SelectionMenu() {
 N		char inputChar1, inputChar2;
-N	 	printf("Would you like to flash an LED on this board?\n (1 = Yes, 0 = No\n");
+N	 	printf("Would you like to flash an LED on this board?\n (1 = Yes, 0 = No)\n");
 N		inputChar1 = getchar();
 X		inputChar1 = getc((& __stdin));
 N	

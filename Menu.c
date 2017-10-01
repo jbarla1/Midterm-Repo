@@ -2,7 +2,7 @@
 
 void SelectionMenu() {
 		char inputChar1, inputChar2;
-	 	printf("Would you like to flash an LED on this board?\n (1 = Yes, 0 = No\n");
+	 	printf("Would you like to flash an LED on this board?\n (1 = Yes, 0 = No)\n");
 		inputChar1 = getchar();
 	
 		if(inputChar1){

@@ -6,17 +6,23 @@ unsigned int sysClock; // clockspeed in hz
 volatile bool errFlag = 0; // transmission error flag
 
 void CAN_Init(){
+	
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
+	printf("Initializing CAN0RX...\n");
 	GPIOPinConfigure(GPIO_PE4_CAN0RX);
+	printf("Initializing CAN0TX...\n");
 	GPIOPinConfigure(GPIO_PE5_CAN0TX);
 	GPIOPinTypeCAN(GPIO_PORTE_BASE, GPIO_PIN_4 | GPIO_PIN_5);
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_CAN0);
+	printf("Initializing CAN0_BASE...\n");
 	CANInit(CAN0_BASE);
 	CANBitRateSet(CAN0_BASE, SysCtlClockGet(), 500000);
+	printf("Setting CAN BitRate: 0.5 Megabytes/sec...\n");
 	CANIntRegister(CAN0_BASE, CANIntHandler); // use dynamic vector table allocation
 	CANIntEnable(CAN0_BASE, CAN_INT_MASTER | CAN_INT_ERROR | CAN_INT_STATUS);
 	IntEnable(INT_CAN0);
 	CANEnable(CAN0_BASE);
+	printf("CAN Initialized.\n\n");
 }
 
 void CANIntHandler(void) {

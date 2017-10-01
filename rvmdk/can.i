@@ -18524,17 +18524,23 @@ unsigned int sysClock;
 volatile _Bool errFlag = 0; 
 
 void CAN_Init(){
+	
 	SysCtlPeripheralEnable(0xf0000804);
+	printf("Initializing CAN0RX...\n");
 	GPIOPinConfigure(0x00041008);
+	printf("Initializing CAN0TX...\n");
 	GPIOPinConfigure(0x00041408);
 	GPIOPinTypeCAN(0x40024000, 0x00000010 | 0x00000020);
 	SysCtlPeripheralEnable(0xf0003400);
+	printf("Initializing CAN0_BASE...\n");
 	CANInit(0x40040000);
 	CANBitRateSet(0x40040000, SysCtlClockGet(), 500000);
+	printf("Setting CAN BitRate: 0.5 Megabytes/sec...\n");
 	CANIntRegister(0x40040000, CANIntHandler); 
 	CANIntEnable(0x40040000, 0x00000002 | 0x00000008 | 0x00000004);
 	IntEnable(55);
 	CANEnable(0x40040000);
+	printf("CAN Initialized.\n\n");
 }
 
 void CANIntHandler(void) {
