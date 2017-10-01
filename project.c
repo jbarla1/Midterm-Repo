@@ -24,6 +24,7 @@ int  main(void) {
 	
 		while(choice) {
 			SelectionMenu(); 	
+			
 			printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
 			choice = getchar();
 		}		
@@ -37,7 +38,8 @@ void SetupHardware(){
 		ClockSetup();
 		GPIO_Setup();
 		UartSetup();	
-	//	PWM_Setup();
+		CAN_Init();
+//		PWM_Setup();
 }
 
 

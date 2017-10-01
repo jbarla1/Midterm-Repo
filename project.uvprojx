@@ -470,6 +470,16 @@
               <FileType>5</FileType>
               <FilePath>.\Menu.h</FilePath>
             </File>
+            <File>
+              <FileName>CAN.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\CAN.h</FilePath>
+            </File>
+            <File>
+              <FileName>CAN.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\CAN.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -64216,6 +64216,7 @@ N
 N		while(choice) {
 W "project.c" 26 4 function "SelectionMenu" declared implicitly
 N			SelectionMenu(); 	
+N			
 N			printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
 N			choice = getchar();
 X			choice = getc((& __stdin));
@@ -64227,12 +64228,15 @@ N
 N
 N
 Nvoid SetupHardware(){
-W "project.c" 37 3 function "ClockSetup" declared implicitly
+W "project.c" 38 3 function "ClockSetup" declared implicitly
 N		ClockSetup();
-W "project.c" 38 3 function "GPIO_Setup" declared implicitly
+W "project.c" 39 3 function "GPIO_Setup" declared implicitly
 N		GPIO_Setup();
 N		UartSetup();	
-N	//	PWM_Setup();
+W "project.c" 41 3 function "CAN_Init" declared implicitly
+N		CAN_Init();
+W "project.c" 42 3 function "PWM_Setup" declared implicitly
+N		PWM_Setup();
 N}
 N
 N
