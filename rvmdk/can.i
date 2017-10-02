@@ -18665,7 +18665,7 @@ volatile _Bool rxFlag = 0;
 void CAN_Init(){
 	
 	SysCtlPeripheralEnable(0xf0000804);
-	printf("\n Initializing CAN0RX...\n");
+	printf("\nInitializing CAN0RX...\n");
 	GPIOPinConfigure(0x00041008);
 	printf("Initializing CAN0TX...\n");
 	GPIOPinConfigure(0x00041408);
@@ -18689,11 +18689,15 @@ void CANIntHandler(void) {
 	if(status == 0x00008000) { 
 		status = CANStatusGet(0x40040000, CAN_STS_CONTROL); 
 		errFlag = 1;
-	} else if(status == 1) { 
+	} 
+	
+	else if(status == 1) { 
 		CANIntClear(0x40040000, 1); 
 	  rxFlag = 1; 
 		errFlag = 0; 
-	} else { 
+	}
+	
+	else { 
 	printf("Unexpected CAN bus interrupt\n");
 	}
 }
@@ -18707,12 +18711,13 @@ void CANIntHandler(void) {
 
 
 void CAN_Master(void) {
-	
-
 	tCANMsgObject msg; 
 	unsigned int msgData; 
 	unsigned char *msgDataPtr = (unsigned char *)&msgData; 
-	
+	uint32_t x = 20;
+	_Bool input;
+	char choice;
+	uint8_t loop =0;
 	
 	msgData = 0;
 	msg.ui32MsgID = 1;
@@ -18720,79 +18725,107 @@ void CAN_Master(void) {
 	msg.ui32Flags = 0x00000001;
 	msg.ui32MsgLen = sizeof(msgDataPtr);
 	msg.pui8MsgData = msgDataPtr;
+	
+	printf("Would you like to flash colors or select colors?\n Enter a 1 for flashing or 0 for selecting");
+	input = getc((& __stdin));
+	
+	
 
-	uint32_t t = 0; 
-	float freq = 0.1; 
-	int choice =0;
-	uint32_t x = 20;
+	if(input==1){
 	while(1) {
-
-	
-	
-		choice++;
 		
-		if(choice==4){
-			choice = 1;
+		loop++;
+
+		if(loop==4){
+			loop = 1;
 		}
 		
-		switch (choice) {
+		switch (loop) {
 			case 1:
-		msgDataPtr[0] = 128;
-		msgDataPtr[1] = 0;
-		msgDataPtr[2] = 0;
-		msgDataPtr[3] = 128;
+				msgDataPtr[0] = 128;
+				msgDataPtr[1] = 0;
+				msgDataPtr[2] = 0;
+				msgDataPtr[3] = 128;
 			break;
 			case 2:
-		msgDataPtr[0] = 0;
-		msgDataPtr[1] = 128;
-		msgDataPtr[2] = 0;
-		msgDataPtr[3] = 128;
+				msgDataPtr[0] = 0;
+				msgDataPtr[1] = 128;
+				msgDataPtr[2] = 0;
+				msgDataPtr[3] = 128;
 			break;
 		
 			case 3:
-		msgDataPtr[0] = 0;
-		msgDataPtr[1] = 0;
-		msgDataPtr[2] = 128;
-		msgDataPtr[3] = 128;
-	break;
+				msgDataPtr[0] = 0;
+				msgDataPtr[1] = 0;
+				msgDataPtr[2] = 128;
+				msgDataPtr[3] = 128;
+		break;
+		}
+		
+
+		
+		if(x == 100){
+			x = 20;
 		}
 		
 		printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); 
 		CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
-		x++;
-		if(x == 100){
-			x = 20;
-		}
 		
 		delayMS(x); 
 		GPIOPinWrite(0x40025000, 0x00000002, 0xF);
 		delayMS(x);
 		GPIOPinWrite(0x40025000, 0x00000002, 0x0);
-		
+		x++;
+	
 		if(errFlag) { 
 		printf("CAN Bus Error\n");
 		}
-
-		t++; 
 	}
-	
+}
+	if(input==0){
+		while(1){
+			printf("Red, blue, or green? Enter 1, 2, or 3 respectively.");
+			choice = getc((& __stdin));
+			switch(choice){
+				case 1:
+					msgDataPtr[0] = 128;
+					msgDataPtr[1] = 0;
+					msgDataPtr[2] = 0;
+					msgDataPtr[3] = 128;
+				break;
+				case 2:
+					msgDataPtr[0] = 0;
+					msgDataPtr[1] = 128;
+					msgDataPtr[2] = 0;
+					msgDataPtr[3] = 128;
+				break;
+		
+				case 3:
+					msgDataPtr[0] = 0;
+					msgDataPtr[1] = 0;
+					msgDataPtr[2] = 128;
+					msgDataPtr[3] = 128;
+				break;
+			}
+			
+			printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); 
+			CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
+		
+			if(errFlag) { 
+				printf("CAN Bus Error\n");
+			}
+		}	
+	}
 }
 
 
 
 void CAN_Slave(){
-	
-	
-	
-	
-
-
 
   volatile uint32_t ui32Loop;
 	tCANMsgObject msg; 
 	unsigned char msgData[8]; 
-	
-	
+
 	msg.ui32MsgID = 0;
 	msg.ui32MsgIDMask = 0;
 	msg.ui32Flags = 0x00000002 | 0x00000008;
@@ -18801,12 +18834,10 @@ void CAN_Slave(){
 	
 	CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_RX);
  
-unsigned int colour[3];
+	unsigned int colour[3];
 	float intensity;
-
-
-	while(1) {
 	
+	while(1) {
 		if(rxFlag) { 
 			msg.pui8MsgData = msgData; 
 			CANMessageGet(0x40040000, 1, &msg, 0); 
@@ -18819,10 +18850,8 @@ unsigned int colour[3];
 			rxFlag = 0; 
 
 			if(msg.ui32Flags & 0x00000100) { 
-	
-			
+				printf("CAN message loss detected\n");
 			}
-
 			
 			colour[0] = msgData[0] * 0xFF;
 			colour[1] = msgData[1] * 0xFF;
@@ -18844,9 +18873,13 @@ unsigned int colour[3];
 			}
 		}
 	}
-	
-	
-	
-	
 }
+
+
+
+
+
+
+
+
 

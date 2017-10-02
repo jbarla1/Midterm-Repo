@@ -8,26 +8,21 @@
 // 8 bit word length, no parity bits, one stop bit, 
 // Input: none
 // Output: none
-void UartSetup()
-{
-		SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);		// Enable the UART0 module.
-		while(!SysCtlPeripheralReady(SYSCTL_PERIPH_UART0))
-		{
-			// Wait for the UART0 module to be ready.
+void UartSetup(){
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);		// Enable the UART0 module.
+	
+	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_UART0)){	// Wait for the UART0 module to be ready.
 		}
-		
-		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA); 		// activate port A
-		GPIOPinConfigure(GPIO_PA0_U0RX); 								//Pin 0 is configured as receive
-		GPIOPinConfigure(GPIO_PA1_U0TX); 								//Pin 1 is configured as transmit
-		
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA); 		// activate port A
+	GPIOPinConfigure(GPIO_PA0_U0RX); 								//Pin 0 is configured as receive
+	GPIOPinConfigure(GPIO_PA1_U0TX); 								//Pin 1 is configured as transmit	
 		// enable alt funct on PA1-0 and enable digital I/O on PA1-0
-		GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_1|GPIO_PIN_1);
-		GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0|GPIO_PIN_1);
-		
+	GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_1|GPIO_PIN_1);
+	GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0|GPIO_PIN_1);
 		// Initialize the UART. Set the baud rate, number of data bits, turn off
 		// parity, number of stop bits, and stick mode. The UART is enabled by the
-		SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);   
-		UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(), 38400,(UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |UART_CONFIG_PAR_NONE));
+	SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);   
+	UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(), 38400,(UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |UART_CONFIG_PAR_NONE));
 }
 
 //------------UART_OutChar------------
@@ -36,7 +31,7 @@ void UartSetup()
 // Output: none
 void UART_OutChar(char data){
   while((UART0_FR_R&UART_FR_TXFF) != 0);
-  UART0_DR_R = data;
+		UART0_DR_R = data;
 }
 
 // Print a character to UART.

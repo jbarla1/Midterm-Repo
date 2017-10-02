@@ -14,23 +14,17 @@ __error__(char *pcFilename, uint32_t ui32Line)
 //==============================================================//
 //==============================================================//
 
-
-
-
-
 int  main(void) {
-		bool choice = 1;
-		SetupHardware();
-	
-		while(choice) {
-			SelectionMenu(); 	
+	bool choice = 1;
+	SetupHardware();
+
+	while(choice) {
+		SelectionMenu(); 	
 			
-			printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
-			choice = getchar();
-		}		
+		printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
+		choice = getchar();
+	}		
 }
-
-
 
 
 
@@ -41,7 +35,3 @@ void SetupHardware(){
 		printf("Debugging interface Initialized...\n\n");
 		printf("Set-up Complete.\n\n");
 }
-
-
-
-

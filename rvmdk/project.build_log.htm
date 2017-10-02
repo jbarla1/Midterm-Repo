@@ -306,24 +306,20 @@ inc/hw_ints.h(473): warning:  #47-D: incompatible redefinition of macro "INT_WTI
   #define INT_WTIMER5A            INT_CONCAT(INT_WTIMER5A_, INT_DEVICE_CLASS)
 inc/hw_ints.h(474): warning:  #47-D: incompatible redefinition of macro "INT_WTIMER5B"  (declared at line 120 of ".\inc\tm4c123gh6pm.h")
   #define INT_WTIMER5B            INT_CONCAT(INT_WTIMER5B_, INT_DEVICE_CLASS)
-CAN.h(22): warning:  #1-D: last line of file ends without a newline
-  void CAN_Slave(void);
 src/Uart_helper.h(80): warning:  #1-D: last line of file ends without a newline
   //MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-CAN.c(112): warning:  #223-D: function "delayMS" declared implicitly
+CAN.c(119): warning:  #223-D: function "delayMS" declared implicitly
   		delayMS(x); // wait 100ms
-CAN.c(70): warning:  #177-D: variable "freq"  was declared but never referenced
-  	float freq = 0.1; // frequency scaler
-CAN.c(149): warning:  #550-D: variable "colour"  was set but never used
-  unsigned int colour[3];
-CAN.c(150): warning:  #550-D: variable "intensity"  was set but never used
+CAN.c(182): warning:  #550-D: variable "colour"  was set but never used
+  	unsigned int colour[3];
+CAN.c(183): warning:  #550-D: variable "intensity"  was set but never used
   	float intensity;
-CAN.c: 89 warnings, 0 errors
+CAN.c: 87 warnings, 0 errors
 linking...
-Program Size: Code=6132 RO-data=1772 RW-data=1644 ZI-data=260  
+Program Size: Code=6364 RO-data=1864 RW-data=1644 ZI-data=260  
 FromELF: creating hex file...
 After Build - User command #1: fromelf --bin --output .\rvmdk\project.bin .\rvmdk\project.axf
-".\rvmdk\project.axf" - 0 Error(s), 135 Warning(s).
+".\rvmdk\project.axf" - 0 Error(s), 133 Warning(s).
 
 <h2>Software Packages used:</h2>
 

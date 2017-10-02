@@ -65410,7 +65410,6 @@ N
 Nvoid CAN_Master(void);
 Nvoid CANIntHandler(void);
 Nvoid CAN_Init(void);
-W "CAN.h" 22 22 last line of file ends without a newline
 Nvoid CAN_Slave(void);
 L 2 "CAN.c" 2
 N#include <stdio.h>
@@ -65566,7 +65565,7 @@ Nvoid CAN_Init(){
 N	
 N	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
 X	SysCtlPeripheralEnable(0xf0000804);
-N	printf("\n Initializing CAN0RX...\n");
+N	printf("\nInitializing CAN0RX...\n");
 N	GPIOPinConfigure(GPIO_PE4_CAN0RX);
 X	GPIOPinConfigure(0x00041008);
 N	printf("Initializing CAN0TX...\n");
@@ -65603,12 +65602,16 @@ X	if(status == 0x00008000) {
 N		status = CANStatusGet(CAN0_BASE, CAN_STS_CONTROL); // read back error bits, do something with them?
 X		status = CANStatusGet(0x40040000, CAN_STS_CONTROL); 
 N		errFlag = 1;
-N	} else if(status == 1) { // message object 1
+N	} 
+N	
+N	else if(status == 1) { // message object 1
 N		CANIntClear(CAN0_BASE, 1); // clear interrupt
 X		CANIntClear(0x40040000, 1); 
 N	  rxFlag = 1; // set rx flag
 N		errFlag = 0; // clear any error flags
-N	} else { // should never happen
+N	}
+N	
+N	else { // should never happen
 N	printf("Unexpected CAN bus interrupt\n");
 N	}
 N}
@@ -65622,12 +65625,14 @@ N
 N
 N
 Nvoid CAN_Master(void) {
-N	
-N//	slave_check = 0;
 N	tCANMsgObject msg; // the CAN message object
 N	unsigned int msgData; // the message data is four bytes long which we can allocate as an int32
 N	unsigned char *msgDataPtr = (unsigned char *)&msgData; // make a pointer to msgData so we can access individual bytes
-N	
+N	uint32_t x = 20;
+N	bool input;
+X	_Bool input;
+N	char choice;
+N	uint8_t loop =0;
 N	
 N	msgData = 0;
 N	msg.ui32MsgID = 1;
@@ -65636,84 +65641,114 @@ N	msg.ui32Flags = MSG_OBJ_TX_INT_ENABLE;
 X	msg.ui32Flags = 0x00000001;
 N	msg.ui32MsgLen = sizeof(msgDataPtr);
 N	msg.pui8MsgData = msgDataPtr;
+N	
+N	printf("Would you like to flash colors or select colors?\n Enter a 1 for flashing or 0 for selecting");
+N	input = getchar();
+X	input = getc((& __stdin));
+N	
+N	
 N
-N	uint32_t t = 0; // loop counter
-N	float freq = 0.1; // frequency scaler
-N	int choice =0;
-N	uint32_t x = 20;
+N	if(input==1){
 N	while(1) {
+N		
+N		loop++;
 N
-N	//	printf("Red, blue, or green? Enter 1, 2, or 3 respectively.");
-N	//	char choice = getchar();
-N		choice++;
-N		// set up next colour (scale sinf (0-1) to 0-255)
-N		if(choice==4){
-N			choice = 1;
+N		if(loop==4){
+N			loop = 1;
 N		}
 N		
-N		switch (choice) {
+N		switch (loop) {
 N			case 1:
-N		msgDataPtr[0] = 128;
-N		msgDataPtr[1] = 0;
-N		msgDataPtr[2] = 0;
-N		msgDataPtr[3] = 128;
+N				msgDataPtr[0] = 128;
+N				msgDataPtr[1] = 0;
+N				msgDataPtr[2] = 0;
+N				msgDataPtr[3] = 128;
 N			break;
 N			case 2:
-N		msgDataPtr[0] = 0;
-N		msgDataPtr[1] = 128;
-N		msgDataPtr[2] = 0;
-N		msgDataPtr[3] = 128;
+N				msgDataPtr[0] = 0;
+N				msgDataPtr[1] = 128;
+N				msgDataPtr[2] = 0;
+N				msgDataPtr[3] = 128;
 N			break;
 N		
 N			case 3:
-N		msgDataPtr[0] = 0;
-N		msgDataPtr[1] = 0;
-N		msgDataPtr[2] = 128;
-N		msgDataPtr[3] = 128;
-N	break;
+N				msgDataPtr[0] = 0;
+N				msgDataPtr[1] = 0;
+N				msgDataPtr[2] = 128;
+N				msgDataPtr[3] = 128;
+N		break;
+N		}
+N		
+N
+N		
+N		if(x == 100){
+N			x = 20;
 N		}
 N		
 N		printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); // write colour to UART for debugging
 N		CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_TX); // send as msg object 1
 X		CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
-N		x++;
-N		if(x == 100){
-N			x = 20;
-N		}
 N		
-W "CAN.c" 112 3 function "delayMS" declared implicitly
+W "CAN.c" 119 3 function "delayMS" declared implicitly
 N		delayMS(x); // wait 100ms
 N		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
 X		GPIOPinWrite(0x40025000, 0x00000002, 0xF);
 N		delayMS(x);
 N		GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
 X		GPIOPinWrite(0x40025000, 0x00000002, 0x0);
-N		
+N		x++;
+N	
 N		if(errFlag) { // check for errors
 N		printf("CAN Bus Error\n");
 N		}
-N
-N		t++; // overflow is fine
 N	}
-N	
-W "CAN.c" 70 8 variable "freq"  was declared but never referenced
+N}
+N	if(input==0){
+N		while(1){
+N			printf("Red, blue, or green? Enter 1, 2, or 3 respectively.");
+N			choice = getchar();
+X			choice = getc((& __stdin));
+N			switch(choice){
+N				case 1:
+N					msgDataPtr[0] = 128;
+N					msgDataPtr[1] = 0;
+N					msgDataPtr[2] = 0;
+N					msgDataPtr[3] = 128;
+N				break;
+N				case 2:
+N					msgDataPtr[0] = 0;
+N					msgDataPtr[1] = 128;
+N					msgDataPtr[2] = 0;
+N					msgDataPtr[3] = 128;
+N				break;
+N		
+N				case 3:
+N					msgDataPtr[0] = 0;
+N					msgDataPtr[1] = 0;
+N					msgDataPtr[2] = 128;
+N					msgDataPtr[3] = 128;
+N				break;
+N			}
+N			
+N			printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); // write colour to UART for debugging
+N			CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_TX); // send as msg object 1
+X			CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
+N		
+N			if(errFlag) { // check for errors
+N				printf("CAN Bus Error\n");
+N			}
+N		}	
+N	}
 N}
 N
 N
 N
 Nvoid CAN_Slave(){
-N	
-N	//slave_check = 1;
-N	
-N	
-N
-N
 N
 N  volatile uint32_t ui32Loop;
 N	tCANMsgObject msg; // the CAN msg object
 N	unsigned char msgData[8]; // 8 byte buffer for rx message data
-N	
-N	
+N
 N	msg.ui32MsgID = 0;
 N	msg.ui32MsgIDMask = 0;
 N	msg.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
@@ -65724,12 +65759,10 @@ N	// Load msg into CAN peripheral message object 1 so it can trigger interrupts 
 N	CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_RX);
 X	CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_RX);
 N 
-Nunsigned int colour[3];
+N	unsigned int colour[3];
 N	float intensity;
-N
-N
+N	
 N	while(1) {
-N	//	GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
 N		if(rxFlag) { // rx interrupt has occured
 N			msg.pui8MsgData = msgData; // set pointer to rx buffer
 N			CANMessageGet(CAN0_BASE, 1, &msg, 0); // read CAN message object 1 from CAN peripheral
@@ -65747,17 +65780,15 @@ N			rxFlag = 0; // clear rx flag
 N
 N			if(msg.ui32Flags & MSG_OBJ_DATA_LOST) { // check msg flags for any lost messages
 X			if(msg.ui32Flags & 0x00000100) { 
-N	//			UARTprintf("CAN message loss detected\n");
-N			
+N				printf("CAN message loss detected\n");
 N			}
-N
-N			// read in colour data from rx buffer (scale from 0-255 to 0-0xFFFF for LED driver)
+N			
 N			colour[0] = msgData[0] * 0xFF;
 N			colour[1] = msgData[1] * 0xFF;
 N			colour[2] = msgData[2] * 0xFF;
 N			intensity = msgData[3] / 255.0f; // scale from 0-255 to float 0-1
 N
-N			// write to UART for debugging
+N			
 N	    printf("Received colour\tr: %d  g: %d  b: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
 N
 N			// set colour and intensity
@@ -65775,11 +65806,15 @@ X			GPIOPinWrite(0x40025000, 0x00000008, 0xF);
 N			}
 N		}
 N	}
-N	
-N	
-N	
-N	
-W "CAN.c" 149 14 variable "colour"  was set but never used
-W "CAN.c" 150 8 variable "intensity"  was set but never used
+W "CAN.c" 182 15 variable "colour"  was set but never used
+W "CAN.c" 183 8 variable "intensity"  was set but never used
 N}
+N
+N
+N
+N
+N
+N
+N
+N
 N
