@@ -64198,45 +64198,33 @@ S{
 S}
 N#endif
 N
-N
-N
-N
 N//==============================================================//
 N//==============================================================//
-N
-N
-N
-N
 N
 Nint  main(void) {
-N		bool choice = 1;
-X		_Bool choice = 1;
-N		SetupHardware();
-N	
-N		while(choice) {
-W "project.c" 26 4 function "SelectionMenu" declared implicitly
-N			SelectionMenu(); 	
+N	bool choice = 1;
+X	_Bool choice = 1;
+N	SetupHardware();
+N
+N	while(choice) {
+W "project.c" 19 3 function "SelectionMenu" declared implicitly
+N		SelectionMenu(); 	
 N			
-N			printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
-N			choice = getchar();
-X			choice = getc((& __stdin));
-N		}		
+N		printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
+N		choice = getchar();
+X		choice = getc((& __stdin));
+N	}		
 N}
-N
-N
 N
 N
 N
 Nvoid SetupHardware(){
-W "project.c" 38 3 function "ClockSetup" declared implicitly
+W "project.c" 29 3 function "ClockSetup" declared implicitly
 N		ClockSetup();
-W "project.c" 39 3 function "GPIO_Setup" declared implicitly
+W "project.c" 30 3 function "GPIO_Setup" declared implicitly
 N		GPIO_Setup();
 N		UartSetup();
 N		printf("Debugging interface Initialized...\n\n");
 N		printf("Set-up Complete.\n\n");
+W "project.c" 34 2 last line of file ends without a newline
 N}
-N
-N
-N
-N

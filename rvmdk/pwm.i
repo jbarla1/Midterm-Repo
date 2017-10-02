@@ -18379,68 +18379,62 @@ void pulse(void);
 #line 2 "PWM.c"
 
 
-
-
 void PWM_Setup(){
-	
+  SysCtlPeripheralEnable(0xf0000805);
+  SysCtlPeripheralEnable(0xf0004001);  
+
+    
+  GPIOPinConfigure(0x00050405);
+  GPIOPinConfigure(0x00050805);
+  GPIOPinConfigure(0x00050C05);
+  GPIOPinTypePWM(0x40025000, 0x00000002 | 0x00000004 | 0x00000008);
+
+    
+    
+    
+  PWMGenConfigure(0x40029000, 0x000000C0, 0x00000000 | 0x00000000); 
+  PWMGenConfigure(0x40029000, 0x00000100, 0x00000000 | 0x00000000); 
+
+    
+  PWMGenPeriodSet(0x40029000, 0x000000C0, 320);
+  PWMGenPeriodSet(0x40029000, 0x00000100, 320);
+
+    
+  PWMPulseWidthSet(0x40029000, 0x000000C5,100);
+  PWMPulseWidthSet(0x40029000, 0x00000106,100);
+  PWMPulseWidthSet(0x40029000, 0x00000107,100);
 		
-    SysCtlPeripheralEnable(0xf0000805);
-    SysCtlPeripheralEnable(0xf0004001);  
+    
+  PWMGenEnable(0x40029000, 0x000000C0);
+  PWMGenEnable(0x40029000, 0x00000100);
 
     
-    GPIOPinConfigure(0x00050405);
-    GPIOPinConfigure(0x00050805);
-    GPIOPinConfigure(0x00050C05);
-    GPIOPinTypePWM(0x40025000, 0x00000002 | 0x00000004 | 0x00000008);
-
-    
-    
-    
-    PWMGenConfigure(0x40029000, 0x000000C0, 0x00000000 | 0x00000000); 
-    PWMGenConfigure(0x40029000, 0x00000100, 0x00000000 | 0x00000000); 
-
-    
-    PWMGenPeriodSet(0x40029000, 0x000000C0, 320);
-    PWMGenPeriodSet(0x40029000, 0x00000100, 320);
-
-    
-    PWMPulseWidthSet(0x40029000, 0x000000C5,100);
-    PWMPulseWidthSet(0x40029000, 0x00000106,100);
-    PWMPulseWidthSet(0x40029000, 0x00000107,100);
-
-    
-    PWMGenEnable(0x40029000, 0x000000C0);
-    PWMGenEnable(0x40029000, 0x00000100);
-
-    
-    PWMOutputState(0x40029000, 0x00000020 | 0x00000040 | 0x00000080, 1);
-	
-	
-	
-	
+  PWMOutputState(0x40029000, 0x00000020 | 0x00000040 | 0x00000080, 1);
 }
 
 
 void pulse(void){
 	 _Bool fadeUp = 1;
-    unsigned long increment = 10;
-    unsigned long pwmNow = 100;
-	    while(1)
-    {
-        delayMS(20);
-        if (fadeUp) {
-            pwmNow += increment;
-            if (pwmNow >= 320) { fadeUp = 0; }
-        }
-        else {
-            pwmNow -= increment;
-            if (pwmNow <= 10) { fadeUp = 1; }
-        }
-        PWMPulseWidthSet(0x40029000, 0x000000C5,pwmNow);
-        PWMPulseWidthSet(0x40029000, 0x00000106,pwmNow);
-        PWMPulseWidthSet(0x40029000, 0x00000107,pwmNow);
+   unsigned long increment = 10;
+   unsigned long pwmNow = 100;
+
+  while(1) {
+    delayMS(20);
+		if (fadeUp) {
+			pwmNow += increment;
+			if (pwmNow >= 320) { 
+				fadeUp = 0; }
     }
+    else {
+			pwmNow -= increment;
+			if (pwmNow <= 10) {
+				fadeUp = 1; }
+    }
+    PWMPulseWidthSet(0x40029000, 0x000000C5,pwmNow);
+    PWMPulseWidthSet(0x40029000, 0x00000106,pwmNow);
+    PWMPulseWidthSet(0x40029000, 0x00000107,pwmNow);
 	}
+}
 
 
 

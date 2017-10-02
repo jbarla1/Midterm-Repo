@@ -17894,11 +17894,9 @@ void GPIO_Setup(void);
 
 
 void GPIO_Setup(void) {
-
-		volatile uint32_t ui32Loop;
-		SysCtlPeripheralEnable(0xf0000805);
-		GPIOPinTypeGPIOOutput(0x40025000, 0x00000002);
-		GPIOPinTypeGPIOOutput(0x40025000, 0x00000004);
-		GPIOPinTypeGPIOOutput(0x40025000, 0x00000008);
-
+	volatile uint32_t ui32Loop;
+	SysCtlPeripheralEnable(0xf0000805);
+	GPIOPinTypeGPIOOutput(0x40025000, 0x00000002);
+	GPIOPinTypeGPIOOutput(0x40025000, 0x00000004);
+	GPIOPinTypeGPIOOutput(0x40025000, 0x00000008);
 }

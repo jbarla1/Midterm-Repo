@@ -63,7 +63,8 @@ void CAN_Master(void) {
 	msg.ui32MsgLen = sizeof(msgDataPtr);
 	msg.pui8MsgData = msgDataPtr;
 	
-	printf("Would you like to flash colors or select colors?\n Enter a 1 for flashing or 0 for selecting");
+	printf("\n\nInitializing node as master...\n");
+	printf("\nWould you like to flash colors or select colors?\nEnter a 1 for flashing or 0 for selecting");
 	input = getchar();
 
 	if(input==1){
@@ -112,7 +113,7 @@ void CAN_Master(void) {
 	}
 	if(input==0){
 		while(1){
-			printf("Red, blue, or green? Enter 1, 2, or 3 respectively.");
+			printf("\n\nRed, blue, or green? Enter 1, 2, or 3 respectively.\n");
 			choice = getchar();
 			switch(choice){
 				case 1:
@@ -153,6 +154,7 @@ void CAN_Slave(){
   volatile uint32_t ui32Loop;
 	tCANMsgObject msg; // the CAN msg object
 	unsigned char msgData[8]; // 8 byte buffer for rx message data
+	unsigned int data[4];
 
 	msg.ui32MsgID = 0;
 	msg.ui32MsgIDMask = 0;
@@ -161,15 +163,13 @@ void CAN_Slave(){
 
 	// Load msg into CAN peripheral message object 1 so it can trigger interrupts on any matched rx messages
 	CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_RX);
- 
-	unsigned int colour[3];
-	float intensity;
+	printf("\n\nInitializing node as slave...\n");
+	
 	
 	while(1) {
 		if(rxFlag) { // rx interrupt has occured
 			msg.pui8MsgData = msgData; // set pointer to rx buffer
 			CANMessageGet(CAN0_BASE, 1, &msg, 0); // read CAN message object 1 from CAN peripheral
-			
 			
 			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
 			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x0);
@@ -180,24 +180,16 @@ void CAN_Slave(){
 			if(msg.ui32Flags & MSG_OBJ_DATA_LOST) { // check msg flags for any lost messages
 				printf("CAN message loss detected\n");
 			}
+	    printf("Received colour\tr: %d  b: %d  g: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
 			
-			colour[0] = msgData[0] * 0xFF;
-			colour[1] = msgData[1] * 0xFF;
-			colour[2] = msgData[2] * 0xFF;
-			intensity = msgData[3] / 255.0f; // scale from 0-255 to float 0-1
-
-			
-	    printf("Received colour\tr: %d  g: %d  b: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
-
-			// set colour and intensity
 			if (msgData[0] == 128){
-			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
+				GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
 			}
 			if (msgData[1] == 128){
-			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
+				GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
 			}
 			if (msgData[2] == 128){
-			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
+				GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
 			}
 		}
 	}

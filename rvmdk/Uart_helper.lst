@@ -36900,35 +36900,30 @@ N// Initialize the UART for 38400 baud rate
 N// 8 bit word length, no parity bits, one stop bit, 
 N// Input: none
 N// Output: none
-Nvoid UartSetup()
-N{
-N		SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);		// Enable the UART0 module.
-X		SysCtlPeripheralEnable(0xf0001800);		
-N		while(!SysCtlPeripheralReady(SYSCTL_PERIPH_UART0))
-X		while(!SysCtlPeripheralReady(0xf0001800))
-N		{
-N			// Wait for the UART0 module to be ready.
+Nvoid UartSetup(){
+N	SysCtlPeripheralEnable(SYSCTL_PERIPH_UART0);		// Enable the UART0 module.
+X	SysCtlPeripheralEnable(0xf0001800);		
+N	
+N	while(!SysCtlPeripheralReady(SYSCTL_PERIPH_UART0)){	// Wait for the UART0 module to be ready.
+X	while(!SysCtlPeripheralReady(0xf0001800)){	
 N		}
-N		
-N		SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA); 		// activate port A
-X		SysCtlPeripheralEnable(0xf0000800); 		
-N		GPIOPinConfigure(GPIO_PA0_U0RX); 								//Pin 0 is configured as receive
-X		GPIOPinConfigure(0x00000001); 								
-N		GPIOPinConfigure(GPIO_PA1_U0TX); 								//Pin 1 is configured as transmit
-X		GPIOPinConfigure(0x00000401); 								
-N		
+N	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOA); 		// activate port A
+X	SysCtlPeripheralEnable(0xf0000800); 		
+N	GPIOPinConfigure(GPIO_PA0_U0RX); 								//Pin 0 is configured as receive
+X	GPIOPinConfigure(0x00000001); 								
+N	GPIOPinConfigure(GPIO_PA1_U0TX); 								//Pin 1 is configured as transmit	
+X	GPIOPinConfigure(0x00000401); 								
 N		// enable alt funct on PA1-0 and enable digital I/O on PA1-0
-N		GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_1|GPIO_PIN_1);
-X		GPIOPinTypeUART(0x40004000, 0x00000002|0x00000002);
-N		GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0|GPIO_PIN_1);
-X		GPIOPinTypeUART(0x40004000, 0x00000001|0x00000002);
-N		
+N	GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_1|GPIO_PIN_1);
+X	GPIOPinTypeUART(0x40004000, 0x00000002|0x00000002);
+N	GPIOPinTypeUART(GPIO_PORTA_BASE, GPIO_PIN_0|GPIO_PIN_1);
+X	GPIOPinTypeUART(0x40004000, 0x00000001|0x00000002);
 N		// Initialize the UART. Set the baud rate, number of data bits, turn off
 N		// parity, number of stop bits, and stick mode. The UART is enabled by the
-N		SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);   
-X		SysCtlClockSet(0x07800000 | 0x00003800 | 0x00000000 | 0x00000540);   
-N		UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(), 38400,(UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |UART_CONFIG_PAR_NONE));
-X		UARTConfigSetExpClk(0x4000C000, SysCtlClockGet(), 38400,(0x00000060 | 0x00000000 |0x00000000));
+N	SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);   
+X	SysCtlClockSet(0x07800000 | 0x00003800 | 0x00000000 | 0x00000540);   
+N	UARTConfigSetExpClk(UART0_BASE, SysCtlClockGet(), 38400,(UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |UART_CONFIG_PAR_NONE));
+X	UARTConfigSetExpClk(0x4000C000, SysCtlClockGet(), 38400,(0x00000060 | 0x00000000 |0x00000000));
 N}
 N
 N//------------UART_OutChar------------
@@ -36938,8 +36933,8 @@ N// Output: none
 Nvoid UART_OutChar(char data){
 N  while((UART0_FR_R&UART_FR_TXFF) != 0);
 X  while(((*((volatile uint32_t *)0x4000C018))&0x00000020) != 0);
-N  UART0_DR_R = data;
-X  (*((volatile uint32_t *)0x4000C000)) = data;
+N		UART0_DR_R = data;
+X		(*((volatile uint32_t *)0x4000C000)) = data;
 N}
 N
 N// Print a character to UART.
@@ -36975,5 +36970,5 @@ Nint ferror(FILE *f){
 N  /* Your implementation of ferror */
 N  return 1;
 N}
-W "src\Uart_helper.c" 73 92 last line of file ends without a newline
+W "src\Uart_helper.c" 68 92 last line of file ends without a newline
 N// this function does the same thing as UartSetup(), but uses direct register access method

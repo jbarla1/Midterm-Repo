@@ -2,7 +2,7 @@
 
 void SelectionMenu() {
 	char inputChar1, inputChar2;
- 	printf("To flash an onboard LED enter 1. To enable CAN functionality enter 2. To display PWM on onboard LED enter 3.");
+ 	printf("Please choose an option:\n\n\t1. Flash an onboard LED\n\t2. Enable CAN functionality\n\t3. Display PWM on onboard LED\n");
 	inputChar1 = getchar();
 	
 	switch(inputChar1) {
@@ -10,13 +10,14 @@ void SelectionMenu() {
 			LedMenu();	
 		break; 
 		case 2:
-		CAN_Init();	
-		printf("Enter 1 to set board as master, or 0 for slave.");
-		inputChar2 = getchar();
-			if(inputChar2){
+			CAN_Init();	
+			printf("Select node status:\n\n\t1. Master\n\t2. Slave");
+			inputChar2 = getchar();
+		
+			if(inputChar2==1){
 				CAN_Master();
 			}
-			else{
+			else if(inputChar2==2){
 				CAN_Slave();
 			}
 		break;
@@ -25,10 +26,6 @@ void SelectionMenu() {
 			printf("PWM Initialized");
 			pulse();
 		break;	
-	}
-	printf("Would you like to flash an LED on the slave board through the CAN?\n (1 = Yes, 0 = No\n");
-	if(inputChar2){
-		CAN_Master();
 	}
 }	
 

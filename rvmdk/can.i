@@ -18646,9 +18646,6 @@ int fgetc(FILE *f);
 
 #line 44 "menu.h"
 
-
-
-
 void LedMenu(void);
 
 
@@ -18663,7 +18660,6 @@ volatile _Bool errFlag = 0;
 volatile _Bool rxFlag = 0; 
 
 void CAN_Init(){
-	
 	SysCtlPeripheralEnable(0xf0000804);
 	printf("\nInitializing CAN0RX...\n");
 	GPIOPinConfigure(0x00041008);
@@ -18683,7 +18679,6 @@ void CAN_Init(){
 }
 
 void CANIntHandler(void) {
-	
 	unsigned long status = CANIntStatus(0x40040000, CAN_INT_STS_CAUSE); 
 
 	if(status == 0x00008000) { 
@@ -18698,15 +18693,9 @@ void CANIntHandler(void) {
 	}
 	
 	else { 
-	printf("Unexpected CAN bus interrupt\n");
+		printf("Unexpected CAN bus interrupt\n");
 	}
 }
-
-
-
-
-
-
 
 
 
@@ -18726,65 +18715,57 @@ void CAN_Master(void) {
 	msg.ui32MsgLen = sizeof(msgDataPtr);
 	msg.pui8MsgData = msgDataPtr;
 	
-	printf("Would you like to flash colors or select colors?\n Enter a 1 for flashing or 0 for selecting");
+	printf("\n\nInitializing node as master...\n");
+	printf("\nWould you like to flash colors or select colors?\nEnter a 1 for flashing or 0 for selecting");
 	input = getc((& __stdin));
-	
-	
 
 	if(input==1){
-	while(1) {
+		while(1) {
 		
-		loop++;
+			loop++;
 
-		if(loop==4){
-			loop = 1;
-		}
-		
-		switch (loop) {
-			case 1:
-				msgDataPtr[0] = 128;
-				msgDataPtr[1] = 0;
-				msgDataPtr[2] = 0;
-				msgDataPtr[3] = 128;
-			break;
-			case 2:
-				msgDataPtr[0] = 0;
-				msgDataPtr[1] = 128;
-				msgDataPtr[2] = 0;
-				msgDataPtr[3] = 128;
-			break;
-		
-			case 3:
-				msgDataPtr[0] = 0;
-				msgDataPtr[1] = 0;
-				msgDataPtr[2] = 128;
-				msgDataPtr[3] = 128;
-		break;
-		}
-		
-
-		
-		if(x == 100){
-			x = 20;
-		}
-		
-		printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); 
-		CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
-		
-		delayMS(x); 
-		GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-		delayMS(x);
-		GPIOPinWrite(0x40025000, 0x00000002, 0x0);
-		x++;
-	
-		if(errFlag) { 
-		printf("CAN Bus Error\n");
+			if(loop==4){
+				loop = 1;
+			}
+			switch (loop) {
+				case 1:
+					msgDataPtr[0] = 128;
+					msgDataPtr[1] = 0;
+					msgDataPtr[2] = 0;
+					msgDataPtr[3] = 128;
+				break;
+				case 2:
+					msgDataPtr[0] = 0;
+					msgDataPtr[1] = 128;
+					msgDataPtr[2] = 0;
+					msgDataPtr[3] = 128;
+				break;	
+				case 3:
+					msgDataPtr[0] = 0;
+					msgDataPtr[1] = 0;
+					msgDataPtr[2] = 128;
+					msgDataPtr[3] = 128;
+				break;
+			}
+			if(x == 100){
+				x = 20;
+			}
+			printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); 
+			CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
+			
+			delayMS(x); 
+			GPIOPinWrite(0x40025000, 0x00000002, 0xF);
+			delayMS(x);
+			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
+			x++;	
+			if(errFlag) { 
+				printf("CAN Bus Error\n");
+			}
 		}
 	}
-}
 	if(input==0){
 		while(1){
-			printf("Red, blue, or green? Enter 1, 2, or 3 respectively.");
+			printf("Red, blue, or green? Enter 1, 2, or 3 respectively.\n");
 			choice = getc((& __stdin));
 			switch(choice){
 				case 1:
@@ -18825,6 +18806,7 @@ void CAN_Slave(){
   volatile uint32_t ui32Loop;
 	tCANMsgObject msg; 
 	unsigned char msgData[8]; 
+	unsigned int data[4];
 
 	msg.ui32MsgID = 0;
 	msg.ui32MsgIDMask = 0;
@@ -18833,15 +18815,13 @@ void CAN_Slave(){
 
 	
 	CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_RX);
- 
-	unsigned int colour[3];
-	float intensity;
+	printf("\n\nInitializing node as slave...\n");
+	
 	
 	while(1) {
 		if(rxFlag) { 
 			msg.pui8MsgData = msgData; 
 			CANMessageGet(0x40040000, 1, &msg, 0); 
-			
 			
 			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
 			GPIOPinWrite(0x40025000, 0x00000004, 0x0);
@@ -18852,34 +18832,17 @@ void CAN_Slave(){
 			if(msg.ui32Flags & 0x00000100) { 
 				printf("CAN message loss detected\n");
 			}
-			
-			colour[0] = msgData[0] * 0xFF;
-			colour[1] = msgData[1] * 0xFF;
-			colour[2] = msgData[2] * 0xFF;
-			intensity = msgData[3] / 255.0f; 
-
-			
-	    printf("Received colour\tr: %d  g: %d  b: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
-
+	    printf("Received colour\tr: %d  b: %d  g: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
 			
 			if (msgData[0] == 128){
-			GPIOPinWrite(0x40025000, 0x00000002, 0xF);
+				GPIOPinWrite(0x40025000, 0x00000002, 0xF);
 			}
 			if (msgData[1] == 128){
-			GPIOPinWrite(0x40025000, 0x00000004, 0xF);
+				GPIOPinWrite(0x40025000, 0x00000004, 0xF);
 			}
 			if (msgData[2] == 128){
-			GPIOPinWrite(0x40025000, 0x00000008, 0xF);
+				GPIOPinWrite(0x40025000, 0x00000008, 0xF);
 			}
 		}
 	}
 }
-
-
-
-
-
-
-
-
-

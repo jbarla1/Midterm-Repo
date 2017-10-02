@@ -10767,26 +10767,21 @@ int fgetc(FILE *f);
 
 
 
-void UartSetup()
-{
-		SysCtlPeripheralEnable(0xf0001800);		
-		while(!SysCtlPeripheralReady(0xf0001800))
-		{
-			
+void UartSetup(){
+	SysCtlPeripheralEnable(0xf0001800);		
+	
+	while(!SysCtlPeripheralReady(0xf0001800)){	
 		}
+	SysCtlPeripheralEnable(0xf0000800); 		
+	GPIOPinConfigure(0x00000001); 								
+	GPIOPinConfigure(0x00000401); 								
 		
-		SysCtlPeripheralEnable(0xf0000800); 		
-		GPIOPinConfigure(0x00000001); 								
-		GPIOPinConfigure(0x00000401); 								
-		
-		
-		GPIOPinTypeUART(0x40004000, 0x00000002|0x00000002);
-		GPIOPinTypeUART(0x40004000, 0x00000001|0x00000002);
+	GPIOPinTypeUART(0x40004000, 0x00000002|0x00000002);
+	GPIOPinTypeUART(0x40004000, 0x00000001|0x00000002);
 		
 		
-		
-		SysCtlClockSet(0x07800000 | 0x00003800 | 0x00000000 | 0x00000540);   
-		UARTConfigSetExpClk(0x4000C000, SysCtlClockGet(), 38400,(0x00000060 | 0x00000000 |0x00000000));
+	SysCtlClockSet(0x07800000 | 0x00003800 | 0x00000000 | 0x00000540);   
+	UARTConfigSetExpClk(0x4000C000, SysCtlClockGet(), 38400,(0x00000060 | 0x00000000 |0x00000000));
 }
 
 
@@ -10795,7 +10790,7 @@ void UartSetup()
 
 void UART_OutChar(char data){
   while(((*((volatile uint32_t *)0x4000C018))&0x00000020) != 0);
-  (*((volatile uint32_t *)0x4000C000)) = data;
+		(*((volatile uint32_t *)0x4000C000)) = data;
 }
 
 

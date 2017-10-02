@@ -64804,91 +64804,85 @@ N
 L 2 "PWM.c" 2
 N
 N
-N
-N
 Nvoid PWM_Setup(){
-N	
-N		
-N    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-X    SysCtlPeripheralEnable(0xf0000805);
-N    SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM1);  //The Tiva Launchpad has two modules (0 and 1). Module 1 covers the LED pins
-X    SysCtlPeripheralEnable(0xf0004001);  
+N  SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+X  SysCtlPeripheralEnable(0xf0000805);
+N  SysCtlPeripheralEnable(SYSCTL_PERIPH_PWM1);  //The Tiva Launchpad has two modules (0 and 1). Module 1 covers the LED pins
+X  SysCtlPeripheralEnable(0xf0004001);  
 N
 N    //Configure PF1,PF2,PF3 Pins as PWM
-N    GPIOPinConfigure(GPIO_PF1_M1PWM5);
-X    GPIOPinConfigure(0x00050405);
-N    GPIOPinConfigure(GPIO_PF2_M1PWM6);
-X    GPIOPinConfigure(0x00050805);
-N    GPIOPinConfigure(GPIO_PF3_M1PWM7);
-X    GPIOPinConfigure(0x00050C05);
-N    GPIOPinTypePWM(GPIO_PORTF_BASE, GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3);
-X    GPIOPinTypePWM(0x40025000, 0x00000002 | 0x00000004 | 0x00000008);
+N  GPIOPinConfigure(GPIO_PF1_M1PWM5);
+X  GPIOPinConfigure(0x00050405);
+N  GPIOPinConfigure(GPIO_PF2_M1PWM6);
+X  GPIOPinConfigure(0x00050805);
+N  GPIOPinConfigure(GPIO_PF3_M1PWM7);
+X  GPIOPinConfigure(0x00050C05);
+N  GPIOPinTypePWM(GPIO_PORTF_BASE, GPIO_PIN_1 | GPIO_PIN_2 | GPIO_PIN_3);
+X  GPIOPinTypePWM(0x40025000, 0x00000002 | 0x00000004 | 0x00000008);
 N
 N    //Configure PWM Options
 N    //PWM_GEN_2 Covers M1PWM4 and M1PWM5
 N    //PWM_GEN_3 Covers M1PWM6 and M1PWM7 See page 207 4/11/13 DriverLib doc
-N    PWMGenConfigure(PWM1_BASE, PWM_GEN_2, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC); 
-X    PWMGenConfigure(0x40029000, 0x000000C0, 0x00000000 | 0x00000000); 
-N    PWMGenConfigure(PWM1_BASE, PWM_GEN_3, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC); 
-X    PWMGenConfigure(0x40029000, 0x00000100, 0x00000000 | 0x00000000); 
+N  PWMGenConfigure(PWM1_BASE, PWM_GEN_2, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC); 
+X  PWMGenConfigure(0x40029000, 0x000000C0, 0x00000000 | 0x00000000); 
+N  PWMGenConfigure(PWM1_BASE, PWM_GEN_3, PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC); 
+X  PWMGenConfigure(0x40029000, 0x00000100, 0x00000000 | 0x00000000); 
 N
 N    //Set the Period (expressed in clock ticks)
-N    PWMGenPeriodSet(PWM1_BASE, PWM_GEN_2, 320);
-X    PWMGenPeriodSet(0x40029000, 0x000000C0, 320);
-N    PWMGenPeriodSet(PWM1_BASE, PWM_GEN_3, 320);
-X    PWMGenPeriodSet(0x40029000, 0x00000100, 320);
+N  PWMGenPeriodSet(PWM1_BASE, PWM_GEN_2, 320);
+X  PWMGenPeriodSet(0x40029000, 0x000000C0, 320);
+N  PWMGenPeriodSet(PWM1_BASE, PWM_GEN_3, 320);
+X  PWMGenPeriodSet(0x40029000, 0x00000100, 320);
 N
 N    //Set PWM duty-50% (Period /2)
-N    PWMPulseWidthSet(PWM1_BASE, PWM_OUT_5,100);
-X    PWMPulseWidthSet(0x40029000, 0x000000C5,100);
-N    PWMPulseWidthSet(PWM1_BASE, PWM_OUT_6,100);
-X    PWMPulseWidthSet(0x40029000, 0x00000106,100);
-N    PWMPulseWidthSet(PWM1_BASE, PWM_OUT_7,100);
-X    PWMPulseWidthSet(0x40029000, 0x00000107,100);
-N
+N  PWMPulseWidthSet(PWM1_BASE, PWM_OUT_5,100);
+X  PWMPulseWidthSet(0x40029000, 0x000000C5,100);
+N  PWMPulseWidthSet(PWM1_BASE, PWM_OUT_6,100);
+X  PWMPulseWidthSet(0x40029000, 0x00000106,100);
+N  PWMPulseWidthSet(PWM1_BASE, PWM_OUT_7,100);
+X  PWMPulseWidthSet(0x40029000, 0x00000107,100);
+N		
 N    // Enable the PWM generator
-N    PWMGenEnable(PWM1_BASE, PWM_GEN_2);
-X    PWMGenEnable(0x40029000, 0x000000C0);
-N    PWMGenEnable(PWM1_BASE, PWM_GEN_3);
-X    PWMGenEnable(0x40029000, 0x00000100);
+N  PWMGenEnable(PWM1_BASE, PWM_GEN_2);
+X  PWMGenEnable(0x40029000, 0x000000C0);
+N  PWMGenEnable(PWM1_BASE, PWM_GEN_3);
+X  PWMGenEnable(0x40029000, 0x00000100);
 N
 N    // Turn on the Output pins
-N    PWMOutputState(PWM1_BASE, PWM_OUT_5_BIT | PWM_OUT_6_BIT | PWM_OUT_7_BIT, true);
-X    PWMOutputState(0x40029000, 0x00000020 | 0x00000040 | 0x00000080, 1);
-N	
-N	
-N	
-N	
+N  PWMOutputState(PWM1_BASE, PWM_OUT_5_BIT | PWM_OUT_6_BIT | PWM_OUT_7_BIT, true);
+X  PWMOutputState(0x40029000, 0x00000020 | 0x00000040 | 0x00000080, 1);
 N}
 N
 N
 Nvoid pulse(void){
 N	 bool fadeUp = true;
 X	 _Bool fadeUp = 1;
-N    unsigned long increment = 10;
-N    unsigned long pwmNow = 100;
-N	    while(1)
-N    {
-W "PWM.c" 52 9 function "delayMS" declared implicitly
-N        delayMS(20);
-N        if (fadeUp) {
-N            pwmNow += increment;
-N            if (pwmNow >= 320) { fadeUp = false; }
-X            if (pwmNow >= 320) { fadeUp = 0; }
-N        }
-N        else {
-N            pwmNow -= increment;
-N            if (pwmNow <= 10) { fadeUp = true; }
-X            if (pwmNow <= 10) { fadeUp = 1; }
-N        }
-N        PWMPulseWidthSet(PWM1_BASE, PWM_OUT_5,pwmNow);
-X        PWMPulseWidthSet(0x40029000, 0x000000C5,pwmNow);
-N        PWMPulseWidthSet(PWM1_BASE, PWM_OUT_6,pwmNow);
-X        PWMPulseWidthSet(0x40029000, 0x00000106,pwmNow);
-N        PWMPulseWidthSet(PWM1_BASE, PWM_OUT_7,pwmNow);
-X        PWMPulseWidthSet(0x40029000, 0x00000107,pwmNow);
+N   unsigned long increment = 10;
+N   unsigned long pwmNow = 100;
+N
+N  while(1) {
+W "PWM.c" 44 5 function "delayMS" declared implicitly
+N    delayMS(20);
+N		if (fadeUp) {
+N			pwmNow += increment;
+N			if (pwmNow >= 320) { 
+N				fadeUp = false; }
+X				fadeUp = 0; }
 N    }
+N    else {
+N			pwmNow -= increment;
+N			if (pwmNow <= 10) {
+N				fadeUp = true; }
+X				fadeUp = 1; }
+N    }
+N    PWMPulseWidthSet(PWM1_BASE, PWM_OUT_5,pwmNow);
+X    PWMPulseWidthSet(0x40029000, 0x000000C5,pwmNow);
+N    PWMPulseWidthSet(PWM1_BASE, PWM_OUT_6,pwmNow);
+X    PWMPulseWidthSet(0x40029000, 0x00000106,pwmNow);
+N    PWMPulseWidthSet(PWM1_BASE, PWM_OUT_7,pwmNow);
+X    PWMPulseWidthSet(0x40029000, 0x00000107,pwmNow);
 N	}
+N}
 N
 N
 N
