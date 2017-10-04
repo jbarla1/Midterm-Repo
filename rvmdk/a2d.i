@@ -1,5 +1,6 @@
-#line 1 "CAN.c"
-#line 1 "CAN.h"
+#line 1 "A2D.c"
+#line 1 "A2D.h"
+#line 1 "project.h"
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdbool.h"
  
 
@@ -18,7 +19,7 @@
 
 
 
-#line 2 "CAN.h"
+#line 2 "project.h"
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdint.h"
  
  
@@ -275,907 +276,7 @@ typedef unsigned     long long uintmax_t;
 
 
  
-#line 3 "CAN.h"
-#line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
- 
- 
- 
-
-
-
-
-
- 
-
-
-
-
-
-
- 
-
-
-
-
-
-
-
- 
-
-
-
-
-  
- 
-
-
-
-
-
-
-
-
-#line 47 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
-
-
-  
-
-
-
-    typedef unsigned int size_t;    
-
-
-
-
-
-
-
-
-
- 
- 
-
- 
-
-
-
-    typedef struct __va_list __va_list;
-
-
-
-
-
-
-   
-
-
-
-
- 
-
-
-
-
-typedef struct __fpos_t_struct {
-    unsigned __int64 __pos;
-    
-
-
-
- 
-    struct {
-        unsigned int __state1, __state2;
-    } __mbstate;
-} fpos_t;
-   
-
-
- 
-
-
-   
-
- 
-
-typedef struct __FILE FILE;
-   
-
-
-
-
-
-
- 
-
-#line 136 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
-
-
-extern FILE __stdin, __stdout, __stderr;
-extern FILE *__aeabi_stdin, *__aeabi_stdout, *__aeabi_stderr;
-
-#line 166 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
-    
-
-    
-
-    
-
-
-
-
-
-     
-
-
-
-   
-
-
- 
-
-
-   
-
-
- 
-
-   
-
-
-
- 
-
-   
-
-
- 
-
-
-
-
-   
-
-
- 
-
-
-
-
-
-    
-
-
- 
-
-
-
-
-
-
-extern __declspec(__nothrow) int remove(const char *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
- 
-extern __declspec(__nothrow) int rename(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) FILE *tmpfile(void);
-   
-
-
-
-
- 
-extern __declspec(__nothrow) char *tmpnam(char *  );
-   
-
-
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) int fclose(FILE *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int fflush(FILE *  );
-   
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) FILE *fopen(const char * __restrict  ,
-                           const char * __restrict  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) FILE *freopen(const char * __restrict  ,
-                    const char * __restrict  ,
-                    FILE * __restrict  ) __attribute__((__nonnull__(2,3)));
-   
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) void setbuf(FILE * __restrict  ,
-                    char * __restrict  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
- 
-extern __declspec(__nothrow) int setvbuf(FILE * __restrict  ,
-                   char * __restrict  ,
-                   int  , size_t  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-#pragma __printf_args
-extern __declspec(__nothrow) int fprintf(FILE * __restrict  ,
-                    const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-#pragma __printf_args
-extern __declspec(__nothrow) int _fprintf(FILE * __restrict  ,
-                     const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
-   
-
-
-
- 
-#pragma __printf_args
-extern __declspec(__nothrow) int printf(const char * __restrict  , ...) __attribute__((__nonnull__(1)));
-   
-
-
-
-
- 
-#pragma __printf_args
-extern __declspec(__nothrow) int _printf(const char * __restrict  , ...) __attribute__((__nonnull__(1)));
-   
-
-
-
- 
-#pragma __printf_args
-extern __declspec(__nothrow) int sprintf(char * __restrict  , const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
- 
-#pragma __printf_args
-extern __declspec(__nothrow) int _sprintf(char * __restrict  , const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
-   
-
-
-
- 
-
-#pragma __printf_args
-extern __declspec(__nothrow) int __ARM_snprintf(char * __restrict  , size_t  ,
-                     const char * __restrict  , ...) __attribute__((__nonnull__(3)));
-
-
-#pragma __printf_args
-extern __declspec(__nothrow) int snprintf(char * __restrict  , size_t  ,
-                     const char * __restrict  , ...) __attribute__((__nonnull__(3)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-#pragma __printf_args
-extern __declspec(__nothrow) int _snprintf(char * __restrict  , size_t  ,
-                      const char * __restrict  , ...) __attribute__((__nonnull__(3)));
-   
-
-
-
- 
-#pragma __scanf_args
-extern __declspec(__nothrow) int fscanf(FILE * __restrict  ,
-                    const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-#pragma __scanf_args
-extern __declspec(__nothrow) int _fscanf(FILE * __restrict  ,
-                     const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
-   
-
-
-
- 
-#pragma __scanf_args
-extern __declspec(__nothrow) int scanf(const char * __restrict  , ...) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
- 
-#pragma __scanf_args
-extern __declspec(__nothrow) int _scanf(const char * __restrict  , ...) __attribute__((__nonnull__(1)));
-   
-
-
-
- 
-#pragma __scanf_args
-extern __declspec(__nothrow) int sscanf(const char * __restrict  ,
-                    const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
-
-
- 
-#pragma __scanf_args
-extern __declspec(__nothrow) int _sscanf(const char * __restrict  ,
-                     const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
-   
-
-
-
- 
-
- 
-extern __declspec(__nothrow) int vfscanf(FILE * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) int vscanf(const char * __restrict  , __va_list) __attribute__((__nonnull__(1)));
-extern __declspec(__nothrow) int vsscanf(const char * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
-
-extern __declspec(__nothrow) int _vfscanf(FILE * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) int _vscanf(const char * __restrict  , __va_list) __attribute__((__nonnull__(1)));
-extern __declspec(__nothrow) int _vsscanf(const char * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
-extern __declspec(__nothrow) int __ARM_vsscanf(const char * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
-
-extern __declspec(__nothrow) int vprintf(const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
- 
-extern __declspec(__nothrow) int _vprintf(const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1)));
-   
-
-
-
- 
-extern __declspec(__nothrow) int vfprintf(FILE * __restrict  ,
-                    const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int vsprintf(char * __restrict  ,
-                     const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int __ARM_vsnprintf(char * __restrict  , size_t  ,
-                     const char * __restrict  , __va_list  ) __attribute__((__nonnull__(3)));
-
-extern __declspec(__nothrow) int vsnprintf(char * __restrict  , size_t  ,
-                     const char * __restrict  , __va_list  ) __attribute__((__nonnull__(3)));
-   
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) int _vsprintf(char * __restrict  ,
-                      const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
- 
-extern __declspec(__nothrow) int _vfprintf(FILE * __restrict  ,
-                     const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
- 
-extern __declspec(__nothrow) int _vsnprintf(char * __restrict  , size_t  ,
-                      const char * __restrict  , __va_list  ) __attribute__((__nonnull__(3)));
-   
-
-
-
- 
-
-#pragma __printf_args
-extern __declspec(__nothrow) int asprintf(char **  , const char * __restrict  , ...) __attribute__((__nonnull__(2)));
-extern __declspec(__nothrow) int vasprintf(char **  , const char * __restrict  , __va_list  ) __attribute__((__nonnull__(2)));
-
-#pragma __printf_args
-extern __declspec(__nothrow) int __ARM_asprintf(char **  , const char * __restrict  , ...) __attribute__((__nonnull__(2)));
-extern __declspec(__nothrow) int __ARM_vasprintf(char **  , const char * __restrict  , __va_list  ) __attribute__((__nonnull__(2)));
-   
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) int fgetc(FILE *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) char *fgets(char * __restrict  , int  ,
-                    FILE * __restrict  ) __attribute__((__nonnull__(1,3)));
-   
-
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int fputc(int  , FILE *  ) __attribute__((__nonnull__(2)));
-   
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int fputs(const char * __restrict  , FILE * __restrict  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
- 
-extern __declspec(__nothrow) int getc(FILE *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
- 
-
-
-
-
-    extern __declspec(__nothrow) int (getchar)(void);
-
-   
-
-
-
-
-
- 
-extern __declspec(__nothrow) char *gets(char *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int putc(int  , FILE *  ) __attribute__((__nonnull__(2)));
-   
-
-
-
-
-
- 
-
-
-
-
-    extern __declspec(__nothrow) int (putchar)(int  );
-
-   
-
-
-
- 
-extern __declspec(__nothrow) int puts(const char *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
- 
-extern __declspec(__nothrow) int ungetc(int  , FILE *  ) __attribute__((__nonnull__(2)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) size_t fread(void * __restrict  ,
-                    size_t  , size_t  , FILE * __restrict  ) __attribute__((__nonnull__(1,4)));
-   
-
-
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) size_t __fread_bytes_avail(void * __restrict  ,
-                    size_t  , FILE * __restrict  ) __attribute__((__nonnull__(1,3)));
-   
-
-
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) size_t fwrite(const void * __restrict  ,
-                    size_t  , size_t  , FILE * __restrict  ) __attribute__((__nonnull__(1,4)));
-   
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) int fgetpos(FILE * __restrict  , fpos_t * __restrict  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int fseek(FILE *  , long int  , int  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) int fsetpos(FILE * __restrict  , const fpos_t * __restrict  ) __attribute__((__nonnull__(1,2)));
-   
-
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) long int ftell(FILE *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
-
-
-
-
-
-
- 
-extern __declspec(__nothrow) void rewind(FILE *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) void clearerr(FILE *  ) __attribute__((__nonnull__(1)));
-   
-
-
-
-
- 
-
-extern __declspec(__nothrow) int feof(FILE *  ) __attribute__((__nonnull__(1)));
-   
-
-
- 
-extern __declspec(__nothrow) int ferror(FILE *  ) __attribute__((__nonnull__(1)));
-   
-
-
- 
-extern __declspec(__nothrow) void perror(const char *  );
-   
-
-
-
-
-
-
-
-
-
- 
-
-extern __declspec(__nothrow) int _fisatty(FILE *   ) __attribute__((__nonnull__(1)));
-    
- 
-
-extern __declspec(__nothrow) void __use_no_semihosting_swi(void);
-extern __declspec(__nothrow) void __use_no_semihosting(void);
-    
-
-
-
-
-
- 
-
-
-
-
-
-
-
-
-
-
-
-#line 1021 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
-
-
-
- 
-
-#line 4 "CAN.h"
+#line 3 "project.h"
 #line 1 "inc/hw_memmap.h"
 
 
@@ -1237,14 +338,8 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
                                             
 #line 150 "inc/hw_memmap.h"
 
-#line 5 "CAN.h"
-#line 1 "project.h"
-#line 2 "project.h"
-#line 3 "project.h"
 #line 4 "project.h"
 
-
-#line 7 "project.h"
 #line 1 "driverlib/adc.h"
 
 
@@ -1455,7 +550,7 @@ extern uint32_t ADCSampleRateGet(uint32_t ui32Base);
 
 
 
-#line 8 "project.h"
+#line 6 "project.h"
 #line 1 "driverlib/aes.h"
 
 
@@ -1633,7 +728,7 @@ extern void AESTagRead(uint32_t ui32Base, uint32_t *pui32TagData);
 
 
 
-#line 9 "project.h"
+#line 7 "project.h"
 #line 1 "driverlib/can.h"
 
 
@@ -2083,7 +1178,7 @@ extern uint32_t CANStatusGet(uint32_t ui32Base, tCANStsReg eStatusReg);
 
 
 
-#line 10 "project.h"
+#line 8 "project.h"
 #line 1 "driverlib/comp.h"
 
 
@@ -2182,7 +1277,7 @@ extern void ComparatorIntClear(uint32_t ui32Base, uint32_t ui32Comp);
 
 
 
-#line 11 "project.h"
+#line 9 "project.h"
 #line 1 "driverlib/cpu.h"
 
 
@@ -2258,7 +1353,7 @@ extern void CPUbasepriSet(uint32_t ui32NewBasepri);
 
 
 
-#line 12 "project.h"
+#line 10 "project.h"
 #line 1 "driverlib/crc.h"
 
 
@@ -2346,7 +1441,7 @@ extern void CRCSeedSet(uint32_t ui32Base, uint32_t ui32Seed);
 
 
 
-#line 13 "project.h"
+#line 11 "project.h"
 #line 1 "driverlib/debug.h"
 
 
@@ -2406,7 +1501,7 @@ extern void __error__(char *pcFilename, uint32_t ui32Line);
 
 #line 69 "driverlib/debug.h"
 
-#line 14 "project.h"
+#line 12 "project.h"
 #line 1 "driverlib/des.h"
 
 
@@ -2542,7 +1637,7 @@ extern void DESReset(uint32_t ui32Base);
 
 
 
-#line 15 "project.h"
+#line 13 "project.h"
 #line 1 "driverlib/eeprom.h"
 
 
@@ -2827,7 +1922,7 @@ extern void EEPROMIntClear(uint32_t ui32IntFlags);
 
 
 
-#line 16 "project.h"
+#line 14 "project.h"
 #line 1 "driverlib/emac.h"
 
 
@@ -3536,7 +2631,7 @@ extern uint16_t EMACPHYMMDRead(uint32_t ui32Base, uint8_t ui8PhyAddr,
 
 
 
-#line 17 "project.h"
+#line 15 "project.h"
 #line 1 "driverlib/epi.h"
 
 
@@ -3940,7 +3035,7 @@ extern void EPIIntUnregister(uint32_t ui32Base);
 
 
 
-#line 18 "project.h"
+#line 16 "project.h"
 #line 1 "driverlib/flash.h"
 
 
@@ -4057,7 +3152,7 @@ extern void FlashIntClear(uint32_t ui32IntFlags);
 
 
 
-#line 19 "project.h"
+#line 17 "project.h"
 #line 1 "driverlib/fpu.h"
 
 
@@ -4171,7 +3266,7 @@ extern void FPURoundingModeSet(uint32_t ui32Mode);
 
 
 
-#line 20 "project.h"
+#line 18 "project.h"
 #line 1 "driverlib/gpio.h"
 
 
@@ -4344,7 +3439,7 @@ extern void GPIOADCTriggerDisable(uint32_t ui32Port, uint8_t ui8Pins);
 
 
 
-#line 21 "project.h"
+#line 19 "project.h"
 #line 1 "driverlib/hibernate.h"
 
 
@@ -4532,7 +3627,7 @@ extern _Bool HibernateTamperExtOscValid(void);
 
 
 
-#line 22 "project.h"
+#line 20 "project.h"
 #line 1 "driverlib/i2c.h"
 
 
@@ -4761,7 +3856,7 @@ extern void I2CLoopbackEnable(uint32_t ui32Base);
 
 
 
-#line 23 "project.h"
+#line 21 "project.h"
 #line 1 "driverlib/interrupt.h"
 
 
@@ -4856,7 +3951,7 @@ extern void IntTrigger(uint32_t ui32Interrupt);
 
 
 
-#line 24 "project.h"
+#line 22 "project.h"
 #line 1 "driverlib/lcd.h"
 
 
@@ -5250,7 +4345,7 @@ extern void LCDIntUnregister(uint32_t ui32Base);
 
 
 
-#line 25 "project.h"
+#line 23 "project.h"
 #line 1 "driverlib/mpu.h"
 
 
@@ -5381,7 +4476,7 @@ extern void MPUIntUnregister(void);
 
 
 
-#line 26 "project.h"
+#line 24 "project.h"
 #line 1 "driverlib/onewire.h"
 
 
@@ -5689,7 +4784,7 @@ extern void OneWireTransaction(uint32_t ui32Base, uint32_t ui32OpFlags,
 
 
 
-#line 27 "project.h"
+#line 25 "project.h"
 #line 1 "driverlib/pin_map.h"
 
 
@@ -6379,7 +5474,7 @@ extern void OneWireTransaction(uint32_t ui32Base, uint32_t ui32OpFlags,
 
 #line 20952 "driverlib/pin_map.h"
 
-#line 28 "project.h"
+#line 26 "project.h"
 #line 1 "driverlib/pwm.h"
 
 
@@ -6630,7 +5725,7 @@ extern void PWMOutputUpdateMode(uint32_t ui32Base,
 
 
 
-#line 29 "project.h"
+#line 27 "project.h"
 #line 1 "driverlib/qei.h"
 
 
@@ -6756,7 +5851,7 @@ extern void QEIIntClear(uint32_t ui32Base, uint32_t ui32IntFlags);
 
 
 
-#line 30 "project.h"
+#line 28 "project.h"
 #line 1 "driverlib/rom.h"
 
 
@@ -7048,7 +6143,7 @@ extern void QEIIntClear(uint32_t ui32Base, uint32_t ui32IntFlags);
 
 #line 8345 "driverlib/rom.h"
 
-#line 31 "project.h"
+#line 29 "project.h"
 #line 1 "driverlib/rom_map.h"
 
 
@@ -7324,7 +6419,7 @@ extern void QEIIntClear(uint32_t ui32Base, uint32_t ui32IntFlags);
 
 #line 6408 "driverlib/rom_map.h"
 
-#line 32 "project.h"
+#line 30 "project.h"
 #line 1 "driverlib/rtos_bindings.h"
 
 
@@ -7418,7 +6513,7 @@ extern void QEIIntClear(uint32_t ui32Base, uint32_t ui32IntFlags);
 
 
 
-#line 33 "project.h"
+#line 31 "project.h"
 #line 1 "driverlib/shamd5.h"
 
 
@@ -7529,7 +6624,7 @@ extern void SHAMD5ResultRead(uint32_t ui32Base, uint32_t *pui32Dest);
 
 
 
-#line 34 "project.h"
+#line 32 "project.h"
 #line 1 "driverlib/ssi.h"
 
 
@@ -7670,7 +6765,7 @@ extern void SSIAdvFrameHoldDisable(uint32_t ui32Base);
 
 
 
-#line 35 "project.h"
+#line 33 "project.h"
 #line 1 "driverlib/sw_crc.h"
 
 
@@ -7749,7 +6844,7 @@ extern uint32_t Crc32(uint32_t ui32Crc, const uint8_t *pui8Data,
 
 
 
-#line 36 "project.h"
+#line 34 "project.h"
 #line 1 "driverlib/sysctl.h"
 
 
@@ -8043,7 +7138,7 @@ extern _Bool SysCtlVCOGet(uint32_t ui32Crystal, uint32_t *pui32VCOFrequency);
 
 
 
-#line 37 "project.h"
+#line 35 "project.h"
 #line 1 "driverlib/sysexc.h"
 
 
@@ -8128,7 +7223,7 @@ extern void SysExcIntClear(uint32_t ui32IntFlags);
 
 
 
-#line 38 "project.h"
+#line 36 "project.h"
 #line 1 "driverlib/systick.h"
 
 
@@ -8207,7 +7302,7 @@ extern uint32_t SysTickValueGet(void);
 
 
 
-#line 39 "project.h"
+#line 37 "project.h"
 #line 1 "driverlib/timer.h"
 
 
@@ -8440,7 +7535,7 @@ extern void TimerUpdateMode(uint32_t ui32Base, uint32_t ui32Timer,
 
 
 
-#line 40 "project.h"
+#line 38 "project.h"
 #line 1 "driverlib/uart.h"
 
 
@@ -8671,7 +7766,7 @@ extern void UARTLoopbackEnable(uint32_t ui32Base);
 
 
 
-#line 41 "project.h"
+#line 39 "project.h"
 #line 1 "driverlib/udma.h"
 
 
@@ -9128,7 +8223,7 @@ extern void uDMAChannelSelectSecondary(uint32_t ui32SecPeriphs);
 
 
 
-#line 42 "project.h"
+#line 40 "project.h"
 #line 1 "driverlib/usb.h"
 
 
@@ -9650,7 +8745,7 @@ extern uint32_t USBNumEndpointsGet(uint32_t ui32Base);
 
 
 
-#line 43 "project.h"
+#line 41 "project.h"
 #line 1 "driverlib/watchdog.h"
 
 
@@ -9746,7 +8841,7 @@ extern void WatchdogStallDisable(uint32_t ui32Base);
 
 
 
-#line 44 "project.h"
+#line 42 "project.h"
 #line 1 ".\\inc\\tm4c123gh6pm.h"
 
 
@@ -17806,11 +16901,910 @@ extern void WatchdogStallDisable(uint32_t ui32Base);
 
 
 
-#line 45 "project.h"
+#line 43 "project.h"
 
 #line 1 "src/Uart_helper.h"
 #line 2 "src/Uart_helper.h"
 #line 3 "src/Uart_helper.h"
+#line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
+ 
+ 
+ 
+
+
+
+
+
+ 
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+ 
+
+
+
+
+  
+ 
+
+
+
+
+
+
+
+
+#line 47 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
+
+
+  
+
+
+
+    typedef unsigned int size_t;    
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+ 
+
+
+
+    typedef struct __va_list __va_list;
+
+
+
+
+
+
+   
+
+
+
+
+ 
+
+
+
+
+typedef struct __fpos_t_struct {
+    unsigned __int64 __pos;
+    
+
+
+
+ 
+    struct {
+        unsigned int __state1, __state2;
+    } __mbstate;
+} fpos_t;
+   
+
+
+ 
+
+
+   
+
+ 
+
+typedef struct __FILE FILE;
+   
+
+
+
+
+
+
+ 
+
+#line 136 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
+
+
+extern FILE __stdin, __stdout, __stderr;
+extern FILE *__aeabi_stdin, *__aeabi_stdout, *__aeabi_stderr;
+
+#line 166 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
+    
+
+    
+
+    
+
+
+
+
+
+     
+
+
+
+   
+
+
+ 
+
+
+   
+
+
+ 
+
+   
+
+
+
+ 
+
+   
+
+
+ 
+
+
+
+
+   
+
+
+ 
+
+
+
+
+
+    
+
+
+ 
+
+
+
+
+
+
+extern __declspec(__nothrow) int remove(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int rename(const char *  , const char *  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) FILE *tmpfile(void);
+   
+
+
+
+
+ 
+extern __declspec(__nothrow) char *tmpnam(char *  );
+   
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int fclose(FILE *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int fflush(FILE *  );
+   
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) FILE *fopen(const char * __restrict  ,
+                           const char * __restrict  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) FILE *freopen(const char * __restrict  ,
+                    const char * __restrict  ,
+                    FILE * __restrict  ) __attribute__((__nonnull__(2,3)));
+   
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) void setbuf(FILE * __restrict  ,
+                    char * __restrict  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+ 
+extern __declspec(__nothrow) int setvbuf(FILE * __restrict  ,
+                   char * __restrict  ,
+                   int  , size_t  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+#pragma __printf_args
+extern __declspec(__nothrow) int fprintf(FILE * __restrict  ,
+                    const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+#pragma __printf_args
+extern __declspec(__nothrow) int _fprintf(FILE * __restrict  ,
+                     const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+ 
+#pragma __printf_args
+extern __declspec(__nothrow) int printf(const char * __restrict  , ...) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+ 
+#pragma __printf_args
+extern __declspec(__nothrow) int _printf(const char * __restrict  , ...) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+#pragma __printf_args
+extern __declspec(__nothrow) int sprintf(char * __restrict  , const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+ 
+#pragma __printf_args
+extern __declspec(__nothrow) int _sprintf(char * __restrict  , const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+ 
+
+#pragma __printf_args
+extern __declspec(__nothrow) int __ARM_snprintf(char * __restrict  , size_t  ,
+                     const char * __restrict  , ...) __attribute__((__nonnull__(3)));
+
+
+#pragma __printf_args
+extern __declspec(__nothrow) int snprintf(char * __restrict  , size_t  ,
+                     const char * __restrict  , ...) __attribute__((__nonnull__(3)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+#pragma __printf_args
+extern __declspec(__nothrow) int _snprintf(char * __restrict  , size_t  ,
+                      const char * __restrict  , ...) __attribute__((__nonnull__(3)));
+   
+
+
+
+ 
+#pragma __scanf_args
+extern __declspec(__nothrow) int fscanf(FILE * __restrict  ,
+                    const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+#pragma __scanf_args
+extern __declspec(__nothrow) int _fscanf(FILE * __restrict  ,
+                     const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+ 
+#pragma __scanf_args
+extern __declspec(__nothrow) int scanf(const char * __restrict  , ...) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+ 
+#pragma __scanf_args
+extern __declspec(__nothrow) int _scanf(const char * __restrict  , ...) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+#pragma __scanf_args
+extern __declspec(__nothrow) int sscanf(const char * __restrict  ,
+                    const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+
+
+ 
+#pragma __scanf_args
+extern __declspec(__nothrow) int _sscanf(const char * __restrict  ,
+                     const char * __restrict  , ...) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+ 
+
+ 
+extern __declspec(__nothrow) int vfscanf(FILE * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) int vscanf(const char * __restrict  , __va_list) __attribute__((__nonnull__(1)));
+extern __declspec(__nothrow) int vsscanf(const char * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
+
+extern __declspec(__nothrow) int _vfscanf(FILE * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) int _vscanf(const char * __restrict  , __va_list) __attribute__((__nonnull__(1)));
+extern __declspec(__nothrow) int _vsscanf(const char * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
+extern __declspec(__nothrow) int __ARM_vsscanf(const char * __restrict  , const char * __restrict  , __va_list) __attribute__((__nonnull__(1,2)));
+
+extern __declspec(__nothrow) int vprintf(const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int _vprintf(const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+ 
+extern __declspec(__nothrow) int vfprintf(FILE * __restrict  ,
+                    const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int vsprintf(char * __restrict  ,
+                     const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int __ARM_vsnprintf(char * __restrict  , size_t  ,
+                     const char * __restrict  , __va_list  ) __attribute__((__nonnull__(3)));
+
+extern __declspec(__nothrow) int vsnprintf(char * __restrict  , size_t  ,
+                     const char * __restrict  , __va_list  ) __attribute__((__nonnull__(3)));
+   
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int _vsprintf(char * __restrict  ,
+                      const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+ 
+extern __declspec(__nothrow) int _vfprintf(FILE * __restrict  ,
+                     const char * __restrict  , __va_list  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+ 
+extern __declspec(__nothrow) int _vsnprintf(char * __restrict  , size_t  ,
+                      const char * __restrict  , __va_list  ) __attribute__((__nonnull__(3)));
+   
+
+
+
+ 
+
+#pragma __printf_args
+extern __declspec(__nothrow) int asprintf(char **  , const char * __restrict  , ...) __attribute__((__nonnull__(2)));
+extern __declspec(__nothrow) int vasprintf(char **  , const char * __restrict  , __va_list  ) __attribute__((__nonnull__(2)));
+
+#pragma __printf_args
+extern __declspec(__nothrow) int __ARM_asprintf(char **  , const char * __restrict  , ...) __attribute__((__nonnull__(2)));
+extern __declspec(__nothrow) int __ARM_vasprintf(char **  , const char * __restrict  , __va_list  ) __attribute__((__nonnull__(2)));
+   
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int fgetc(FILE *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) char *fgets(char * __restrict  , int  ,
+                    FILE * __restrict  ) __attribute__((__nonnull__(1,3)));
+   
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int fputc(int  , FILE *  ) __attribute__((__nonnull__(2)));
+   
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int fputs(const char * __restrict  , FILE * __restrict  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+ 
+extern __declspec(__nothrow) int getc(FILE *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+ 
+
+
+
+
+    extern __declspec(__nothrow) int (getchar)(void);
+
+   
+
+
+
+
+
+ 
+extern __declspec(__nothrow) char *gets(char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int putc(int  , FILE *  ) __attribute__((__nonnull__(2)));
+   
+
+
+
+
+
+ 
+
+
+
+
+    extern __declspec(__nothrow) int (putchar)(int  );
+
+   
+
+
+
+ 
+extern __declspec(__nothrow) int puts(const char *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int ungetc(int  , FILE *  ) __attribute__((__nonnull__(2)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) size_t fread(void * __restrict  ,
+                    size_t  , size_t  , FILE * __restrict  ) __attribute__((__nonnull__(1,4)));
+   
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) size_t __fread_bytes_avail(void * __restrict  ,
+                    size_t  , FILE * __restrict  ) __attribute__((__nonnull__(1,3)));
+   
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) size_t fwrite(const void * __restrict  ,
+                    size_t  , size_t  , FILE * __restrict  ) __attribute__((__nonnull__(1,4)));
+   
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int fgetpos(FILE * __restrict  , fpos_t * __restrict  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int fseek(FILE *  , long int  , int  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) int fsetpos(FILE * __restrict  , const fpos_t * __restrict  ) __attribute__((__nonnull__(1,2)));
+   
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) long int ftell(FILE *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+
+
+
+
+
+
+ 
+extern __declspec(__nothrow) void rewind(FILE *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) void clearerr(FILE *  ) __attribute__((__nonnull__(1)));
+   
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int feof(FILE *  ) __attribute__((__nonnull__(1)));
+   
+
+
+ 
+extern __declspec(__nothrow) int ferror(FILE *  ) __attribute__((__nonnull__(1)));
+   
+
+
+ 
+extern __declspec(__nothrow) void perror(const char *  );
+   
+
+
+
+
+
+
+
+
+
+ 
+
+extern __declspec(__nothrow) int _fisatty(FILE *   ) __attribute__((__nonnull__(1)));
+    
+ 
+
+extern __declspec(__nothrow) void __use_no_semihosting_swi(void);
+extern __declspec(__nothrow) void __use_no_semihosting(void);
+    
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+
+
+
+#line 1021 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
+
+
+
+ 
+
 #line 4 "src/Uart_helper.h"
 #line 5 "src/Uart_helper.h"
 #line 6 "src/Uart_helper.h"
@@ -17889,10 +17883,14 @@ int fgetc(FILE *f);
 
 
 
-#line 47 "project.h"
+#line 45 "project.h"
+
+
 
 void SetupHardware(void);
-#line 6 "CAN.h"
+#line 2 "A2D.h"
+
+#line 4 "A2D.h"
 
 #line 1 "inc/hw_types.h"
 
@@ -18027,542 +18025,59 @@ void SetupHardware(void);
 
 
 
-#line 8 "CAN.h"
-#line 1 "inc/hw_can.h"
+#line 6 "A2D.h"
+#line 7 "A2D.h"
+#line 8 "A2D.h"
+#line 9 "A2D.h"
+#line 10 "A2D.h"
+#line 11 "A2D.h"
+#line 12 "A2D.h"
+
+#line 14 "A2D.h"
+#line 15 "A2D.h"
+#line 16 "A2D.h"
+#line 17 "A2D.h"
+#line 18 "A2D.h"
+
+#line 20 "A2D.h"
+#line 21 "A2D.h"
+#line 22 "A2D.h"
+#line 23 "A2D.h"
+#line 24 "A2D.h"
+#line 25 "A2D.h"
+#line 26 "A2D.h"
+#line 27 "A2D.h"
+#line 28 "A2D.h"
+#line 29 "A2D.h"
+#line 30 "A2D.h"
+#line 31 "A2D.h"
+#line 32 "A2D.h"
+#line 33 "A2D.h"
+#line 34 "A2D.h"
+#line 35 "A2D.h"
+#line 36 "A2D.h"
+#line 37 "A2D.h"
+#line 38 "A2D.h"
+#line 39 "A2D.h"
+#line 40 "A2D.h"
+#line 41 "A2D.h"
+#line 42 "A2D.h"
+#line 43 "A2D.h"
+#line 44 "A2D.h"
+#line 45 "A2D.h"
+#line 46 "A2D.h"
+#line 47 "A2D.h"
+#line 48 "A2D.h"
+#line 49 "A2D.h"
+#line 50 "A2D.h"
+#line 51 "A2D.h"
+#line 52 "A2D.h"
+#line 53 "A2D.h"
+#line 54 "A2D.h"
+#line 55 "A2D.h"
+#line 56 "A2D.h"
+#line 57 "A2D.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 55 "inc/hw_can.h"
-                                            
-#line 86 "inc/hw_can.h"
-
-
-
-
-
-
-#line 99 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-                                            
-#line 120 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 145 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 169 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 201 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 255 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 311 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 365 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 9 "CAN.h"
-#line 1 "inc/hw_ints.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 58 "inc/hw_ints.h"
-
-
-
-
-
-
-#line 94 "inc/hw_ints.h"
-                                            
-#line 170 "inc/hw_ints.h"
-
-
-
-
-
-
-#line 244 "inc/hw_ints.h"
-                                            
-#line 283 "inc/hw_ints.h"
-
-
-
-
-
-
-#line 318 "inc/hw_ints.h"
-
-
-
-
-
-
-#line 339 "inc/hw_ints.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 475 "inc/hw_ints.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 10 "CAN.h"
-#line 11 "CAN.h"
-#line 12 "CAN.h"
-#line 13 "CAN.h"
-#line 14 "CAN.h"
-
-
-
-
-
-void CAN_Master(void);
-void CANIntHandler(void);
-void CAN_Init(void);
-void CAN_Slave(void);
-#line 2 "CAN.c"
-#line 3 "CAN.c"
-#line 4 "CAN.c"
-#line 1 "menu.h"
-#line 2 "menu.h"
-#line 3 "menu.h"
-
-#line 5 "menu.h"
-#line 6 "menu.h"
-#line 7 "menu.h"
-#line 8 "menu.h"
-#line 9 "menu.h"
-#line 10 "menu.h"
-#line 11 "menu.h"
-#line 12 "menu.h"
-#line 13 "menu.h"
-#line 14 "menu.h"
-#line 15 "menu.h"
-#line 16 "menu.h"
-#line 17 "menu.h"
-#line 18 "menu.h"
-#line 19 "menu.h"
-#line 20 "menu.h"
-#line 21 "menu.h"
-#line 22 "menu.h"
-#line 23 "menu.h"
-#line 24 "menu.h"
-#line 25 "menu.h"
-#line 26 "menu.h"
-#line 27 "menu.h"
-#line 28 "menu.h"
-#line 29 "menu.h"
-#line 30 "menu.h"
-#line 31 "menu.h"
-#line 32 "menu.h"
-#line 33 "menu.h"
-#line 34 "menu.h"
-#line 35 "menu.h"
-#line 36 "menu.h"
-#line 37 "menu.h"
-#line 38 "menu.h"
-#line 39 "menu.h"
-#line 40 "menu.h"
-#line 41 "menu.h"
-#line 42 "menu.h"
-#line 43 "menu.h"
 #line 1 "src/Uart_helper.h"
 #line 2 "src/Uart_helper.h"
 #line 3 "src/Uart_helper.h"
@@ -18644,209 +18159,81 @@ int fgetc(FILE *f);
 
 
 
-#line 44 "menu.h"
+#line 59 "A2D.h"
 
-void LedMenu(void);
+int Fifo_Put(int8_t data);
 
-
-
-
+#line 2 "A2D.c"
 
 
-#line 5 "CAN.c"
 
-unsigned int sysClock; 
-volatile _Bool errFlag = 0; 
-volatile _Bool rxFlag = 0; 
+void ADC0_InitTimer0ATriggerSeq3PD3(uint32_t period) {
+	
+	
+	volatile uint32_t delay;
+	
+	(*((volatile uint32_t *)0x400FE638)) |= 0x01;
+	(*((volatile uint32_t *)0x400FE608)) |= 0x8;
+	
+	delay = (*((volatile uint32_t *)0x400FE608));
+	
+	(*((volatile uint32_t *)0x40007400)) &=~ 0x08;
+	(*((volatile uint32_t *)0x40007420)) |= 0x8;
+	(*((volatile uint32_t *)0x4000751C)) &=~ 0x08;
+	(*((volatile uint32_t *)0x40007528)) |= 0x8;
+	
 
-void CAN_Init(){
-	SysCtlPeripheralEnable(0xf0000804);
-	printf("\nInitializing CAN0RX...\n");
-	GPIOPinConfigure(0x00041008);
-	printf("Initializing CAN0TX...\n");
-	GPIOPinConfigure(0x00041408);
-	GPIOPinTypeCAN(0x40024000, 0x00000010 | 0x00000020);
-	SysCtlPeripheralEnable(0xf0003400);
-	printf("Initializing CAN0_BASE...\n");
-	CANInit(0x40040000);
-	CANBitRateSet(0x40040000, SysCtlClockGet(), 500000);
-	printf("Setting CAN BitRate: 0.5 Megabytes/sec...\n");
-	CANIntRegister(0x40040000, CANIntHandler); 
-	CANIntEnable(0x40040000, 0x00000002 | 0x00000008 | 0x00000004);
-	IntEnable(55);
-	CANEnable(0x40040000);
-	printf("CAN Initialized.\n\n");
+	(*((volatile uint32_t *)0x40038020)) = 0x3210;
+	
+	(*((volatile uint32_t *)0x400FE604)) |= 0x01;
+	
+	delay = (*((volatile uint32_t *)0x400FE608));
+	
+	(*((volatile uint32_t *)0x4003000C)) = 0x00000000;
+	(*((volatile uint32_t *)0x4003000C)) = 0x00000020;
+	(*((volatile uint32_t *)0x40030000))=0; 
+	(*((volatile uint32_t *)0x40030004)) = 0x00000002;
+	(*((volatile uint32_t *)0x40030038)) = 0;
+	(*((volatile uint32_t *)0x40030028)) = period-1;
+	(*((volatile uint32_t *)0x40030018)) = 0x00000000;
+	(*((volatile uint32_t *)0x4003000C)) = 0x00000001;
+
+	(*((volatile uint32_t *)0x40038000)) &=~ 0x08;
+	(*((volatile uint32_t *)0x40038014)) = ((*((volatile uint32_t *)0x40038014))&0xFFFF0FFF)+0x5000;
+	(*((volatile uint32_t *)0x400380A0)) =4;
+	(*((volatile uint32_t *)0x400380A4)) =0x6;
+	(*((volatile uint32_t *)0x40038008)) |=0x08;
+	(*((volatile uint32_t *)0x40038000)) |=0x08;
+	
+	(*((volatile uint32_t *)0xE000E410)) = ((*((volatile uint32_t *)0xE000E410))&0xFFFF00FF)|0x00004000;
+	(*((volatile uint32_t *)0xE000E100)) = 1<<17;
+	
+	IntMasterEnable();
 }
 
-void CANIntHandler(void) {
-	unsigned long status = CANIntStatus(0x40040000, CAN_INT_STS_CAUSE); 
-
-	if(status == 0x00008000) { 
-		status = CANStatusGet(0x40040000, CAN_STS_CONTROL); 
-		errFlag = 1;
-	} 
-	
-	else if(status == 1) { 
-		CANIntClear(0x40040000, 1); 
-	  rxFlag = 1; 
-		errFlag = 0; 
-	}
-	
-	else { 
-		printf("Unexpected CAN bus interrupt\n");
-	}
+void ADC0Seq3_Handler(void) {
+	(*((volatile uint32_t *)0x4003800C)) = 0x08;
+	Fifo_Put((*((volatile uint32_t *)0x400380A8)));
 }
 
+int8_t static volatile *PutPt;
+int8_t static volatile *GetPt;
 
+int Fifo_Put(int8_t data) {
+	*PutPt = data;
+	PutPt++;
+	return(1);	
+}
 
-void CAN_Master(void) {
-	tCANMsgObject msg; 
-	unsigned int msgData; 
-	unsigned char *msgDataPtr = (unsigned char *)&msgData; 
-	uint32_t x = 20;
-	_Bool input;
-	char choice;
-	uint8_t loop =0;
-	
-	msgData = 0;
-	msg.ui32MsgID = 1;
-	msg.ui32MsgIDMask = 0;
-	msg.ui32Flags = 0x00000001;
-	msg.ui32MsgLen = sizeof(msgDataPtr);
-	msg.pui8MsgData = msgDataPtr;
-	
-	printf("\n\nInitializing node as master...\n");
-	printf("\nWould you like to flash colors or select colors?\nEnter a 1 for flashing or 0 for selecting");
-	input = getc((& __stdin));
-
-	if(input==1){
-		while(1) {
-		
-			loop++;
-
-			if(loop==4){
-				loop = 1;
-			}
-			switch (loop) {
-				case 1:
-					msgDataPtr[0] = 128;
-					msgDataPtr[1] = 0;
-					msgDataPtr[2] = 0;
-					msgDataPtr[3] = 128;
-				break;
-				case 2:
-					msgDataPtr[0] = 0;
-					msgDataPtr[1] = 128;
-					msgDataPtr[2] = 0;
-					msgDataPtr[3] = 128;
-				break;	
-				case 3:
-					msgDataPtr[0] = 0;
-					msgDataPtr[1] = 0;
-					msgDataPtr[2] = 128;
-					msgDataPtr[3] = 128;
-				break;
-			}
-			if(x == 100){
-				x = 20;
-			}
-			printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); 
-			CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
-			
-			delayMS(x); 
-			GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-			GPIOPinWrite(0x40025000, 0x00000004, 0xF);
-			GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-			delayMS(x);
-			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
-			GPIOPinWrite(0x40025000, 0x00000004, 0x0);
-			GPIOPinWrite(0x40025000, 0x00000008, 0x0);
-			x++;	
-			if(errFlag) { 
-				printf("CAN Bus Error\n");
-			}
-		}
-	}
-	if(input==0){
-		while(1){
-			printf("\n\nRed, blue, or green? Enter 1, 2, or 3 respectively.\n");
-			choice = getc((& __stdin));
-			switch(choice){
-				case 1:
-					msgDataPtr[0] = 128;
-					msgDataPtr[1] = 0;
-					msgDataPtr[2] = 0;
-					msgDataPtr[3] = 128;
-				break;
-				case 2:
-					msgDataPtr[0] = 0;
-					msgDataPtr[1] = 128;
-					msgDataPtr[2] = 0;
-					msgDataPtr[3] = 128;
-				break;
-		
-				case 3:
-					msgDataPtr[0] = 0;
-					msgDataPtr[1] = 0;
-					msgDataPtr[2] = 128;
-					msgDataPtr[3] = 128;
-				break;
-			}
-			
-			printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); 
-			CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
-		
-			if(errFlag) { 
-				printf("CAN Bus Error\n");
-			}
-		}	
-	}
+int Fifo_Get(int8_t * datapt) {
+	*datapt = *GetPt;
+	GetPt++;
+	return(1);	
 }
 
 
 
-void CAN_Slave(){
 
-  volatile uint32_t ui32Loop;
-	tCANMsgObject msg; 
-	unsigned char msgData[8]; 
-	unsigned int data[4];
 
-	msg.ui32MsgID = 0;
-	msg.ui32MsgIDMask = 0;
-	msg.ui32Flags = 0x00000002 | 0x00000008;
-	msg.ui32MsgLen = 8; 
 
-	
-	CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_RX);
-	printf("\n\nInitializing node as slave...\n");
-	
-	
-	while(1) {
-		if(rxFlag) { 
-			msg.pui8MsgData = msgData; 
-			CANMessageGet(0x40040000, 1, &msg, 0); 
-			
-			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
-			GPIOPinWrite(0x40025000, 0x00000004, 0x0);
-			GPIOPinWrite(0x40025000, 0x00000008, 0x0);
-			
-			rxFlag = 0; 
 
-			if(msg.ui32Flags & 0x00000100) { 
-				printf("CAN message loss detected\n");
-			}
-	    printf("Received colour\tr: %d  b: %d  g: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
-			
-			if (msgData[0] == 128){
-				GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-			}
-			if (msgData[1] == 128){
-				GPIOPinWrite(0x40025000, 0x00000004, 0xF);
-			}
-			if (msgData[2] == 128){
-				GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-			}
-		}
-	}
-}

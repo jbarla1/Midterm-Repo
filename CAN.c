@@ -103,8 +103,12 @@ void CAN_Master(void) {
 			
 			delayMS(x); // wait 100ms
 			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
+			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
+			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
 			delayMS(x);
 			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
+			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x0);
+			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
 			x++;	
 			if(errFlag) { // check for errors
 				printf("CAN Bus Error\n");

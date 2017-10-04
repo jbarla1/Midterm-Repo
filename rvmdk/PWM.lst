@@ -24202,8 +24202,10 @@ N#include "project.h"
 L 1 "project.h" 1
 N#include <stdbool.h>
 N#include <stdint.h>
-N#include "inc/hw_memmap.h"
+N#include <stdio.h>
 N
+N
+N#include "inc/hw_memmap.h"
 N#include "driverlib/adc.h"
 L 1 "driverlib/adc.h" 1
 N//*****************************************************************************
@@ -24549,7 +24551,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_ADC_H__
-L 6 "project.h" 2
+L 8 "project.h" 2
 N#include "driverlib/aes.h"
 L 1 "driverlib/aes.h" 1
 N//*****************************************************************************
@@ -24782,7 +24784,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_AES_H__
-L 7 "project.h" 2
+L 9 "project.h" 2
 N#include "driverlib/can.h"
 L 1 "driverlib/can.h" 1
 N//*****************************************************************************
@@ -25238,7 +25240,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_CAN_H__
-L 8 "project.h" 2
+L 10 "project.h" 2
 N#include "driverlib/comp.h"
 L 1 "driverlib/comp.h" 1
 N//*****************************************************************************
@@ -25385,7 +25387,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_COMP_H__
-L 9 "project.h" 2
+L 11 "project.h" 2
 N#include "driverlib/cpu.h"
 L 1 "driverlib/cpu.h" 1
 N//*****************************************************************************
@@ -25463,7 +25465,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_CPU_H__
-L 10 "project.h" 2
+L 12 "project.h" 2
 N#include "driverlib/crc.h"
 L 1 "driverlib/crc.h" 1
 N//*****************************************************************************
@@ -25569,7 +25571,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_CRC_H__
-L 11 "project.h" 2
+L 13 "project.h" 2
 N#include "driverlib/debug.h"
 L 1 "driverlib/debug.h" 1
 N//*****************************************************************************
@@ -25643,7 +25645,7 @@ N#define ASSERT(expr)
 N#endif
 N
 N#endif // __DRIVERLIB_DEBUG_H__
-L 12 "project.h" 2
+L 14 "project.h" 2
 N#include "driverlib/des.h"
 L 1 "driverlib/des.h" 1
 N//*****************************************************************************
@@ -25791,7 +25793,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_DES_H__
-L 13 "project.h" 2
+L 15 "project.h" 2
 N#include "driverlib/eeprom.h"
 L 1 "driverlib/eeprom.h" 1
 N//*****************************************************************************
@@ -26079,7 +26081,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_EEPROM_H__
-L 14 "project.h" 2
+L 16 "project.h" 2
 N#include "driverlib/emac.h"
 L 1 "driverlib/emac.h" 1
 N//*****************************************************************************
@@ -27129,7 +27131,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_EMAC_H__
-L 15 "project.h" 2
+L 17 "project.h" 2
 N#include "driverlib/epi.h"
 L 1 "driverlib/epi.h" 1
 N//*****************************************************************************
@@ -27929,7 +27931,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_EPI_H__
-L 16 "project.h" 2
+L 18 "project.h" 2
 N#include "driverlib/flash.h"
 L 1 "driverlib/flash.h" 1
 N//*****************************************************************************
@@ -28055,7 +28057,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_FLASH_H__
-L 17 "project.h" 2
+L 19 "project.h" 2
 N#include "driverlib/fpu.h"
 L 1 "driverlib/fpu.h" 1
 N//*****************************************************************************
@@ -28171,7 +28173,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_FPU_H__
-L 18 "project.h" 2
+L 20 "project.h" 2
 N#include "driverlib/gpio.h"
 N#include "driverlib/hibernate.h"
 L 1 "driverlib/hibernate.h" 1
@@ -28468,7 +28470,7 @@ S}
 N#endif
 N
 N#endif  // __DRIVERLIB_HIBERNATE_H__
-L 20 "project.h" 2
+L 22 "project.h" 2
 N#include "driverlib/i2c.h"
 L 1 "driverlib/i2c.h" 1
 N//*****************************************************************************
@@ -28895,7 +28897,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_I2C_H__
-L 21 "project.h" 2
+L 23 "project.h" 2
 N#include "driverlib/interrupt.h"
 L 1 "driverlib/interrupt.h" 1
 N//*****************************************************************************
@@ -28994,7 +28996,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_INTERRUPT_H__
-L 22 "project.h" 2
+L 24 "project.h" 2
 N#include "driverlib/lcd.h"
 L 1 "driverlib/lcd.h" 1
 N//*****************************************************************************
@@ -29524,7 +29526,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_LCD_H__
-L 23 "project.h" 2
+L 25 "project.h" 2
 N#include "driverlib/mpu.h"
 L 1 "driverlib/mpu.h" 1
 N//*****************************************************************************
@@ -29689,7 +29691,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_MPU_H__
-L 24 "project.h" 2
+L 26 "project.h" 2
 N#include "driverlib/onewire.h"
 L 1 "driverlib/onewire.h" 1
 N//*****************************************************************************
@@ -30005,7 +30007,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_ONEWIRE_H__
-L 25 "project.h" 2
+L 27 "project.h" 2
 N#include "driverlib/pin_map.h"
 N#include "driverlib/pwm.h"
 N#include "driverlib/qei.h"
@@ -30166,7 +30168,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_QEI_H__
-L 28 "project.h" 2
+L 30 "project.h" 2
 N#include "driverlib/rom.h"
 L 1 "driverlib/rom.h" 1
 N//*****************************************************************************
@@ -40283,7 +40285,7 @@ X#define ROM_pvAESTable                                                         
 N#endif
 N
 N#endif // __DRIVERLIB_ROM_H__
-L 29 "project.h" 2
+L 31 "project.h" 2
 N#include "driverlib/rom_map.h"
 L 1 "driverlib/rom_map.h" 1
 N//*****************************************************************************
@@ -48457,7 +48459,7 @@ X#define MAP_Crc32                                                              
 N#endif
 N
 N#endif // __DRIVERLIB_ROM_MAP_H__
-L 30 "project.h" 2
+L 32 "project.h" 2
 N#include "driverlib/rtos_bindings.h"
 L 1 "driverlib/rtos_bindings.h" 1
 N//*****************************************************************************
@@ -48568,7 +48570,7 @@ N
 N#endif // USE_RTOS
 N
 N#endif // __DRIVERLIB_RTOS_BINDINGS_H__
-L 31 "project.h" 2
+L 33 "project.h" 2
 N#include "driverlib/shamd5.h"
 L 1 "driverlib/shamd5.h" 1
 N//*****************************************************************************
@@ -48704,7 +48706,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_SHAMD5_H__
-L 32 "project.h" 2
+L 34 "project.h" 2
 N#include "driverlib/ssi.h"
 L 1 "driverlib/ssi.h" 1
 N//*****************************************************************************
@@ -48866,7 +48868,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_SSI_H__
-L 33 "project.h" 2
+L 35 "project.h" 2
 N#include "driverlib/sw_crc.h"
 L 1 "driverlib/sw_crc.h" 1
 N//*****************************************************************************
@@ -48947,7 +48949,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_SW_CRC_H__
-L 34 "project.h" 2
+L 36 "project.h" 2
 N#include "driverlib/sysctl.h"
 N#include "driverlib/sysexc.h"
 L 1 "driverlib/sysexc.h" 1
@@ -49041,7 +49043,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_SYSEXC_H__
-L 36 "project.h" 2
+L 38 "project.h" 2
 N#include "driverlib/systick.h"
 L 1 "driverlib/systick.h" 1
 N//*****************************************************************************
@@ -49122,7 +49124,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_SYSTICK_H__
-L 37 "project.h" 2
+L 39 "project.h" 2
 N#include "driverlib/timer.h"
 L 1 "driverlib/timer.h" 1
 N//*****************************************************************************
@@ -49432,7 +49434,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_TIMER_H__
-L 38 "project.h" 2
+L 40 "project.h" 2
 N#include "driverlib/uart.h"
 L 1 "driverlib/uart.h" 1
 N//*****************************************************************************
@@ -49698,7 +49700,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_UART_H__
-L 39 "project.h" 2
+L 41 "project.h" 2
 N#include "driverlib/udma.h"
 L 1 "driverlib/udma.h" 1
 N//*****************************************************************************
@@ -50637,7 +50639,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_UDMA_H__
-L 40 "project.h" 2
+L 42 "project.h" 2
 N#include "driverlib/usb.h"
 L 1 "driverlib/usb.h" 1
 N//*****************************************************************************
@@ -51306,7 +51308,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_USB_H__
-L 41 "project.h" 2
+L 43 "project.h" 2
 N#include "driverlib/watchdog.h"
 L 1 "driverlib/watchdog.h" 1
 N//*****************************************************************************
@@ -51407,7 +51409,7 @@ S}
 N#endif
 N
 N#endif // __DRIVERLIB_WATCHDOG_H__
-L 42 "project.h" 2
+L 44 "project.h" 2
 N#include "tm4c123gh6pm.h"
 L 1 ".\inc\tm4c123gh6pm.h" 1
 N//*****************************************************************************
@@ -64493,7 +64495,7 @@ N
 N#endif
 N
 N#endif // __TM4C123GH6PM_H__
-L 43 "project.h" 2
+L 45 "project.h" 2
 N
 N#include "src/Uart_helper.h"
 L 1 "src/Uart_helper.h" 1
@@ -64578,9 +64580,7 @@ N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 W "src/Uart_helper.h" 80 83 last line of file ends without a newline
 N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-L 45 "project.h" 2
-N
-N
+L 47 "project.h" 2
 N
 Nvoid SetupHardware(void);
 L 6 "systic.h" 2

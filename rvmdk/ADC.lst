@@ -1,6 +1,8 @@
-L 1 "CAN.c"
-N#include "CAN.h"
-L 1 "CAN.h" 1
+L 1 "ADC.c"
+N#include "ADC.h"
+L 1 "ADC.h" 1
+N#include "project.h"
+L 1 "project.h" 1
 N#include <stdbool.h>
 L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h" 1
 N/* stdbool.h: ISO/IEC 9899:1999 (C99), section 7.16 */
@@ -30,7 +32,7 @@ N  #endif
 N
 N#endif /* __bool_true_false_are_defined */
 N
-L 2 "CAN.h" 2
+L 2 "project.h" 2
 N#include <stdint.h>
 L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h" 1
 N/* Copyright (C) ARM Ltd., 1999,2014 */
@@ -362,7 +364,7 @@ N
 N#endif /* __stdint_h */
 N
 N/* end of stdint.h */
-L 3 "CAN.h" 2
+L 3 "project.h" 2
 N#include <stdio.h>
 L 1 "C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h" 1
 N/* stdio.h: ANSI 'C' (X3J11 Oct 88) library header, section 4.9 */
@@ -1475,7 +1477,9 @@ N#endif /* ndef __stdio_h */
 N
 N/* end of stdio.h */
 N
-L 4 "CAN.h" 2
+L 4 "project.h" 2
+N
+N
 N#include "inc/hw_memmap.h"
 L 1 "inc/hw_memmap.h" 1
 N//*****************************************************************************
@@ -1629,15 +1633,7 @@ N#define NVIC_BASE               0xE000E000  // Nested Vectored Interrupt Ctrl
 N#define TPIU_BASE               0xE0040000  // Trace Port Interface Unit
 N
 N#endif // __HW_MEMMAP_H__
-L 5 "CAN.h" 2
-N#include "project.h"
-L 1 "project.h" 1
-N#include <stdbool.h>
-N#include <stdint.h>
-N#include <stdio.h>
-N
-N
-N#include "inc/hw_memmap.h"
+L 7 "project.h" 2
 N#include "driverlib/adc.h"
 L 1 "driverlib/adc.h" 1
 N//*****************************************************************************
@@ -64194,9 +64190,11 @@ N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 L 47 "project.h" 2
 N
 Nvoid SetupHardware(void);
-L 6 "CAN.h" 2
+L 2 "ADC.h" 2
 N
-N#include "inc/hw_types.h"
+N#include "inc/hw_memmap.h" 
+N
+N#include "inc/hw_types.h" 
 L 1 "inc/hw_types.h" 1
 N//*****************************************************************************
 N//
@@ -64358,1068 +64356,20 @@ N#define CLASS_IS_SNOWFLAKE CLASS_IS_TM4C123
 N#endif
 N
 N#endif // __HW_TYPES_H__
-L 8 "CAN.h" 2
-N#include "inc/hw_can.h"
-L 1 "inc/hw_can.h" 1
-N//*****************************************************************************
-N//
-N// hw_can.h - Defines and macros used when accessing the CAN controllers.
-N//
-N// Copyright (c) 2006-2017 Texas Instruments Incorporated.  All rights reserved.
-N// Software License Agreement
-N// 
-N//   Redistribution and use in source and binary forms, with or without
-N//   modification, are permitted provided that the following conditions
-N//   are met:
-N// 
-N//   Redistributions of source code must retain the above copyright
-N//   notice, this list of conditions and the following disclaimer.
-N// 
-N//   Redistributions in binary form must reproduce the above copyright
-N//   notice, this list of conditions and the following disclaimer in the
-N//   documentation and/or other materials provided with the  
-N//   distribution.
-N// 
-N//   Neither the name of Texas Instruments Incorporated nor the names of
-N//   its contributors may be used to endorse or promote products derived
-N//   from this software without specific prior written permission.
-N// 
-N// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-N// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-N// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-N// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-N// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-N// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-N// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-N// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-N// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-N// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-N// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-N// 
-N// This is part of revision 2.1.4.178 of the Tiva Firmware Development Package.
-N//
-N//*****************************************************************************
+L 6 "ADC.h" 2
+N#include "driverlib/debug.h" 
+N#include "driverlib/sysctl.h" 
+N#include "driverlib/adc.h" 
+N#include "driverlib/uart.h"
+N#include "driverlib/gpio.h" 
+N#include "TM4C123GH6PM.h"
 N
-N#ifndef __HW_CAN_H__
-N#define __HW_CAN_H__
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the CAN register offsets.
-N//
-N//*****************************************************************************
-N#define CAN_O_CTL               0x00000000  // CAN Control
-N#define CAN_O_STS               0x00000004  // CAN Status
-N#define CAN_O_ERR               0x00000008  // CAN Error Counter
-N#define CAN_O_BIT               0x0000000C  // CAN Bit Timing
-N#define CAN_O_INT               0x00000010  // CAN Interrupt
-N#define CAN_O_TST               0x00000014  // CAN Test
-N#define CAN_O_BRPE              0x00000018  // CAN Baud Rate Prescaler
-N                                            // Extension
-N#define CAN_O_IF1CRQ            0x00000020  // CAN IF1 Command Request
-N#define CAN_O_IF1CMSK           0x00000024  // CAN IF1 Command Mask
-N#define CAN_O_IF1MSK1           0x00000028  // CAN IF1 Mask 1
-N#define CAN_O_IF1MSK2           0x0000002C  // CAN IF1 Mask 2
-N#define CAN_O_IF1ARB1           0x00000030  // CAN IF1 Arbitration 1
-N#define CAN_O_IF1ARB2           0x00000034  // CAN IF1 Arbitration 2
-N#define CAN_O_IF1MCTL           0x00000038  // CAN IF1 Message Control
-N#define CAN_O_IF1DA1            0x0000003C  // CAN IF1 Data A1
-N#define CAN_O_IF1DA2            0x00000040  // CAN IF1 Data A2
-N#define CAN_O_IF1DB1            0x00000044  // CAN IF1 Data B1
-N#define CAN_O_IF1DB2            0x00000048  // CAN IF1 Data B2
-N#define CAN_O_IF2CRQ            0x00000080  // CAN IF2 Command Request
-N#define CAN_O_IF2CMSK           0x00000084  // CAN IF2 Command Mask
-N#define CAN_O_IF2MSK1           0x00000088  // CAN IF2 Mask 1
-N#define CAN_O_IF2MSK2           0x0000008C  // CAN IF2 Mask 2
-N#define CAN_O_IF2ARB1           0x00000090  // CAN IF2 Arbitration 1
-N#define CAN_O_IF2ARB2           0x00000094  // CAN IF2 Arbitration 2
-N#define CAN_O_IF2MCTL           0x00000098  // CAN IF2 Message Control
-N#define CAN_O_IF2DA1            0x0000009C  // CAN IF2 Data A1
-N#define CAN_O_IF2DA2            0x000000A0  // CAN IF2 Data A2
-N#define CAN_O_IF2DB1            0x000000A4  // CAN IF2 Data B1
-N#define CAN_O_IF2DB2            0x000000A8  // CAN IF2 Data B2
-N#define CAN_O_TXRQ1             0x00000100  // CAN Transmission Request 1
-N#define CAN_O_TXRQ2             0x00000104  // CAN Transmission Request 2
-N#define CAN_O_NWDA1             0x00000120  // CAN New Data 1
-N#define CAN_O_NWDA2             0x00000124  // CAN New Data 2
-N#define CAN_O_MSG1INT           0x00000140  // CAN Message 1 Interrupt Pending
-N#define CAN_O_MSG2INT           0x00000144  // CAN Message 2 Interrupt Pending
-N#define CAN_O_MSG1VAL           0x00000160  // CAN Message 1 Valid
-N#define CAN_O_MSG2VAL           0x00000164  // CAN Message 2 Valid
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_CTL register.
-N//
-N//*****************************************************************************
-N#define CAN_CTL_TEST            0x00000080  // Test Mode Enable
-N#define CAN_CTL_CCE             0x00000040  // Configuration Change Enable
-N#define CAN_CTL_DAR             0x00000020  // Disable Automatic-Retransmission
-N#define CAN_CTL_EIE             0x00000008  // Error Interrupt Enable
-N#define CAN_CTL_SIE             0x00000004  // Status Interrupt Enable
-N#define CAN_CTL_IE              0x00000002  // CAN Interrupt Enable
-N#define CAN_CTL_INIT            0x00000001  // Initialization
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_STS register.
-N//
-N//*****************************************************************************
-N#define CAN_STS_BOFF            0x00000080  // Bus-Off Status
-N#define CAN_STS_EWARN           0x00000040  // Warning Status
-N#define CAN_STS_EPASS           0x00000020  // Error Passive
-N#define CAN_STS_RXOK            0x00000010  // Received a Message Successfully
-N#define CAN_STS_TXOK            0x00000008  // Transmitted a Message
-N                                            // Successfully
-N#define CAN_STS_LEC_M           0x00000007  // Last Error Code
-N#define CAN_STS_LEC_NONE        0x00000000  // No Error
-N#define CAN_STS_LEC_STUFF       0x00000001  // Stuff Error
-N#define CAN_STS_LEC_FORM        0x00000002  // Format Error
-N#define CAN_STS_LEC_ACK         0x00000003  // ACK Error
-N#define CAN_STS_LEC_BIT1        0x00000004  // Bit 1 Error
-N#define CAN_STS_LEC_BIT0        0x00000005  // Bit 0 Error
-N#define CAN_STS_LEC_CRC         0x00000006  // CRC Error
-N#define CAN_STS_LEC_NOEVENT     0x00000007  // No Event
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_ERR register.
-N//
-N//*****************************************************************************
-N#define CAN_ERR_RP              0x00008000  // Received Error Passive
-N#define CAN_ERR_REC_M           0x00007F00  // Receive Error Counter
-N#define CAN_ERR_TEC_M           0x000000FF  // Transmit Error Counter
-N#define CAN_ERR_REC_S           8
-N#define CAN_ERR_TEC_S           0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_BIT register.
-N//
-N//*****************************************************************************
-N#define CAN_BIT_TSEG2_M         0x00007000  // Time Segment after Sample Point
-N#define CAN_BIT_TSEG1_M         0x00000F00  // Time Segment Before Sample Point
-N#define CAN_BIT_SJW_M           0x000000C0  // (Re)Synchronization Jump Width
-N#define CAN_BIT_BRP_M           0x0000003F  // Baud Rate Prescaler
-N#define CAN_BIT_TSEG2_S         12
-N#define CAN_BIT_TSEG1_S         8
-N#define CAN_BIT_SJW_S           6
-N#define CAN_BIT_BRP_S           0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_INT register.
-N//
-N//*****************************************************************************
-N#define CAN_INT_INTID_M         0x0000FFFF  // Interrupt Identifier
-N#define CAN_INT_INTID_NONE      0x00000000  // No interrupt pending
-N#define CAN_INT_INTID_STATUS    0x00008000  // Status Interrupt
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_TST register.
-N//
-N//*****************************************************************************
-N#define CAN_TST_RX              0x00000080  // Receive Observation
-N#define CAN_TST_TX_M            0x00000060  // Transmit Control
-N#define CAN_TST_TX_CANCTL       0x00000000  // CAN Module Control
-N#define CAN_TST_TX_SAMPLE       0x00000020  // Sample Point
-N#define CAN_TST_TX_DOMINANT     0x00000040  // Driven Low
-N#define CAN_TST_TX_RECESSIVE    0x00000060  // Driven High
-N#define CAN_TST_LBACK           0x00000010  // Loopback Mode
-N#define CAN_TST_SILENT          0x00000008  // Silent Mode
-N#define CAN_TST_BASIC           0x00000004  // Basic Mode
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_BRPE register.
-N//
-N//*****************************************************************************
-N#define CAN_BRPE_BRPE_M         0x0000000F  // Baud Rate Prescaler Extension
-N#define CAN_BRPE_BRPE_S         0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF1CRQ register.
-N//
-N//*****************************************************************************
-N#define CAN_IF1CRQ_BUSY         0x00008000  // Busy Flag
-N#define CAN_IF1CRQ_MNUM_M       0x0000003F  // Message Number
-N#define CAN_IF1CRQ_MNUM_S       0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF1CMSK register.
-N//
-N//*****************************************************************************
-N#define CAN_IF1CMSK_WRNRD       0x00000080  // Write, Not Read
-N#define CAN_IF1CMSK_MASK        0x00000040  // Access Mask Bits
-N#define CAN_IF1CMSK_ARB         0x00000020  // Access Arbitration Bits
-N#define CAN_IF1CMSK_CONTROL     0x00000010  // Access Control Bits
-N#define CAN_IF1CMSK_CLRINTPND   0x00000008  // Clear Interrupt Pending Bit
-N#define CAN_IF1CMSK_NEWDAT      0x00000004  // Access New Data
-N#define CAN_IF1CMSK_TXRQST      0x00000004  // Access Transmission Request
-N#define CAN_IF1CMSK_DATAA       0x00000002  // Access Data Byte 0 to 3
-N#define CAN_IF1CMSK_DATAB       0x00000001  // Access Data Byte 4 to 7
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF1MSK1 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF1MSK1_IDMSK_M     0x0000FFFF  // Identifier Mask
-N#define CAN_IF1MSK1_IDMSK_S     0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF1MSK2 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF1MSK2_MXTD        0x00008000  // Mask Extended Identifier
-N#define CAN_IF1MSK2_MDIR        0x00004000  // Mask Message Direction
-N#define CAN_IF1MSK2_IDMSK_M     0x00001FFF  // Identifier Mask
-N#define CAN_IF1MSK2_IDMSK_S     0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF1ARB1 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF1ARB1_ID_M        0x0000FFFF  // Message Identifier
-N#define CAN_IF1ARB1_ID_S        0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF1ARB2 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF1ARB2_MSGVAL      0x00008000  // Message Valid
-N#define CAN_IF1ARB2_XTD         0x00004000  // Extended Identifier
-N#define CAN_IF1ARB2_DIR         0x00002000  // Message Direction
-N#define CAN_IF1ARB2_ID_M        0x00001FFF  // Message Identifier
-N#define CAN_IF1ARB2_ID_S        0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF1MCTL register.
-N//
-N//*****************************************************************************
-N#define CAN_IF1MCTL_NEWDAT      0x00008000  // New Data
-N#define CAN_IF1MCTL_MSGLST      0x00004000  // Message Lost
-N#define CAN_IF1MCTL_INTPND      0x00002000  // Interrupt Pending
-N#define CAN_IF1MCTL_UMASK       0x00001000  // Use Acceptance Mask
-N#define CAN_IF1MCTL_TXIE        0x00000800  // Transmit Interrupt Enable
-N#define CAN_IF1MCTL_RXIE        0x00000400  // Receive Interrupt Enable
-N#define CAN_IF1MCTL_RMTEN       0x00000200  // Remote Enable
-N#define CAN_IF1MCTL_TXRQST      0x00000100  // Transmit Request
-N#define CAN_IF1MCTL_EOB         0x00000080  // End of Buffer
-N#define CAN_IF1MCTL_DLC_M       0x0000000F  // Data Length Code
-N#define CAN_IF1MCTL_DLC_S       0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF1DA1 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF1DA1_DATA_M       0x0000FFFF  // Data
-N#define CAN_IF1DA1_DATA_S       0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF1DA2 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF1DA2_DATA_M       0x0000FFFF  // Data
-N#define CAN_IF1DA2_DATA_S       0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF1DB1 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF1DB1_DATA_M       0x0000FFFF  // Data
-N#define CAN_IF1DB1_DATA_S       0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF1DB2 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF1DB2_DATA_M       0x0000FFFF  // Data
-N#define CAN_IF1DB2_DATA_S       0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF2CRQ register.
-N//
-N//*****************************************************************************
-N#define CAN_IF2CRQ_BUSY         0x00008000  // Busy Flag
-N#define CAN_IF2CRQ_MNUM_M       0x0000003F  // Message Number
-N#define CAN_IF2CRQ_MNUM_S       0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF2CMSK register.
-N//
-N//*****************************************************************************
-N#define CAN_IF2CMSK_WRNRD       0x00000080  // Write, Not Read
-N#define CAN_IF2CMSK_MASK        0x00000040  // Access Mask Bits
-N#define CAN_IF2CMSK_ARB         0x00000020  // Access Arbitration Bits
-N#define CAN_IF2CMSK_CONTROL     0x00000010  // Access Control Bits
-N#define CAN_IF2CMSK_CLRINTPND   0x00000008  // Clear Interrupt Pending Bit
-N#define CAN_IF2CMSK_NEWDAT      0x00000004  // Access New Data
-N#define CAN_IF2CMSK_TXRQST      0x00000004  // Access Transmission Request
-N#define CAN_IF2CMSK_DATAA       0x00000002  // Access Data Byte 0 to 3
-N#define CAN_IF2CMSK_DATAB       0x00000001  // Access Data Byte 4 to 7
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF2MSK1 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF2MSK1_IDMSK_M     0x0000FFFF  // Identifier Mask
-N#define CAN_IF2MSK1_IDMSK_S     0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF2MSK2 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF2MSK2_MXTD        0x00008000  // Mask Extended Identifier
-N#define CAN_IF2MSK2_MDIR        0x00004000  // Mask Message Direction
-N#define CAN_IF2MSK2_IDMSK_M     0x00001FFF  // Identifier Mask
-N#define CAN_IF2MSK2_IDMSK_S     0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF2ARB1 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF2ARB1_ID_M        0x0000FFFF  // Message Identifier
-N#define CAN_IF2ARB1_ID_S        0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF2ARB2 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF2ARB2_MSGVAL      0x00008000  // Message Valid
-N#define CAN_IF2ARB2_XTD         0x00004000  // Extended Identifier
-N#define CAN_IF2ARB2_DIR         0x00002000  // Message Direction
-N#define CAN_IF2ARB2_ID_M        0x00001FFF  // Message Identifier
-N#define CAN_IF2ARB2_ID_S        0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF2MCTL register.
-N//
-N//*****************************************************************************
-N#define CAN_IF2MCTL_NEWDAT      0x00008000  // New Data
-N#define CAN_IF2MCTL_MSGLST      0x00004000  // Message Lost
-N#define CAN_IF2MCTL_INTPND      0x00002000  // Interrupt Pending
-N#define CAN_IF2MCTL_UMASK       0x00001000  // Use Acceptance Mask
-N#define CAN_IF2MCTL_TXIE        0x00000800  // Transmit Interrupt Enable
-N#define CAN_IF2MCTL_RXIE        0x00000400  // Receive Interrupt Enable
-N#define CAN_IF2MCTL_RMTEN       0x00000200  // Remote Enable
-N#define CAN_IF2MCTL_TXRQST      0x00000100  // Transmit Request
-N#define CAN_IF2MCTL_EOB         0x00000080  // End of Buffer
-N#define CAN_IF2MCTL_DLC_M       0x0000000F  // Data Length Code
-N#define CAN_IF2MCTL_DLC_S       0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF2DA1 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF2DA1_DATA_M       0x0000FFFF  // Data
-N#define CAN_IF2DA1_DATA_S       0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF2DA2 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF2DA2_DATA_M       0x0000FFFF  // Data
-N#define CAN_IF2DA2_DATA_S       0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF2DB1 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF2DB1_DATA_M       0x0000FFFF  // Data
-N#define CAN_IF2DB1_DATA_S       0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_IF2DB2 register.
-N//
-N//*****************************************************************************
-N#define CAN_IF2DB2_DATA_M       0x0000FFFF  // Data
-N#define CAN_IF2DB2_DATA_S       0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_TXRQ1 register.
-N//
-N//*****************************************************************************
-N#define CAN_TXRQ1_TXRQST_M      0x0000FFFF  // Transmission Request Bits
-N#define CAN_TXRQ1_TXRQST_S      0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_TXRQ2 register.
-N//
-N//*****************************************************************************
-N#define CAN_TXRQ2_TXRQST_M      0x0000FFFF  // Transmission Request Bits
-N#define CAN_TXRQ2_TXRQST_S      0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_NWDA1 register.
-N//
-N//*****************************************************************************
-N#define CAN_NWDA1_NEWDAT_M      0x0000FFFF  // New Data Bits
-N#define CAN_NWDA1_NEWDAT_S      0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_NWDA2 register.
-N//
-N//*****************************************************************************
-N#define CAN_NWDA2_NEWDAT_M      0x0000FFFF  // New Data Bits
-N#define CAN_NWDA2_NEWDAT_S      0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_MSG1INT register.
-N//
-N//*****************************************************************************
-N#define CAN_MSG1INT_INTPND_M    0x0000FFFF  // Interrupt Pending Bits
-N#define CAN_MSG1INT_INTPND_S    0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_MSG2INT register.
-N//
-N//*****************************************************************************
-N#define CAN_MSG2INT_INTPND_M    0x0000FFFF  // Interrupt Pending Bits
-N#define CAN_MSG2INT_INTPND_S    0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_MSG1VAL register.
-N//
-N//*****************************************************************************
-N#define CAN_MSG1VAL_MSGVAL_M    0x0000FFFF  // Message Valid Bits
-N#define CAN_MSG1VAL_MSGVAL_S    0
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the bit fields in the CAN_O_MSG2VAL register.
-N//
-N//*****************************************************************************
-N#define CAN_MSG2VAL_MSGVAL_M    0x0000FFFF  // Message Valid Bits
-N#define CAN_MSG2VAL_MSGVAL_S    0
-N
-N#endif // __HW_CAN_H__
-L 9 "CAN.h" 2
-N#include "inc/hw_ints.h"
-L 1 "inc/hw_ints.h" 1
-N//*****************************************************************************
-N//
-N// hw_ints.h - Macros that define the interrupt assignment on Tiva C Series
-N// MCUs.
-N//
-N// Copyright (c) 2005-2017 Texas Instruments Incorporated.  All rights reserved.
-N// Software License Agreement
-N// 
-N//   Redistribution and use in source and binary forms, with or without
-N//   modification, are permitted provided that the following conditions
-N//   are met:
-N// 
-N//   Redistributions of source code must retain the above copyright
-N//   notice, this list of conditions and the following disclaimer.
-N// 
-N//   Redistributions in binary form must reproduce the above copyright
-N//   notice, this list of conditions and the following disclaimer in the
-N//   documentation and/or other materials provided with the  
-N//   distribution.
-N// 
-N//   Neither the name of Texas Instruments Incorporated nor the names of
-N//   its contributors may be used to endorse or promote products derived
-N//   from this software without specific prior written permission.
-N// 
-N// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-N// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-N// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-N// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-N// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-N// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-N// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-N// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-N// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-N// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-N// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-N// 
-N// This is part of revision 2.1.4.178 of the Tiva Firmware Development Package.
-N//
-N//*****************************************************************************
-N
-N#ifndef __HW_INTS_H__
-N#define __HW_INTS_H__
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the fault assignments.
-N//
-N//*****************************************************************************
-N#define FAULT_NMI               2           // NMI fault
-N#define FAULT_HARD              3           // Hard fault
-N#define FAULT_MPU               4           // MPU fault
-N#define FAULT_BUS               5           // Bus fault
-N#define FAULT_USAGE             6           // Usage fault
-N#define FAULT_SVCALL            11          // SVCall
-N#define FAULT_DEBUG             12          // Debug monitor
-N#define FAULT_PENDSV            14          // PendSV
-N#define FAULT_SYSTICK           15          // System Tick
-N
-N//*****************************************************************************
-N//
-N// TM4C123 Class Interrupts
-N//
-N//*****************************************************************************
-N#define INT_GPIOA_TM4C123       16          // GPIO Port A
-N#define INT_GPIOB_TM4C123       17          // GPIO Port B
-N#define INT_GPIOC_TM4C123       18          // GPIO Port C
-N#define INT_GPIOD_TM4C123       19          // GPIO Port D
-N#define INT_GPIOE_TM4C123       20          // GPIO Port E
-N#define INT_UART0_TM4C123       21          // UART0
-N#define INT_UART1_TM4C123       22          // UART1
-N#define INT_SSI0_TM4C123        23          // SSI0
-N#define INT_I2C0_TM4C123        24          // I2C0
-N#define INT_PWM0_FAULT_TM4C123  25          // PWM0 Fault
-N#define INT_PWM0_0_TM4C123      26          // PWM0 Generator 0
-N#define INT_PWM0_1_TM4C123      27          // PWM0 Generator 1
-N#define INT_PWM0_2_TM4C123      28          // PWM0 Generator 2
-N#define INT_QEI0_TM4C123        29          // QEI0
-N#define INT_ADC0SS0_TM4C123     30          // ADC0 Sequence 0
-N#define INT_ADC0SS1_TM4C123     31          // ADC0 Sequence 1
-N#define INT_ADC0SS2_TM4C123     32          // ADC0 Sequence 2
-N#define INT_ADC0SS3_TM4C123     33          // ADC0 Sequence 3
-N#define INT_WATCHDOG_TM4C123    34          // Watchdog Timers 0 and 1
-N#define INT_TIMER0A_TM4C123     35          // 16/32-Bit Timer 0A
-N#define INT_TIMER0B_TM4C123     36          // 16/32-Bit Timer 0B
-N#define INT_TIMER1A_TM4C123     37          // 16/32-Bit Timer 1A
-N#define INT_TIMER1B_TM4C123     38          // 16/32-Bit Timer 1B
-N#define INT_TIMER2A_TM4C123     39          // 16/32-Bit Timer 2A
-N#define INT_TIMER2B_TM4C123     40          // 16/32-Bit Timer 2B
-N#define INT_COMP0_TM4C123       41          // Analog Comparator 0
-N#define INT_COMP1_TM4C123       42          // Analog Comparator 1
-N#define INT_COMP2_TM4C123       43          // Analog Comparator 2
-N#define INT_SYSCTL_TM4C123      44          // System Control
-N#define INT_FLASH_TM4C123       45          // Flash Memory Control and EEPROM
-N                                            // Control
-N#define INT_GPIOF_TM4C123       46          // GPIO Port F
-N#define INT_GPIOG_TM4C123       47          // GPIO Port G
-N#define INT_GPIOH_TM4C123       48          // GPIO Port H
-N#define INT_UART2_TM4C123       49          // UART2
-N#define INT_SSI1_TM4C123        50          // SSI1
-N#define INT_TIMER3A_TM4C123     51          // 16/32-Bit Timer 3A
-N#define INT_TIMER3B_TM4C123     52          // Timer 3B
-N#define INT_I2C1_TM4C123        53          // I2C1
-N#define INT_QEI1_TM4C123        54          // QEI1
-N#define INT_CAN0_TM4C123        55          // CAN0
-N#define INT_CAN1_TM4C123        56          // CAN1
-N#define INT_HIBERNATE_TM4C123   59          // Hibernation Module
-N#define INT_USB0_TM4C123        60          // USB
-N#define INT_PWM0_3_TM4C123      61          // PWM Generator 3
-N#define INT_UDMA_TM4C123        62          // uDMA Software
-N#define INT_UDMAERR_TM4C123     63          // uDMA Error
-N#define INT_ADC1SS0_TM4C123     64          // ADC1 Sequence 0
-N#define INT_ADC1SS1_TM4C123     65          // ADC1 Sequence 1
-N#define INT_ADC1SS2_TM4C123     66          // ADC1 Sequence 2
-N#define INT_ADC1SS3_TM4C123     67          // ADC1 Sequence 3
-N#define INT_GPIOJ_TM4C123       70          // GPIO Port J
-N#define INT_GPIOK_TM4C123       71          // GPIO Port K
-N#define INT_GPIOL_TM4C123       72          // GPIO Port L
-N#define INT_SSI2_TM4C123        73          // SSI2
-N#define INT_SSI3_TM4C123        74          // SSI3
-N#define INT_UART3_TM4C123       75          // UART3
-N#define INT_UART4_TM4C123       76          // UART4
-N#define INT_UART5_TM4C123       77          // UART5
-N#define INT_UART6_TM4C123       78          // UART6
-N#define INT_UART7_TM4C123       79          // UART7
-N#define INT_I2C2_TM4C123        84          // I2C2
-N#define INT_I2C3_TM4C123        85          // I2C3
-N#define INT_TIMER4A_TM4C123     86          // 16/32-Bit Timer 4A
-N#define INT_TIMER4B_TM4C123     87          // 16/32-Bit Timer 4B
-N#define INT_TIMER5A_TM4C123     108         // 16/32-Bit Timer 5A
-N#define INT_TIMER5B_TM4C123     109         // 16/32-Bit Timer 5B
-N#define INT_WTIMER0A_TM4C123    110         // 32/64-Bit Timer 0A
-N#define INT_WTIMER0B_TM4C123    111         // 32/64-Bit Timer 0B
-N#define INT_WTIMER1A_TM4C123    112         // 32/64-Bit Timer 1A
-N#define INT_WTIMER1B_TM4C123    113         // 32/64-Bit Timer 1B
-N#define INT_WTIMER2A_TM4C123    114         // 32/64-Bit Timer 2A
-N#define INT_WTIMER2B_TM4C123    115         // 32/64-Bit Timer 2B
-N#define INT_WTIMER3A_TM4C123    116         // 32/64-Bit Timer 3A
-N#define INT_WTIMER3B_TM4C123    117         // 32/64-Bit Timer 3B
-N#define INT_WTIMER4A_TM4C123    118         // 32/64-Bit Timer 4A
-N#define INT_WTIMER4B_TM4C123    119         // 32/64-Bit Timer 4B
-N#define INT_WTIMER5A_TM4C123    120         // 32/64-Bit Timer 5A
-N#define INT_WTIMER5B_TM4C123    121         // 32/64-Bit Timer 5B
-N#define INT_SYSEXC_TM4C123      122         // System Exception (imprecise)
-N#define INT_I2C4_TM4C123        125         // I2C4
-N#define INT_I2C5_TM4C123        126         // I2C5
-N#define INT_GPIOM_TM4C123       127         // GPIO Port M
-N#define INT_GPION_TM4C123       128         // GPIO Port N
-N#define INT_GPIOP0_TM4C123      132         // GPIO Port P (Summary or P0)
-N#define INT_GPIOP1_TM4C123      133         // GPIO Port P1
-N#define INT_GPIOP2_TM4C123      134         // GPIO Port P2
-N#define INT_GPIOP3_TM4C123      135         // GPIO Port P3
-N#define INT_GPIOP4_TM4C123      136         // GPIO Port P4
-N#define INT_GPIOP5_TM4C123      137         // GPIO Port P5
-N#define INT_GPIOP6_TM4C123      138         // GPIO Port P6
-N#define INT_GPIOP7_TM4C123      139         // GPIO Port P7
-N#define INT_GPIOQ0_TM4C123      140         // GPIO Port Q (Summary or Q0)
-N#define INT_GPIOQ1_TM4C123      141         // GPIO Port Q1
-N#define INT_GPIOQ2_TM4C123      142         // GPIO Port Q2
-N#define INT_GPIOQ3_TM4C123      143         // GPIO Port Q3
-N#define INT_GPIOQ4_TM4C123      144         // GPIO Port Q4
-N#define INT_GPIOQ5_TM4C123      145         // GPIO Port Q5
-N#define INT_GPIOQ6_TM4C123      146         // GPIO Port Q6
-N#define INT_GPIOQ7_TM4C123      147         // GPIO Port Q7
-N#define INT_PWM1_0_TM4C123      150         // PWM1 Generator 0
-N#define INT_PWM1_1_TM4C123      151         // PWM1 Generator 1
-N#define INT_PWM1_2_TM4C123      152         // PWM1 Generator 2
-N#define INT_PWM1_3_TM4C123      153         // PWM1 Generator 3
-N#define INT_PWM1_FAULT_TM4C123  154         // PWM1 Fault
-N#define NUM_INTERRUPTS_TM4C123  155
-N
-N//*****************************************************************************
-N//
-N// TM4C129 Class Interrupts
-N//
-N//*****************************************************************************
-N#define INT_GPIOA_TM4C129       16          // GPIO Port A
-N#define INT_GPIOB_TM4C129       17          // GPIO Port B
-N#define INT_GPIOC_TM4C129       18          // GPIO Port C
-N#define INT_GPIOD_TM4C129       19          // GPIO Port D
-N#define INT_GPIOE_TM4C129       20          // GPIO Port E
-N#define INT_UART0_TM4C129       21          // UART0
-N#define INT_UART1_TM4C129       22          // UART1
-N#define INT_SSI0_TM4C129        23          // SSI0
-N#define INT_I2C0_TM4C129        24          // I2C0
-N#define INT_PWM0_FAULT_TM4C129  25          // PWM Fault
-N#define INT_PWM0_0_TM4C129      26          // PWM Generator 0
-N#define INT_PWM0_1_TM4C129      27          // PWM Generator 1
-N#define INT_PWM0_2_TM4C129      28          // PWM Generator 2
-N#define INT_QEI0_TM4C129        29          // QEI0
-N#define INT_ADC0SS0_TM4C129     30          // ADC0 Sequence 0
-N#define INT_ADC0SS1_TM4C129     31          // ADC0 Sequence 1
-N#define INT_ADC0SS2_TM4C129     32          // ADC0 Sequence 2
-N#define INT_ADC0SS3_TM4C129     33          // ADC0 Sequence 3
-N#define INT_WATCHDOG_TM4C129    34          // Watchdog Timers 0 and 1
-N#define INT_TIMER0A_TM4C129     35          // 16/32-Bit Timer 0A
-N#define INT_TIMER0B_TM4C129     36          // 16/32-Bit Timer 0B
-N#define INT_TIMER1A_TM4C129     37          // 16/32-Bit Timer 1A
-N#define INT_TIMER1B_TM4C129     38          // 16/32-Bit Timer 1B
-N#define INT_TIMER2A_TM4C129     39          // 16/32-Bit Timer 2A
-N#define INT_TIMER2B_TM4C129     40          // 16/32-Bit Timer 2B
-N#define INT_COMP0_TM4C129       41          // Analog Comparator 0
-N#define INT_COMP1_TM4C129       42          // Analog Comparator 1
-N#define INT_COMP2_TM4C129       43          // Analog Comparator 2
-N#define INT_SYSCTL_TM4C129      44          // System Control
-N#define INT_FLASH_TM4C129       45          // Flash Memory Control
-N#define INT_GPIOF_TM4C129       46          // GPIO Port F
-N#define INT_GPIOG_TM4C129       47          // GPIO Port G
-N#define INT_GPIOH_TM4C129       48          // GPIO Port H
-N#define INT_UART2_TM4C129       49          // UART2
-N#define INT_SSI1_TM4C129        50          // SSI1
-N#define INT_TIMER3A_TM4C129     51          // 16/32-Bit Timer 3A
-N#define INT_TIMER3B_TM4C129     52          // 16/32-Bit Timer 3B
-N#define INT_I2C1_TM4C129        53          // I2C1
-N#define INT_CAN0_TM4C129        54          // CAN 0
-N#define INT_CAN1_TM4C129        55          // CAN1
-N#define INT_EMAC0_TM4C129       56          // Ethernet MAC
-N#define INT_HIBERNATE_TM4C129   57          // HIB
-N#define INT_USB0_TM4C129        58          // USB MAC
-N#define INT_PWM0_3_TM4C129      59          // PWM Generator 3
-N#define INT_UDMA_TM4C129        60          // uDMA 0 Software
-N#define INT_UDMAERR_TM4C129     61          // uDMA 0 Error
-N#define INT_ADC1SS0_TM4C129     62          // ADC1 Sequence 0
-N#define INT_ADC1SS1_TM4C129     63          // ADC1 Sequence 1
-N#define INT_ADC1SS2_TM4C129     64          // ADC1 Sequence 2
-N#define INT_ADC1SS3_TM4C129     65          // ADC1 Sequence 3
-N#define INT_EPI0_TM4C129        66          // EPI 0
-N#define INT_GPIOJ_TM4C129       67          // GPIO Port J
-N#define INT_GPIOK_TM4C129       68          // GPIO Port K
-N#define INT_GPIOL_TM4C129       69          // GPIO Port L
-N#define INT_SSI2_TM4C129        70          // SSI 2
-N#define INT_SSI3_TM4C129        71          // SSI 3
-N#define INT_UART3_TM4C129       72          // UART 3
-N#define INT_UART4_TM4C129       73          // UART 4
-N#define INT_UART5_TM4C129       74          // UART 5
-N#define INT_UART6_TM4C129       75          // UART 6
-N#define INT_UART7_TM4C129       76          // UART 7
-N#define INT_I2C2_TM4C129        77          // I2C 2
-N#define INT_I2C3_TM4C129        78          // I2C 3
-N#define INT_TIMER4A_TM4C129     79          // Timer 4A
-N#define INT_TIMER4B_TM4C129     80          // Timer 4B
-N#define INT_TIMER5A_TM4C129     81          // Timer 5A
-N#define INT_TIMER5B_TM4C129     82          // Timer 5B
-N#define INT_SYSEXC_TM4C129      83          // Floating-Point Exception
-N                                            // (imprecise)
-N#define INT_I2C4_TM4C129        86          // I2C 4
-N#define INT_I2C5_TM4C129        87          // I2C 5
-N#define INT_GPIOM_TM4C129       88          // GPIO Port M
-N#define INT_GPION_TM4C129       89          // GPIO Port N
-N#define INT_TAMPER0_TM4C129     91          // Tamper
-N#define INT_GPIOP0_TM4C129      92          // GPIO Port P (Summary or P0)
-N#define INT_GPIOP1_TM4C129      93          // GPIO Port P1
-N#define INT_GPIOP2_TM4C129      94          // GPIO Port P2
-N#define INT_GPIOP3_TM4C129      95          // GPIO Port P3
-N#define INT_GPIOP4_TM4C129      96          // GPIO Port P4
-N#define INT_GPIOP5_TM4C129      97          // GPIO Port P5
-N#define INT_GPIOP6_TM4C129      98          // GPIO Port P6
-N#define INT_GPIOP7_TM4C129      99          // GPIO Port P7
-N#define INT_GPIOQ0_TM4C129      100         // GPIO Port Q (Summary or Q0)
-N#define INT_GPIOQ1_TM4C129      101         // GPIO Port Q1
-N#define INT_GPIOQ2_TM4C129      102         // GPIO Port Q2
-N#define INT_GPIOQ3_TM4C129      103         // GPIO Port Q3
-N#define INT_GPIOQ4_TM4C129      104         // GPIO Port Q4
-N#define INT_GPIOQ5_TM4C129      105         // GPIO Port Q5
-N#define INT_GPIOQ6_TM4C129      106         // GPIO Port Q6
-N#define INT_GPIOQ7_TM4C129      107         // GPIO Port Q7
-N#define INT_GPIOR_TM4C129       108         // GPIO Port R
-N#define INT_GPIOS_TM4C129       109         // GPIO Port S
-N#define INT_SHA0_TM4C129        110         // SHA/MD5
-N#define INT_AES0_TM4C129        111         // AES
-N#define INT_DES0_TM4C129        112         // DES
-N#define INT_LCD0_TM4C129        113         // LCD
-N#define INT_TIMER6A_TM4C129     114         // 16/32-Bit Timer 6A
-N#define INT_TIMER6B_TM4C129     115         // 16/32-Bit Timer 6B
-N#define INT_TIMER7A_TM4C129     116         // 16/32-Bit Timer 7A
-N#define INT_TIMER7B_TM4C129     117         // 16/32-Bit Timer 7B
-N#define INT_I2C6_TM4C129        118         // I2C 6
-N#define INT_I2C7_TM4C129        119         // I2C 7
-N#define INT_ONEWIRE0_TM4C129    121         // 1-Wire
-N#define INT_I2C8_TM4C129        125         // I2C 8
-N#define INT_I2C9_TM4C129        126         // I2C 9
-N#define INT_GPIOT_TM4C129       127         // GPIO T
-N#define NUM_INTERRUPTS_TM4C129  129
-N
-N//*****************************************************************************
-N//
-N// TM4C123 Interrupt Class Definition
-N//
-N//*****************************************************************************
-N#if defined(TARGET_IS_TM4C123_RA1) || defined(TARGET_IS_TM4C123_RA2) || \
-N    defined(TARGET_IS_TM4C123_RA3) || defined(TARGET_IS_TM4C123_RB0) || \
-N    defined(TARGET_IS_TM4C123_RB1) || defined(PART_TM4C1230C3PM) || \
-N    defined(PART_TM4C1230D5PM) || defined(PART_TM4C1230E6PM) || \
-N    defined(PART_TM4C1230H6PM) || defined(PART_TM4C1231C3PM) || \
-N    defined(PART_TM4C1231D5PM) || defined(PART_TM4C1231D5PZ) || \
-N    defined(PART_TM4C1231E6PM) || defined(PART_TM4C1231E6PZ) || \
-N    defined(PART_TM4C1231H6PM) || defined(PART_TM4C1231H6PZ) || \
-N    defined(PART_TM4C1232C3PM) || defined(PART_TM4C1232D5PM) || \
-N    defined(PART_TM4C1232E6PM) || defined(PART_TM4C1232H6PM) || \
-N    defined(PART_TM4C1233C3PM) || defined(PART_TM4C1233D5PM) || \
-N    defined(PART_TM4C1233D5PZ) || defined(PART_TM4C1233E6PM) || \
-N    defined(PART_TM4C1233E6PZ) || defined(PART_TM4C1233H6PM) || \
-N    defined(PART_TM4C1233H6PZ) || defined(PART_TM4C1236D5PM) || \
-N    defined(PART_TM4C1236E6PM) || defined(PART_TM4C1236H6PM) || \
-N    defined(PART_TM4C1237D5PM) || defined(PART_TM4C1237D5PZ) || \
-N    defined(PART_TM4C1237E6PM) || defined(PART_TM4C1237E6PZ) || \
-N    defined(PART_TM4C1237H6PM) || defined(PART_TM4C1237H6PZ) || \
-N    defined(PART_TM4C123AE6PM) || defined(PART_TM4C123AH6PM) || \
-N    defined(PART_TM4C123BE6PM) || defined(PART_TM4C123BE6PZ) || \
-N    defined(PART_TM4C123BH6PM) || defined(PART_TM4C123BH6PZ) || \
-N    defined(PART_TM4C123FE6PM) || defined(PART_TM4C123FH6PM) || \
-N    defined(PART_TM4C123GE6PM) || defined(PART_TM4C123GE6PZ) || \
-N    defined(PART_TM4C123GH6PM) || defined(PART_TM4C123GH6PZ) || \
-N    defined(PART_TM4C1231H6PGE) || defined(PART_TM4C1233H6PGE) || \
-N    defined(PART_TM4C1237H6PGE) || defined(PART_TM4C123BH6PGE) || \
-N    defined(PART_TM4C123BH6ZRB) || defined(PART_TM4C123GH6PGE) || \
-N    defined(PART_TM4C123GH6ZRB) || defined(PART_TM4C123GH6ZXR)
-X#if 0L || 0L ||     0L || 0L ||     1L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     1L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L ||     0L || 0L
-N#define INT_RESOLVE(intname, class) intname##TM4C123
-N
-N//*****************************************************************************
-N//
-N// TM4C129 Interrupt Class Definition
-N//
-N//*****************************************************************************
-N#elif defined(TARGET_IS_TM4C129_RA0) || defined(PART_TM4C1290NCPDT) || \
-N    defined(PART_TM4C1290NCZAD) || defined(PART_TM4C1292NCPDT) || \
-N    defined(PART_TM4C1292NCZAD) || defined(PART_TM4C1294KCPDT) || \
-N    defined(PART_TM4C1294NCPDT) || defined(PART_TM4C1294NCZAD) || \
-N    defined(PART_TM4C1297NCZAD) || defined(PART_TM4C1299KCZAD) || \
-N    defined(PART_TM4C1299NCZAD) || defined(PART_TM4C129CNCPDT) || \
-N    defined(PART_TM4C129CNCZAD) || defined(PART_TM4C129DNCPDT) || \
-N    defined(PART_TM4C129DNCZAD) || defined(PART_TM4C129EKCPDT) || \
-N    defined(PART_TM4C129ENCPDT) || defined(PART_TM4C129ENCZAD) || \
-N    defined(PART_TM4C129LNCZAD) || defined(PART_TM4C129XKCZAD) || \
-N    defined(PART_TM4C129XNCZAD)
-X#elif defined(TARGET_IS_TM4C129_RA0) || defined(PART_TM4C1290NCPDT) ||     defined(PART_TM4C1290NCZAD) || defined(PART_TM4C1292NCPDT) ||     defined(PART_TM4C1292NCZAD) || defined(PART_TM4C1294KCPDT) ||     defined(PART_TM4C1294NCPDT) || defined(PART_TM4C1294NCZAD) ||     defined(PART_TM4C1297NCZAD) || defined(PART_TM4C1299KCZAD) ||     defined(PART_TM4C1299NCZAD) || defined(PART_TM4C129CNCPDT) ||     defined(PART_TM4C129CNCZAD) || defined(PART_TM4C129DNCPDT) ||     defined(PART_TM4C129DNCZAD) || defined(PART_TM4C129EKCPDT) ||     defined(PART_TM4C129ENCPDT) || defined(PART_TM4C129ENCZAD) ||     defined(PART_TM4C129LNCZAD) || defined(PART_TM4C129XKCZAD) ||     defined(PART_TM4C129XNCZAD)
-S#define INT_RESOLVE(intname, class) intname##TM4C129
-S#else
-S#define INT_DEVICE_CLASS        "UNKNOWN"
-N#endif
-N
-N//*****************************************************************************
-N//
-N// Macros to resolve the INT_PERIPH_CLASS name to a common INT_PERIPH name.
-N//
-N//*****************************************************************************
-N#define INT_CONCAT(intname, class)  INT_RESOLVE(intname, class)
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the interrupt assignments.
-N//
-N//*****************************************************************************
-W "inc/hw_ints.h" 352 9 incompatible redefinition of macro "INT_ADC0SS0"  (declared at line 62 of ".\inc\tm4c123gh6pm.h")
-N#define INT_ADC0SS0             INT_CONCAT(INT_ADC0SS0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 353 9 incompatible redefinition of macro "INT_ADC0SS1"  (declared at line 63 of ".\inc\tm4c123gh6pm.h")
-N#define INT_ADC0SS1             INT_CONCAT(INT_ADC0SS1_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 354 9 incompatible redefinition of macro "INT_ADC0SS2"  (declared at line 64 of ".\inc\tm4c123gh6pm.h")
-N#define INT_ADC0SS2             INT_CONCAT(INT_ADC0SS2_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 355 9 incompatible redefinition of macro "INT_ADC0SS3"  (declared at line 65 of ".\inc\tm4c123gh6pm.h")
-N#define INT_ADC0SS3             INT_CONCAT(INT_ADC0SS3_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 356 9 incompatible redefinition of macro "INT_ADC1SS0"  (declared at line 92 of ".\inc\tm4c123gh6pm.h")
-N#define INT_ADC1SS0             INT_CONCAT(INT_ADC1SS0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 357 9 incompatible redefinition of macro "INT_ADC1SS1"  (declared at line 93 of ".\inc\tm4c123gh6pm.h")
-N#define INT_ADC1SS1             INT_CONCAT(INT_ADC1SS1_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 358 9 incompatible redefinition of macro "INT_ADC1SS2"  (declared at line 94 of ".\inc\tm4c123gh6pm.h")
-N#define INT_ADC1SS2             INT_CONCAT(INT_ADC1SS2_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 359 9 incompatible redefinition of macro "INT_ADC1SS3"  (declared at line 95 of ".\inc\tm4c123gh6pm.h")
-N#define INT_ADC1SS3             INT_CONCAT(INT_ADC1SS3_, INT_DEVICE_CLASS)
-N#define INT_AES0                INT_CONCAT(INT_AES0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 361 9 incompatible redefinition of macro "INT_CAN0"  (declared at line 85 of ".\inc\tm4c123gh6pm.h")
-N#define INT_CAN0                INT_CONCAT(INT_CAN0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 362 9 incompatible redefinition of macro "INT_CAN1"  (declared at line 86 of ".\inc\tm4c123gh6pm.h")
-N#define INT_CAN1                INT_CONCAT(INT_CAN1_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 363 9 incompatible redefinition of macro "INT_COMP0"  (declared at line 73 of ".\inc\tm4c123gh6pm.h")
-N#define INT_COMP0               INT_CONCAT(INT_COMP0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 364 9 incompatible redefinition of macro "INT_COMP1"  (declared at line 74 of ".\inc\tm4c123gh6pm.h")
-N#define INT_COMP1               INT_CONCAT(INT_COMP1_, INT_DEVICE_CLASS)
-N#define INT_COMP2               INT_CONCAT(INT_COMP2_, INT_DEVICE_CLASS)
-N#define INT_DES0                INT_CONCAT(INT_DES0_, INT_DEVICE_CLASS)
-N#define INT_EMAC0               INT_CONCAT(INT_EMAC0_, INT_DEVICE_CLASS)
-N#define INT_EPI0                INT_CONCAT(INT_EPI0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 369 9 incompatible redefinition of macro "INT_FLASH"  (declared at line 76 of ".\inc\tm4c123gh6pm.h")
-N#define INT_FLASH               INT_CONCAT(INT_FLASH_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 370 9 incompatible redefinition of macro "INT_GPIOA"  (declared at line 48 of ".\inc\tm4c123gh6pm.h")
-N#define INT_GPIOA               INT_CONCAT(INT_GPIOA_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 371 9 incompatible redefinition of macro "INT_GPIOB"  (declared at line 49 of ".\inc\tm4c123gh6pm.h")
-N#define INT_GPIOB               INT_CONCAT(INT_GPIOB_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 372 9 incompatible redefinition of macro "INT_GPIOC"  (declared at line 50 of ".\inc\tm4c123gh6pm.h")
-N#define INT_GPIOC               INT_CONCAT(INT_GPIOC_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 373 9 incompatible redefinition of macro "INT_GPIOD"  (declared at line 51 of ".\inc\tm4c123gh6pm.h")
-N#define INT_GPIOD               INT_CONCAT(INT_GPIOD_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 374 9 incompatible redefinition of macro "INT_GPIOE"  (declared at line 52 of ".\inc\tm4c123gh6pm.h")
-N#define INT_GPIOE               INT_CONCAT(INT_GPIOE_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 375 9 incompatible redefinition of macro "INT_GPIOF"  (declared at line 78 of ".\inc\tm4c123gh6pm.h")
-N#define INT_GPIOF               INT_CONCAT(INT_GPIOF_, INT_DEVICE_CLASS)
-N#define INT_GPIOG               INT_CONCAT(INT_GPIOG_, INT_DEVICE_CLASS)
-N#define INT_GPIOH               INT_CONCAT(INT_GPIOH_, INT_DEVICE_CLASS)
-N#define INT_GPIOJ               INT_CONCAT(INT_GPIOJ_, INT_DEVICE_CLASS)
-N#define INT_GPIOK               INT_CONCAT(INT_GPIOK_, INT_DEVICE_CLASS)
-N#define INT_GPIOL               INT_CONCAT(INT_GPIOL_, INT_DEVICE_CLASS)
-N#define INT_GPIOM               INT_CONCAT(INT_GPIOM_, INT_DEVICE_CLASS)
-N#define INT_GPION               INT_CONCAT(INT_GPION_, INT_DEVICE_CLASS)
-N#define INT_GPIOP0              INT_CONCAT(INT_GPIOP0_, INT_DEVICE_CLASS)
-N#define INT_GPIOP1              INT_CONCAT(INT_GPIOP1_, INT_DEVICE_CLASS)
-N#define INT_GPIOP2              INT_CONCAT(INT_GPIOP2_, INT_DEVICE_CLASS)
-N#define INT_GPIOP3              INT_CONCAT(INT_GPIOP3_, INT_DEVICE_CLASS)
-N#define INT_GPIOP4              INT_CONCAT(INT_GPIOP4_, INT_DEVICE_CLASS)
-N#define INT_GPIOP5              INT_CONCAT(INT_GPIOP5_, INT_DEVICE_CLASS)
-N#define INT_GPIOP6              INT_CONCAT(INT_GPIOP6_, INT_DEVICE_CLASS)
-N#define INT_GPIOP7              INT_CONCAT(INT_GPIOP7_, INT_DEVICE_CLASS)
-N#define INT_GPIOQ0              INT_CONCAT(INT_GPIOQ0_, INT_DEVICE_CLASS)
-N#define INT_GPIOQ1              INT_CONCAT(INT_GPIOQ1_, INT_DEVICE_CLASS)
-N#define INT_GPIOQ2              INT_CONCAT(INT_GPIOQ2_, INT_DEVICE_CLASS)
-N#define INT_GPIOQ3              INT_CONCAT(INT_GPIOQ3_, INT_DEVICE_CLASS)
-N#define INT_GPIOQ4              INT_CONCAT(INT_GPIOQ4_, INT_DEVICE_CLASS)
-N#define INT_GPIOQ5              INT_CONCAT(INT_GPIOQ5_, INT_DEVICE_CLASS)
-N#define INT_GPIOQ6              INT_CONCAT(INT_GPIOQ6_, INT_DEVICE_CLASS)
-N#define INT_GPIOQ7              INT_CONCAT(INT_GPIOQ7_, INT_DEVICE_CLASS)
-N#define INT_GPIOR               INT_CONCAT(INT_GPIOR_, INT_DEVICE_CLASS)
-N#define INT_GPIOS               INT_CONCAT(INT_GPIOS_, INT_DEVICE_CLASS)
-N#define INT_GPIOT               INT_CONCAT(INT_GPIOT_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 402 9 incompatible redefinition of macro "INT_HIBERNATE"  (declared at line 87 of ".\inc\tm4c123gh6pm.h")
-N#define INT_HIBERNATE           INT_CONCAT(INT_HIBERNATE_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 403 9 incompatible redefinition of macro "INT_I2C0"  (declared at line 56 of ".\inc\tm4c123gh6pm.h")
-N#define INT_I2C0                INT_CONCAT(INT_I2C0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 404 9 incompatible redefinition of macro "INT_I2C1"  (declared at line 83 of ".\inc\tm4c123gh6pm.h")
-N#define INT_I2C1                INT_CONCAT(INT_I2C1_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 405 9 incompatible redefinition of macro "INT_I2C2"  (declared at line 103 of ".\inc\tm4c123gh6pm.h")
-N#define INT_I2C2                INT_CONCAT(INT_I2C2_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 406 9 incompatible redefinition of macro "INT_I2C3"  (declared at line 104 of ".\inc\tm4c123gh6pm.h")
-N#define INT_I2C3                INT_CONCAT(INT_I2C3_, INT_DEVICE_CLASS)
-N#define INT_I2C4                INT_CONCAT(INT_I2C4_, INT_DEVICE_CLASS)
-N#define INT_I2C5                INT_CONCAT(INT_I2C5_, INT_DEVICE_CLASS)
-N#define INT_I2C6                INT_CONCAT(INT_I2C6_, INT_DEVICE_CLASS)
-N#define INT_I2C7                INT_CONCAT(INT_I2C7_, INT_DEVICE_CLASS)
-N#define INT_I2C8                INT_CONCAT(INT_I2C8_, INT_DEVICE_CLASS)
-N#define INT_I2C9                INT_CONCAT(INT_I2C9_, INT_DEVICE_CLASS)
-N#define INT_LCD0                INT_CONCAT(INT_LCD0_, INT_DEVICE_CLASS)
-N#define INT_ONEWIRE0            INT_CONCAT(INT_ONEWIRE0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 415 9 incompatible redefinition of macro "INT_PWM0_0"  (declared at line 58 of ".\inc\tm4c123gh6pm.h")
-N#define INT_PWM0_0              INT_CONCAT(INT_PWM0_0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 416 9 incompatible redefinition of macro "INT_PWM0_1"  (declared at line 59 of ".\inc\tm4c123gh6pm.h")
-N#define INT_PWM0_1              INT_CONCAT(INT_PWM0_1_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 417 9 incompatible redefinition of macro "INT_PWM0_2"  (declared at line 60 of ".\inc\tm4c123gh6pm.h")
-N#define INT_PWM0_2              INT_CONCAT(INT_PWM0_2_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 418 9 incompatible redefinition of macro "INT_PWM0_3"  (declared at line 89 of ".\inc\tm4c123gh6pm.h")
-N#define INT_PWM0_3              INT_CONCAT(INT_PWM0_3_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 419 9 incompatible redefinition of macro "INT_PWM0_FAULT"  (declared at line 57 of ".\inc\tm4c123gh6pm.h")
-N#define INT_PWM0_FAULT          INT_CONCAT(INT_PWM0_FAULT_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 420 9 incompatible redefinition of macro "INT_PWM1_0"  (declared at line 122 of ".\inc\tm4c123gh6pm.h")
-N#define INT_PWM1_0              INT_CONCAT(INT_PWM1_0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 421 9 incompatible redefinition of macro "INT_PWM1_1"  (declared at line 123 of ".\inc\tm4c123gh6pm.h")
-N#define INT_PWM1_1              INT_CONCAT(INT_PWM1_1_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 422 9 incompatible redefinition of macro "INT_PWM1_2"  (declared at line 124 of ".\inc\tm4c123gh6pm.h")
-N#define INT_PWM1_2              INT_CONCAT(INT_PWM1_2_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 423 9 incompatible redefinition of macro "INT_PWM1_3"  (declared at line 125 of ".\inc\tm4c123gh6pm.h")
-N#define INT_PWM1_3              INT_CONCAT(INT_PWM1_3_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 424 9 incompatible redefinition of macro "INT_PWM1_FAULT"  (declared at line 126 of ".\inc\tm4c123gh6pm.h")
-N#define INT_PWM1_FAULT          INT_CONCAT(INT_PWM1_FAULT_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 425 9 incompatible redefinition of macro "INT_QEI0"  (declared at line 61 of ".\inc\tm4c123gh6pm.h")
-N#define INT_QEI0                INT_CONCAT(INT_QEI0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 426 9 incompatible redefinition of macro "INT_QEI1"  (declared at line 84 of ".\inc\tm4c123gh6pm.h")
-N#define INT_QEI1                INT_CONCAT(INT_QEI1_, INT_DEVICE_CLASS)
-N#define INT_SHA0                INT_CONCAT(INT_SHA0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 428 9 incompatible redefinition of macro "INT_SSI0"  (declared at line 55 of ".\inc\tm4c123gh6pm.h")
-N#define INT_SSI0                INT_CONCAT(INT_SSI0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 429 9 incompatible redefinition of macro "INT_SSI1"  (declared at line 80 of ".\inc\tm4c123gh6pm.h")
-N#define INT_SSI1                INT_CONCAT(INT_SSI1_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 430 9 incompatible redefinition of macro "INT_SSI2"  (declared at line 96 of ".\inc\tm4c123gh6pm.h")
-N#define INT_SSI2                INT_CONCAT(INT_SSI2_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 431 9 incompatible redefinition of macro "INT_SSI3"  (declared at line 97 of ".\inc\tm4c123gh6pm.h")
-N#define INT_SSI3                INT_CONCAT(INT_SSI3_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 432 9 incompatible redefinition of macro "INT_SYSCTL"  (declared at line 75 of ".\inc\tm4c123gh6pm.h")
-N#define INT_SYSCTL              INT_CONCAT(INT_SYSCTL_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 433 9 incompatible redefinition of macro "INT_SYSEXC"  (declared at line 121 of ".\inc\tm4c123gh6pm.h")
-N#define INT_SYSEXC              INT_CONCAT(INT_SYSEXC_, INT_DEVICE_CLASS)
-N#define INT_TAMPER0             INT_CONCAT(INT_TAMPER0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 435 9 incompatible redefinition of macro "INT_TIMER0A"  (declared at line 67 of ".\inc\tm4c123gh6pm.h")
-N#define INT_TIMER0A             INT_CONCAT(INT_TIMER0A_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 436 9 incompatible redefinition of macro "INT_TIMER0B"  (declared at line 68 of ".\inc\tm4c123gh6pm.h")
-N#define INT_TIMER0B             INT_CONCAT(INT_TIMER0B_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 437 9 incompatible redefinition of macro "INT_TIMER1A"  (declared at line 69 of ".\inc\tm4c123gh6pm.h")
-N#define INT_TIMER1A             INT_CONCAT(INT_TIMER1A_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 438 9 incompatible redefinition of macro "INT_TIMER1B"  (declared at line 70 of ".\inc\tm4c123gh6pm.h")
-N#define INT_TIMER1B             INT_CONCAT(INT_TIMER1B_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 439 9 incompatible redefinition of macro "INT_TIMER2A"  (declared at line 71 of ".\inc\tm4c123gh6pm.h")
-N#define INT_TIMER2A             INT_CONCAT(INT_TIMER2A_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 440 9 incompatible redefinition of macro "INT_TIMER2B"  (declared at line 72 of ".\inc\tm4c123gh6pm.h")
-N#define INT_TIMER2B             INT_CONCAT(INT_TIMER2B_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 441 9 incompatible redefinition of macro "INT_TIMER3A"  (declared at line 81 of ".\inc\tm4c123gh6pm.h")
-N#define INT_TIMER3A             INT_CONCAT(INT_TIMER3A_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 442 9 incompatible redefinition of macro "INT_TIMER3B"  (declared at line 82 of ".\inc\tm4c123gh6pm.h")
-N#define INT_TIMER3B             INT_CONCAT(INT_TIMER3B_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 443 9 incompatible redefinition of macro "INT_TIMER4A"  (declared at line 105 of ".\inc\tm4c123gh6pm.h")
-N#define INT_TIMER4A             INT_CONCAT(INT_TIMER4A_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 444 9 incompatible redefinition of macro "INT_TIMER4B"  (declared at line 106 of ".\inc\tm4c123gh6pm.h")
-N#define INT_TIMER4B             INT_CONCAT(INT_TIMER4B_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 445 9 incompatible redefinition of macro "INT_TIMER5A"  (declared at line 107 of ".\inc\tm4c123gh6pm.h")
-N#define INT_TIMER5A             INT_CONCAT(INT_TIMER5A_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 446 9 incompatible redefinition of macro "INT_TIMER5B"  (declared at line 108 of ".\inc\tm4c123gh6pm.h")
-N#define INT_TIMER5B             INT_CONCAT(INT_TIMER5B_, INT_DEVICE_CLASS)
-N#define INT_TIMER6A             INT_CONCAT(INT_TIMER6A_, INT_DEVICE_CLASS)
-N#define INT_TIMER6B             INT_CONCAT(INT_TIMER6B_, INT_DEVICE_CLASS)
-N#define INT_TIMER7A             INT_CONCAT(INT_TIMER7A_, INT_DEVICE_CLASS)
-N#define INT_TIMER7B             INT_CONCAT(INT_TIMER7B_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 451 9 incompatible redefinition of macro "INT_UART0"  (declared at line 53 of ".\inc\tm4c123gh6pm.h")
-N#define INT_UART0               INT_CONCAT(INT_UART0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 452 9 incompatible redefinition of macro "INT_UART1"  (declared at line 54 of ".\inc\tm4c123gh6pm.h")
-N#define INT_UART1               INT_CONCAT(INT_UART1_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 453 9 incompatible redefinition of macro "INT_UART2"  (declared at line 79 of ".\inc\tm4c123gh6pm.h")
-N#define INT_UART2               INT_CONCAT(INT_UART2_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 454 9 incompatible redefinition of macro "INT_UART3"  (declared at line 98 of ".\inc\tm4c123gh6pm.h")
-N#define INT_UART3               INT_CONCAT(INT_UART3_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 455 9 incompatible redefinition of macro "INT_UART4"  (declared at line 99 of ".\inc\tm4c123gh6pm.h")
-N#define INT_UART4               INT_CONCAT(INT_UART4_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 456 9 incompatible redefinition of macro "INT_UART5"  (declared at line 100 of ".\inc\tm4c123gh6pm.h")
-N#define INT_UART5               INT_CONCAT(INT_UART5_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 457 9 incompatible redefinition of macro "INT_UART6"  (declared at line 101 of ".\inc\tm4c123gh6pm.h")
-N#define INT_UART6               INT_CONCAT(INT_UART6_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 458 9 incompatible redefinition of macro "INT_UART7"  (declared at line 102 of ".\inc\tm4c123gh6pm.h")
-N#define INT_UART7               INT_CONCAT(INT_UART7_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 459 9 incompatible redefinition of macro "INT_UDMA"  (declared at line 90 of ".\inc\tm4c123gh6pm.h")
-N#define INT_UDMA                INT_CONCAT(INT_UDMA_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 460 9 incompatible redefinition of macro "INT_UDMAERR"  (declared at line 91 of ".\inc\tm4c123gh6pm.h")
-N#define INT_UDMAERR             INT_CONCAT(INT_UDMAERR_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 461 9 incompatible redefinition of macro "INT_USB0"  (declared at line 88 of ".\inc\tm4c123gh6pm.h")
-N#define INT_USB0                INT_CONCAT(INT_USB0_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 462 9 incompatible redefinition of macro "INT_WATCHDOG"  (declared at line 66 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WATCHDOG            INT_CONCAT(INT_WATCHDOG_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 463 9 incompatible redefinition of macro "INT_WTIMER0A"  (declared at line 109 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WTIMER0A            INT_CONCAT(INT_WTIMER0A_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 464 9 incompatible redefinition of macro "INT_WTIMER0B"  (declared at line 110 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WTIMER0B            INT_CONCAT(INT_WTIMER0B_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 465 9 incompatible redefinition of macro "INT_WTIMER1A"  (declared at line 111 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WTIMER1A            INT_CONCAT(INT_WTIMER1A_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 466 9 incompatible redefinition of macro "INT_WTIMER1B"  (declared at line 112 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WTIMER1B            INT_CONCAT(INT_WTIMER1B_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 467 9 incompatible redefinition of macro "INT_WTIMER2A"  (declared at line 113 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WTIMER2A            INT_CONCAT(INT_WTIMER2A_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 468 9 incompatible redefinition of macro "INT_WTIMER2B"  (declared at line 114 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WTIMER2B            INT_CONCAT(INT_WTIMER2B_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 469 9 incompatible redefinition of macro "INT_WTIMER3A"  (declared at line 115 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WTIMER3A            INT_CONCAT(INT_WTIMER3A_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 470 9 incompatible redefinition of macro "INT_WTIMER3B"  (declared at line 116 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WTIMER3B            INT_CONCAT(INT_WTIMER3B_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 471 9 incompatible redefinition of macro "INT_WTIMER4A"  (declared at line 117 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WTIMER4A            INT_CONCAT(INT_WTIMER4A_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 472 9 incompatible redefinition of macro "INT_WTIMER4B"  (declared at line 118 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WTIMER4B            INT_CONCAT(INT_WTIMER4B_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 473 9 incompatible redefinition of macro "INT_WTIMER5A"  (declared at line 119 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WTIMER5A            INT_CONCAT(INT_WTIMER5A_, INT_DEVICE_CLASS)
-W "inc/hw_ints.h" 474 9 incompatible redefinition of macro "INT_WTIMER5B"  (declared at line 120 of ".\inc\tm4c123gh6pm.h")
-N#define INT_WTIMER5B            INT_CONCAT(INT_WTIMER5B_, INT_DEVICE_CLASS)
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the total number of interrupts.
-N//
-N//*****************************************************************************
-N#define NUM_INTERRUPTS          INT_CONCAT(NUM_INTERRUPTS_, INT_DEVICE_CLASS)
-N
-N//*****************************************************************************
-N//
-N// The following are defines for the total number of priority levels.
-N//
-N//*****************************************************************************
-N#define NUM_PRIORITY            8
-N#define NUM_PRIORITY_BITS       3
-N
-N#endif // __HW_INTS_H__
-L 10 "CAN.h" 2
-N#include "stdbool.h"
-N#include "driverlib/can.h"
-N#include "inc/hw_memmap.h"
-N#include "./driverlib/sysctl.h"
-N
-N
-N
-N
-N
-Nvoid CAN_Master(void);
-Nvoid CANIntHandler(void);
-Nvoid CAN_Init(void);
-Nvoid CAN_Slave(void);
-L 2 "CAN.c" 2
 N#include <stdio.h>
 N#include <stdint.h>
-N#include "menu.h"
-L 1 "menu.h" 1
 N#include <stdbool.h>
 N#include <stdint.h>
-N
 N#include "inc/hw_memmap.h"
+N
 N#include "driverlib/adc.h"
 N#include "driverlib/aes.h"
 N#include "driverlib/can.h"
@@ -65458,6 +64408,7 @@ N#include "driverlib/udma.h"
 N#include "driverlib/usb.h"
 N#include "driverlib/watchdog.h"
 N#include "tm4c123gh6pm.h"
+N
 N#include "src/Uart_helper.h"
 L 1 "src/Uart_helper.h" 1
 N#include <stdbool.h>
@@ -65541,251 +64492,108 @@ N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
 W "src/Uart_helper.h" 80 83 last line of file ends without a newline
 N//MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM
-L 44 "menu.h" 2
+L 59 "ADC.h" 2
 N
-Nvoid LedMenu(void);
+Nint Fifo_Put(int8_t data);
 N
+W "ADC.h" 62 31 last line of file ends without a newline
+Nint Fifo_Get(int8_t * datapt);
+L 2 "ADC.c" 2
 N
+Nvoid ADC0_InitTimer0ATriggerSeq3PD3(uint32_t period) {
+N	
+N	
+N	volatile uint32_t delay;
+N	
+N	SYSCTL_RCGCADC_R |= 0x01;
+X	(*((volatile uint32_t *)0x400FE638)) |= 0x01;
+N	SYSCTL_RCGCGPIO_R |= 0x8;
+X	(*((volatile uint32_t *)0x400FE608)) |= 0x8;
+N	
+N	delay = SYSCTL_RCGCGPIO_R;
+X	delay = (*((volatile uint32_t *)0x400FE608));
+N	
+N	GPIO_PORTD_DIR_R &=~ 0x08;
+X	(*((volatile uint32_t *)0x40007400)) &=~ 0x08;
+N	GPIO_PORTD_AFSEL_R |= 0x8;
+X	(*((volatile uint32_t *)0x40007420)) |= 0x8;
+N	GPIO_PORTD_DEN_R &=~ 0x08;
+X	(*((volatile uint32_t *)0x4000751C)) &=~ 0x08;
+N	GPIO_PORTD_AMSEL_R |= 0x8;
+X	(*((volatile uint32_t *)0x40007528)) |= 0x8;
+N	
+N	ADC0_PC_R = 0x01;
+X	(*((volatile uint32_t *)0x40038FC4)) = 0x01;
+N	ADC0_SSPRI_R = 0x3210;
+X	(*((volatile uint32_t *)0x40038020)) = 0x3210;
+N	
+N	SYSCTL_RCGCTIMER_R |= 0x01;
+X	(*((volatile uint32_t *)0x400FE604)) |= 0x01;
+N	
+N	delay = SYSCTL_RCGCGPIO_R;
+X	delay = (*((volatile uint32_t *)0x400FE608));
+N	
+N	TIMER0_CTL_R = 0x00000000;
+X	(*((volatile uint32_t *)0x4003000C)) = 0x00000000;
+N	TIMER0_CTL_R = 0x00000020;
+X	(*((volatile uint32_t *)0x4003000C)) = 0x00000020;
+N	TIMER0_CFG_R=0; 
+X	(*((volatile uint32_t *)0x40030000))=0; 
+N	TIMER0_TAMR_R = 0x00000002;
+X	(*((volatile uint32_t *)0x40030004)) = 0x00000002;
+N	TIMER0_TAPR_R = 0;
+X	(*((volatile uint32_t *)0x40030038)) = 0;
+N	TIMER0_TAILR_R = period-1;
+X	(*((volatile uint32_t *)0x40030028)) = period-1;
+N	TIMER0_IMR_R = 0x00000000;
+X	(*((volatile uint32_t *)0x40030018)) = 0x00000000;
+N	TIMER0_CTL_R = 0x00000001;
+X	(*((volatile uint32_t *)0x4003000C)) = 0x00000001;
 N
-N
-N
-N
-L 5 "CAN.c" 2
-N
-Nunsigned int sysClock; // clockspeed in hz
-Nvolatile bool errFlag = 0; // transmission error flag
-Xvolatile _Bool errFlag = 0; 
-Nvolatile bool rxFlag = 0; // msg recieved flag
-Xvolatile _Bool rxFlag = 0; 
-N
-Nvoid CAN_Init(){
-N	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
-X	SysCtlPeripheralEnable(0xf0000804);
-N	printf("\nInitializing CAN0RX...\n");
-N	GPIOPinConfigure(GPIO_PE4_CAN0RX);
-X	GPIOPinConfigure(0x00041008);
-N	printf("Initializing CAN0TX...\n");
-N	GPIOPinConfigure(GPIO_PE5_CAN0TX);
-X	GPIOPinConfigure(0x00041408);
-N	GPIOPinTypeCAN(GPIO_PORTE_BASE, GPIO_PIN_4 | GPIO_PIN_5);
-X	GPIOPinTypeCAN(0x40024000, 0x00000010 | 0x00000020);
-N	SysCtlPeripheralEnable(SYSCTL_PERIPH_CAN0);
-X	SysCtlPeripheralEnable(0xf0003400);
-N	printf("Initializing CAN0_BASE...\n");
-N	CANInit(CAN0_BASE);
-X	CANInit(0x40040000);
-N	CANBitRateSet(CAN0_BASE, SysCtlClockGet(), 500000);
-X	CANBitRateSet(0x40040000, SysCtlClockGet(), 500000);
-N	printf("Setting CAN BitRate: 0.5 Megabytes/sec...\n");
-N	CANIntRegister(CAN0_BASE, CANIntHandler); // use dynamic vector table allocation
-X	CANIntRegister(0x40040000, CANIntHandler); 
-N	CANIntEnable(CAN0_BASE, CAN_INT_MASTER | CAN_INT_ERROR | CAN_INT_STATUS);
-X	CANIntEnable(0x40040000, 0x00000002 | 0x00000008 | 0x00000004);
-N	IntEnable(INT_CAN0);
-X	IntEnable(55);
-N	CANEnable(CAN0_BASE);
-X	CANEnable(0x40040000);
-N	printf("CAN Initialized.\n\n");
+N	ADC0_ACTSS_R &=~ 0x08;
+X	(*((volatile uint32_t *)0x40038000)) &=~ 0x08;
+N	ADC0_EMUX_R = (ADC0_EMUX_R&0xFFFF0FFF)+0x5000;
+X	(*((volatile uint32_t *)0x40038014)) = ((*((volatile uint32_t *)0x40038014))&0xFFFF0FFF)+0x5000;
+N	ADC0_SSMUX3_R =4;
+X	(*((volatile uint32_t *)0x400380A0)) =4;
+N	ADC0_SSCTL3_R =0x6;
+X	(*((volatile uint32_t *)0x400380A4)) =0x6;
+N	ADC0_IM_R |=0x08;
+X	(*((volatile uint32_t *)0x40038008)) |=0x08;
+N	ADC0_ACTSS_R |=0x08;
+X	(*((volatile uint32_t *)0x40038000)) |=0x08;
+N	
+N	NVIC_PRI4_R = (NVIC_PRI4_R&0xFFFF00FF)|0x00004000;
+X	(*((volatile uint32_t *)0xE000E410)) = ((*((volatile uint32_t *)0xE000E410))&0xFFFF00FF)|0x00004000;
+N	NVIC_EN0_R = 1<<17;
+X	(*((volatile uint32_t *)0xE000E100)) = 1<<17;
+N	
+N	IntMasterEnable();
 N}
 N
-Nvoid CANIntHandler(void) {
-N	unsigned long status = CANIntStatus(CAN0_BASE, CAN_INT_STS_CAUSE); // read interrupt status
-X	unsigned long status = CANIntStatus(0x40040000, CAN_INT_STS_CAUSE); 
-N
-N	if(status == CAN_INT_INTID_STATUS) { // controller status interrupt
-X	if(status == 0x00008000) { 
-N		status = CANStatusGet(CAN0_BASE, CAN_STS_CONTROL); // read back error bits, do something with them?
-X		status = CANStatusGet(0x40040000, CAN_STS_CONTROL); 
-N		errFlag = 1;
-N	} 
-N	
-N	else if(status == 1) { // message object 1
-N		CANIntClear(CAN0_BASE, 1); // clear interrupt
-X		CANIntClear(0x40040000, 1); 
-N	  rxFlag = 1; // set rx flag
-N		errFlag = 0; // clear any error flags
-N	}
-N	
-N	else { // should never happen
-N		printf("Unexpected CAN bus interrupt\n");
-N	}
+Nvoid ADC0Seq3_Handler(void) {
+N	ADC0_ISC_R = 0x08;
+X	(*((volatile uint32_t *)0x4003800C)) = 0x08;
+N	Fifo_Put(ADC0_SSFIFO3_R);
+X	Fifo_Put((*((volatile uint32_t *)0x400380A8)));
 N}
 N
+Nint8_t static volatile *PutPt;
+Nint8_t static volatile *GetPt;
 N
+Nint Fifo_Put(int8_t data) {
+N	*PutPt = data;
+N	PutPt++;
+N	return(1);	
+N}
 N
-Nvoid CAN_Master(void) {
-N	tCANMsgObject msg; // the CAN message object
-N	unsigned int msgData; // the message data is four bytes long which we can allocate as an int32
-N	unsigned char *msgDataPtr = (unsigned char *)&msgData; // make a pointer to msgData so we can access individual bytes
-N	uint32_t x = 20;
-N	bool input;
-X	_Bool input;
-N	char choice;
-N	uint8_t loop =0;
-N	
-N	msgData = 0;
-N	msg.ui32MsgID = 1;
-N	msg.ui32MsgIDMask = 0;
-N	msg.ui32Flags = MSG_OBJ_TX_INT_ENABLE;
-X	msg.ui32Flags = 0x00000001;
-N	msg.ui32MsgLen = sizeof(msgDataPtr);
-N	msg.pui8MsgData = msgDataPtr;
-N	
-N	printf("\n\nInitializing node as master...\n");
-N	printf("\nWould you like to flash colors or select colors?\nEnter a 1 for flashing or 0 for selecting");
-N	input = getchar();
-X	input = getc((& __stdin));
-N
-N	if(input==1){
-N		while(1) {
-N		
-N			loop++;
-N
-N			if(loop==4){
-N				loop = 1;
-N			}
-N			switch (loop) {
-N				case 1:
-N					msgDataPtr[0] = 128;
-N					msgDataPtr[1] = 0;
-N					msgDataPtr[2] = 0;
-N					msgDataPtr[3] = 128;
-N				break;
-N				case 2:
-N					msgDataPtr[0] = 0;
-N					msgDataPtr[1] = 128;
-N					msgDataPtr[2] = 0;
-N					msgDataPtr[3] = 128;
-N				break;	
-N				case 3:
-N					msgDataPtr[0] = 0;
-N					msgDataPtr[1] = 0;
-N					msgDataPtr[2] = 128;
-N					msgDataPtr[3] = 128;
-N				break;
-N			}
-N			if(x == 100){
-N				x = 20;
-N			}
-N			printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); // write colour to UART for debugging
-N			CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_TX); // send as msg object 1		
-X			CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
-N			
-W "CAN.c" 104 4 function "delayMS" declared implicitly
-N			delayMS(x); // wait 100ms
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
-X			GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
-X			GPIOPinWrite(0x40025000, 0x00000004, 0xF);
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
-X			GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-N			delayMS(x);
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
-X			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x0);
-X			GPIOPinWrite(0x40025000, 0x00000004, 0x0);
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
-X			GPIOPinWrite(0x40025000, 0x00000008, 0x0);
-N			x++;	
-N			if(errFlag) { // check for errors
-N				printf("CAN Bus Error\n");
-N			}
-N		}
-N	}
-N	if(input==0){
-N		while(1){
-N			printf("\n\nRed, blue, or green? Enter 1, 2, or 3 respectively.\n");
-N			choice = getchar();
-X			choice = getc((& __stdin));
-N			switch(choice){
-N				case 1:
-N					msgDataPtr[0] = 128;
-N					msgDataPtr[1] = 0;
-N					msgDataPtr[2] = 0;
-N					msgDataPtr[3] = 128;
-N				break;
-N				case 2:
-N					msgDataPtr[0] = 0;
-N					msgDataPtr[1] = 128;
-N					msgDataPtr[2] = 0;
-N					msgDataPtr[3] = 128;
-N				break;
-N		
-N				case 3:
-N					msgDataPtr[0] = 0;
-N					msgDataPtr[1] = 0;
-N					msgDataPtr[2] = 128;
-N					msgDataPtr[3] = 128;
-N				break;
-N			}
-N			
-N			printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); // write colour to UART for debugging
-N			CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_TX); // send as msg object 1
-X			CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
-N		
-N			if(errFlag) { // check for errors
-N				printf("CAN Bus Error\n");
-N			}
-N		}	
-N	}
+Nint Fifo_Get(int8_t * datapt) {
+N	*datapt = *GetPt;
+N	GetPt++;
+N	return(1);	
 N}
 N
 N
 N
-Nvoid CAN_Slave(){
 N
-N  volatile uint32_t ui32Loop;
-N	tCANMsgObject msg; // the CAN msg object
-N	unsigned char msgData[8]; // 8 byte buffer for rx message data
-N	unsigned int data[4];
 N
-N	msg.ui32MsgID = 0;
-N	msg.ui32MsgIDMask = 0;
-N	msg.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
-X	msg.ui32Flags = 0x00000002 | 0x00000008;
-N	msg.ui32MsgLen = 8; // allow up to 8 bytes
-N
-N	// Load msg into CAN peripheral message object 1 so it can trigger interrupts on any matched rx messages
-N	CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_RX);
-X	CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_RX);
-N	printf("\n\nInitializing node as slave...\n");
-N	
-N	
-N	while(1) {
-N		if(rxFlag) { // rx interrupt has occured
-N			msg.pui8MsgData = msgData; // set pointer to rx buffer
-N			CANMessageGet(CAN0_BASE, 1, &msg, 0); // read CAN message object 1 from CAN peripheral
-X			CANMessageGet(0x40040000, 1, &msg, 0); 
-N			
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
-X			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x0);
-X			GPIOPinWrite(0x40025000, 0x00000004, 0x0);
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
-X			GPIOPinWrite(0x40025000, 0x00000008, 0x0);
-N			
-N			rxFlag = 0; // clear rx flag
-N
-N			if(msg.ui32Flags & MSG_OBJ_DATA_LOST) { // check msg flags for any lost messages
-X			if(msg.ui32Flags & 0x00000100) { 
-N				printf("CAN message loss detected\n");
-N			}
-N	    printf("Received colour\tr: %d  b: %d  g: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
-N			
-N			if (msgData[0] == 128){
-N				GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
-X				GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-N			}
-N			if (msgData[1] == 128){
-N				GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
-X				GPIOPinWrite(0x40025000, 0x00000004, 0xF);
-N			}
-N			if (msgData[2] == 128){
-N				GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
-X				GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-N			}
-N		}
-N	}
-W "CAN.c" 200 2 last line of file ends without a newline
-W "CAN.c" 161 15 variable "data"  was declared but never referenced
-N}

@@ -1,7 +1,9 @@
 #include <stdbool.h>
 #include <stdint.h>
-#include "inc/hw_memmap.h"
+#include <stdio.h>
 
+
+#include "inc/hw_memmap.h"
 #include "driverlib/adc.h"
 #include "driverlib/aes.h"
 #include "driverlib/can.h"
@@ -42,7 +44,5 @@
 #include "tm4c123gh6pm.h"
 
 #include "src/Uart_helper.h"
-
-
 
 void SetupHardware(void);

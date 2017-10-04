@@ -2,6 +2,7 @@
 .\rvmdk\project.o: project.h
 .\rvmdk\project.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\rvmdk\project.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
+.\rvmdk\project.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
 .\rvmdk\project.o: inc/hw_memmap.h
 .\rvmdk\project.o: driverlib/adc.h
 .\rvmdk\project.o: driverlib/aes.h
@@ -42,4 +43,3 @@
 .\rvmdk\project.o: driverlib/watchdog.h
 .\rvmdk\project.o: .\inc\tm4c123gh6pm.h
 .\rvmdk\project.o: src/Uart_helper.h
-.\rvmdk\project.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

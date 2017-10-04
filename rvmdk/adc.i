@@ -1,5 +1,6 @@
-#line 1 "CAN.c"
-#line 1 "CAN.h"
+#line 1 "ADC.c"
+#line 1 "ADC.h"
+#line 1 "project.h"
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdbool.h"
  
 
@@ -18,7 +19,7 @@
 
 
 
-#line 2 "CAN.h"
+#line 2 "project.h"
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdint.h"
  
  
@@ -275,7 +276,7 @@ typedef unsigned     long long uintmax_t;
 
 
  
-#line 3 "CAN.h"
+#line 3 "project.h"
 #line 1 "C:\\Keil_v5\\ARM\\ARMCC\\Bin\\..\\include\\stdio.h"
  
  
@@ -1175,7 +1176,9 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 
  
 
-#line 4 "CAN.h"
+#line 4 "project.h"
+
+
 #line 1 "inc/hw_memmap.h"
 
 
@@ -1236,13 +1239,6 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 
                                             
 #line 150 "inc/hw_memmap.h"
-
-#line 5 "CAN.h"
-#line 1 "project.h"
-#line 2 "project.h"
-#line 3 "project.h"
-#line 4 "project.h"
-
 
 #line 7 "project.h"
 #line 1 "driverlib/adc.h"
@@ -17892,7 +17888,9 @@ int fgetc(FILE *f);
 #line 47 "project.h"
 
 void SetupHardware(void);
-#line 6 "CAN.h"
+#line 2 "ADC.h"
+
+#line 4 "ADC.h"
 
 #line 1 "inc/hw_types.h"
 
@@ -18027,542 +18025,59 @@ void SetupHardware(void);
 
 
 
-#line 8 "CAN.h"
-#line 1 "inc/hw_can.h"
+#line 6 "ADC.h"
+#line 7 "ADC.h"
+#line 8 "ADC.h"
+#line 9 "ADC.h"
+#line 10 "ADC.h"
+#line 11 "ADC.h"
+#line 12 "ADC.h"
+
+#line 14 "ADC.h"
+#line 15 "ADC.h"
+#line 16 "ADC.h"
+#line 17 "ADC.h"
+#line 18 "ADC.h"
+
+#line 20 "ADC.h"
+#line 21 "ADC.h"
+#line 22 "ADC.h"
+#line 23 "ADC.h"
+#line 24 "ADC.h"
+#line 25 "ADC.h"
+#line 26 "ADC.h"
+#line 27 "ADC.h"
+#line 28 "ADC.h"
+#line 29 "ADC.h"
+#line 30 "ADC.h"
+#line 31 "ADC.h"
+#line 32 "ADC.h"
+#line 33 "ADC.h"
+#line 34 "ADC.h"
+#line 35 "ADC.h"
+#line 36 "ADC.h"
+#line 37 "ADC.h"
+#line 38 "ADC.h"
+#line 39 "ADC.h"
+#line 40 "ADC.h"
+#line 41 "ADC.h"
+#line 42 "ADC.h"
+#line 43 "ADC.h"
+#line 44 "ADC.h"
+#line 45 "ADC.h"
+#line 46 "ADC.h"
+#line 47 "ADC.h"
+#line 48 "ADC.h"
+#line 49 "ADC.h"
+#line 50 "ADC.h"
+#line 51 "ADC.h"
+#line 52 "ADC.h"
+#line 53 "ADC.h"
+#line 54 "ADC.h"
+#line 55 "ADC.h"
+#line 56 "ADC.h"
+#line 57 "ADC.h"
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 55 "inc/hw_can.h"
-                                            
-#line 86 "inc/hw_can.h"
-
-
-
-
-
-
-#line 99 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-                                            
-#line 120 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 145 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 169 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 201 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 255 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 311 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 365 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 9 "CAN.h"
-#line 1 "inc/hw_ints.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 58 "inc/hw_ints.h"
-
-
-
-
-
-
-#line 94 "inc/hw_ints.h"
-                                            
-#line 170 "inc/hw_ints.h"
-
-
-
-
-
-
-#line 244 "inc/hw_ints.h"
-                                            
-#line 283 "inc/hw_ints.h"
-
-
-
-
-
-
-#line 318 "inc/hw_ints.h"
-
-
-
-
-
-
-#line 339 "inc/hw_ints.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 475 "inc/hw_ints.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 10 "CAN.h"
-#line 11 "CAN.h"
-#line 12 "CAN.h"
-#line 13 "CAN.h"
-#line 14 "CAN.h"
-
-
-
-
-
-void CAN_Master(void);
-void CANIntHandler(void);
-void CAN_Init(void);
-void CAN_Slave(void);
-#line 2 "CAN.c"
-#line 3 "CAN.c"
-#line 4 "CAN.c"
-#line 1 "menu.h"
-#line 2 "menu.h"
-#line 3 "menu.h"
-
-#line 5 "menu.h"
-#line 6 "menu.h"
-#line 7 "menu.h"
-#line 8 "menu.h"
-#line 9 "menu.h"
-#line 10 "menu.h"
-#line 11 "menu.h"
-#line 12 "menu.h"
-#line 13 "menu.h"
-#line 14 "menu.h"
-#line 15 "menu.h"
-#line 16 "menu.h"
-#line 17 "menu.h"
-#line 18 "menu.h"
-#line 19 "menu.h"
-#line 20 "menu.h"
-#line 21 "menu.h"
-#line 22 "menu.h"
-#line 23 "menu.h"
-#line 24 "menu.h"
-#line 25 "menu.h"
-#line 26 "menu.h"
-#line 27 "menu.h"
-#line 28 "menu.h"
-#line 29 "menu.h"
-#line 30 "menu.h"
-#line 31 "menu.h"
-#line 32 "menu.h"
-#line 33 "menu.h"
-#line 34 "menu.h"
-#line 35 "menu.h"
-#line 36 "menu.h"
-#line 37 "menu.h"
-#line 38 "menu.h"
-#line 39 "menu.h"
-#line 40 "menu.h"
-#line 41 "menu.h"
-#line 42 "menu.h"
-#line 43 "menu.h"
 #line 1 "src/Uart_helper.h"
 #line 2 "src/Uart_helper.h"
 #line 3 "src/Uart_helper.h"
@@ -18644,209 +18159,78 @@ int fgetc(FILE *f);
 
 
 
-#line 44 "menu.h"
+#line 59 "ADC.h"
 
-void LedMenu(void);
+int Fifo_Put(int8_t data);
 
+int Fifo_Get(int8_t * datapt);
+#line 2 "ADC.c"
 
+void ADC0_InitTimer0ATriggerSeq3PD3(uint32_t period) {
+	
+	
+	volatile uint32_t delay;
+	
+	(*((volatile uint32_t *)0x400FE638)) |= 0x01;
+	(*((volatile uint32_t *)0x400FE608)) |= 0x8;
+	
+	delay = (*((volatile uint32_t *)0x400FE608));
+	
+	(*((volatile uint32_t *)0x40007400)) &=~ 0x08;
+	(*((volatile uint32_t *)0x40007420)) |= 0x8;
+	(*((volatile uint32_t *)0x4000751C)) &=~ 0x08;
+	(*((volatile uint32_t *)0x40007528)) |= 0x8;
+	
+	(*((volatile uint32_t *)0x40038FC4)) = 0x01;
+	(*((volatile uint32_t *)0x40038020)) = 0x3210;
+	
+	(*((volatile uint32_t *)0x400FE604)) |= 0x01;
+	
+	delay = (*((volatile uint32_t *)0x400FE608));
+	
+	(*((volatile uint32_t *)0x4003000C)) = 0x00000000;
+	(*((volatile uint32_t *)0x4003000C)) = 0x00000020;
+	(*((volatile uint32_t *)0x40030000))=0; 
+	(*((volatile uint32_t *)0x40030004)) = 0x00000002;
+	(*((volatile uint32_t *)0x40030038)) = 0;
+	(*((volatile uint32_t *)0x40030028)) = period-1;
+	(*((volatile uint32_t *)0x40030018)) = 0x00000000;
+	(*((volatile uint32_t *)0x4003000C)) = 0x00000001;
 
-
-
-
-#line 5 "CAN.c"
-
-unsigned int sysClock; 
-volatile _Bool errFlag = 0; 
-volatile _Bool rxFlag = 0; 
-
-void CAN_Init(){
-	SysCtlPeripheralEnable(0xf0000804);
-	printf("\nInitializing CAN0RX...\n");
-	GPIOPinConfigure(0x00041008);
-	printf("Initializing CAN0TX...\n");
-	GPIOPinConfigure(0x00041408);
-	GPIOPinTypeCAN(0x40024000, 0x00000010 | 0x00000020);
-	SysCtlPeripheralEnable(0xf0003400);
-	printf("Initializing CAN0_BASE...\n");
-	CANInit(0x40040000);
-	CANBitRateSet(0x40040000, SysCtlClockGet(), 500000);
-	printf("Setting CAN BitRate: 0.5 Megabytes/sec...\n");
-	CANIntRegister(0x40040000, CANIntHandler); 
-	CANIntEnable(0x40040000, 0x00000002 | 0x00000008 | 0x00000004);
-	IntEnable(55);
-	CANEnable(0x40040000);
-	printf("CAN Initialized.\n\n");
+	(*((volatile uint32_t *)0x40038000)) &=~ 0x08;
+	(*((volatile uint32_t *)0x40038014)) = ((*((volatile uint32_t *)0x40038014))&0xFFFF0FFF)+0x5000;
+	(*((volatile uint32_t *)0x400380A0)) =4;
+	(*((volatile uint32_t *)0x400380A4)) =0x6;
+	(*((volatile uint32_t *)0x40038008)) |=0x08;
+	(*((volatile uint32_t *)0x40038000)) |=0x08;
+	
+	(*((volatile uint32_t *)0xE000E410)) = ((*((volatile uint32_t *)0xE000E410))&0xFFFF00FF)|0x00004000;
+	(*((volatile uint32_t *)0xE000E100)) = 1<<17;
+	
+	IntMasterEnable();
 }
 
-void CANIntHandler(void) {
-	unsigned long status = CANIntStatus(0x40040000, CAN_INT_STS_CAUSE); 
-
-	if(status == 0x00008000) { 
-		status = CANStatusGet(0x40040000, CAN_STS_CONTROL); 
-		errFlag = 1;
-	} 
-	
-	else if(status == 1) { 
-		CANIntClear(0x40040000, 1); 
-	  rxFlag = 1; 
-		errFlag = 0; 
-	}
-	
-	else { 
-		printf("Unexpected CAN bus interrupt\n");
-	}
+void ADC0Seq3_Handler(void) {
+	(*((volatile uint32_t *)0x4003800C)) = 0x08;
+	Fifo_Put((*((volatile uint32_t *)0x400380A8)));
 }
 
+int8_t static volatile *PutPt;
+int8_t static volatile *GetPt;
 
+int Fifo_Put(int8_t data) {
+	*PutPt = data;
+	PutPt++;
+	return(1);	
+}
 
-void CAN_Master(void) {
-	tCANMsgObject msg; 
-	unsigned int msgData; 
-	unsigned char *msgDataPtr = (unsigned char *)&msgData; 
-	uint32_t x = 20;
-	_Bool input;
-	char choice;
-	uint8_t loop =0;
-	
-	msgData = 0;
-	msg.ui32MsgID = 1;
-	msg.ui32MsgIDMask = 0;
-	msg.ui32Flags = 0x00000001;
-	msg.ui32MsgLen = sizeof(msgDataPtr);
-	msg.pui8MsgData = msgDataPtr;
-	
-	printf("\n\nInitializing node as master...\n");
-	printf("\nWould you like to flash colors or select colors?\nEnter a 1 for flashing or 0 for selecting");
-	input = getc((& __stdin));
-
-	if(input==1){
-		while(1) {
-		
-			loop++;
-
-			if(loop==4){
-				loop = 1;
-			}
-			switch (loop) {
-				case 1:
-					msgDataPtr[0] = 128;
-					msgDataPtr[1] = 0;
-					msgDataPtr[2] = 0;
-					msgDataPtr[3] = 128;
-				break;
-				case 2:
-					msgDataPtr[0] = 0;
-					msgDataPtr[1] = 128;
-					msgDataPtr[2] = 0;
-					msgDataPtr[3] = 128;
-				break;	
-				case 3:
-					msgDataPtr[0] = 0;
-					msgDataPtr[1] = 0;
-					msgDataPtr[2] = 128;
-					msgDataPtr[3] = 128;
-				break;
-			}
-			if(x == 100){
-				x = 20;
-			}
-			printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); 
-			CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
-			
-			delayMS(x); 
-			GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-			GPIOPinWrite(0x40025000, 0x00000004, 0xF);
-			GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-			delayMS(x);
-			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
-			GPIOPinWrite(0x40025000, 0x00000004, 0x0);
-			GPIOPinWrite(0x40025000, 0x00000008, 0x0);
-			x++;	
-			if(errFlag) { 
-				printf("CAN Bus Error\n");
-			}
-		}
-	}
-	if(input==0){
-		while(1){
-			printf("\n\nRed, blue, or green? Enter 1, 2, or 3 respectively.\n");
-			choice = getc((& __stdin));
-			switch(choice){
-				case 1:
-					msgDataPtr[0] = 128;
-					msgDataPtr[1] = 0;
-					msgDataPtr[2] = 0;
-					msgDataPtr[3] = 128;
-				break;
-				case 2:
-					msgDataPtr[0] = 0;
-					msgDataPtr[1] = 128;
-					msgDataPtr[2] = 0;
-					msgDataPtr[3] = 128;
-				break;
-		
-				case 3:
-					msgDataPtr[0] = 0;
-					msgDataPtr[1] = 0;
-					msgDataPtr[2] = 128;
-					msgDataPtr[3] = 128;
-				break;
-			}
-			
-			printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); 
-			CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
-		
-			if(errFlag) { 
-				printf("CAN Bus Error\n");
-			}
-		}	
-	}
+int Fifo_Get(int8_t * datapt) {
+	*datapt = *GetPt;
+	GetPt++;
+	return(1);	
 }
 
 
 
-void CAN_Slave(){
 
-  volatile uint32_t ui32Loop;
-	tCANMsgObject msg; 
-	unsigned char msgData[8]; 
-	unsigned int data[4];
 
-	msg.ui32MsgID = 0;
-	msg.ui32MsgIDMask = 0;
-	msg.ui32Flags = 0x00000002 | 0x00000008;
-	msg.ui32MsgLen = 8; 
-
-	
-	CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_RX);
-	printf("\n\nInitializing node as slave...\n");
-	
-	
-	while(1) {
-		if(rxFlag) { 
-			msg.pui8MsgData = msgData; 
-			CANMessageGet(0x40040000, 1, &msg, 0); 
-			
-			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
-			GPIOPinWrite(0x40025000, 0x00000004, 0x0);
-			GPIOPinWrite(0x40025000, 0x00000008, 0x0);
-			
-			rxFlag = 0; 
-
-			if(msg.ui32Flags & 0x00000100) { 
-				printf("CAN message loss detected\n");
-			}
-	    printf("Received colour\tr: %d  b: %d  g: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
-			
-			if (msgData[0] == 128){
-				GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-			}
-			if (msgData[1] == 128){
-				GPIOPinWrite(0x40025000, 0x00000004, 0xF);
-			}
-			if (msgData[2] == 128){
-				GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-			}
-		}
-	}
-}
