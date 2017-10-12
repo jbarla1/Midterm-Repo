@@ -10697,66 +10697,6 @@ int fputc(int ch, FILE *f);
 
 int fgetc(FILE *f);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #line 2 "src\\Uart_helper.c"
 
 

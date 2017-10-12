@@ -17829,66 +17829,6 @@ int fputc(int ch, FILE *f);
 
 int fgetc(FILE *f);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #line 47 "project.h"
 
 void SetupHardware(void);
@@ -18583,66 +18523,6 @@ int fputc(int ch, FILE *f);
 
 
 int fgetc(FILE *f);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 #line 44 "menu.h"
 
