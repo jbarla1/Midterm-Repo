@@ -64133,6 +64133,9 @@ N
 L 47 "project.h" 2
 N
 Nvoid SetupHardware(void);
+Nvoid receive(void);
+W "project.h" 50 21 last line of file ends without a newline
+Nvoid transmit(void);
 L 6 "Systic.h" 2
 N#include "Uart_helper.h"
 L 1 ".\src\Uart_helper.h" 1
@@ -64295,9 +64298,6 @@ Nvoid SysTickPeriodSet(uint32_t ui32Period);
 Nuint32_t SysTickValueGet(void);
 Nvoid SysCtlClockSet(uint32_t ui32Config);
 N
-N
-N
-N
 Nvoid ClockSetup() {
 N	SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC |   SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);
 X	SysCtlClockSet(0x07800000 | 0x00003800 |   0x00000000 | 0x00000540);
@@ -64305,18 +64305,14 @@ N	SysTickEnable();
 N	SysTickPeriodSet(16000000); 
 N}
 N
-N
 Nvoid delay(uint32_t duration)
 N{
 N	uint32_t time =0;
 N	printf("waiter");
-N
-N
-Nwhile (time < duration){
-N	printf("waiting");
-N	time = SysTickValueGet();	
+N	while (time < duration){
+N		printf("waiting");
+N		time = SysTickValueGet();	
 N	}
-N
 N }
 N
 N void delayMS(int ms) {

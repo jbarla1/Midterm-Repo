@@ -451,26 +451,6 @@
               <FilePath>.\GPIO_init.h</FilePath>
             </File>
             <File>
-              <FileName>PWM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\PWM.c</FilePath>
-            </File>
-            <File>
-              <FileName>PWM.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\PWM.h</FilePath>
-            </File>
-            <File>
-              <FileName>Menu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Menu.c</FilePath>
-            </File>
-            <File>
-              <FileName>Menu.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\Menu.h</FilePath>
-            </File>
-            <File>
               <FileName>CAN.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\CAN.c</FilePath>
@@ -479,16 +459,6 @@
               <FileName>CAN.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\CAN.h</FilePath>
-            </File>
-            <File>
-              <FileName>ADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\ADC.c</FilePath>
-            </File>
-            <File>
-              <FileName>ADC.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\ADC.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -12,27 +12,20 @@ void SysTickPeriodSet(uint32_t ui32Period);
 uint32_t SysTickValueGet(void);
 void SysCtlClockSet(uint32_t ui32Config);
 
-
-
-
 void ClockSetup() {
 	SysCtlClockSet(SYSCTL_SYSDIV_1 | SYSCTL_USE_OSC |   SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ);
 	SysTickEnable(); 
 	SysTickPeriodSet(16000000); 
 }
 
-
 void delay(uint32_t duration)
 {
 	uint32_t time =0;
 	printf("waiter");
-
-
-while (time < duration){
-	printf("waiting");
-	time = SysTickValueGet();	
+	while (time < duration){
+		printf("waiting");
+		time = SysTickValueGet();	
 	}
-
  }
 
  void delayMS(int ms) {

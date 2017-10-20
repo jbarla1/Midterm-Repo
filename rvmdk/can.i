@@ -17832,6 +17832,8 @@ int fgetc(FILE *f);
 #line 47 "project.h"
 
 void SetupHardware(void);
+void receive(void);
+void transmit(void);
 #line 6 "CAN.h"
 
 #line 1 "inc/hw_types.h"
@@ -18594,7 +18596,6 @@ void CANIntHandler(void) {
 }
 
 
-
 void CAN_Transmit(uint8_t data[4]){
 	
 	msgDataPtr[0] = data[0];
@@ -18641,23 +18642,18 @@ void Init_Receiver(){
 	while (1) {}
 }	
 
+
+
 void CAN_Slave(){
-
-
 	unsigned char msgData[8]; 
 	unsigned int data[4];
-
-
 	
 	CANMessageSet(0x40040000, 1, &msg[1], MSG_OBJ_TYPE_RX);
 	printf("\n\nInitializing node as slave...\n");
 	
-	
 	while(1) {
 		if(rxFlag) { 
-
 			CANMessageGet(0x40040000, 1, &msg[1], 0); 
-			
 			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
 			GPIOPinWrite(0x40025000, 0x00000004, 0x0);
 			GPIOPinWrite(0x40025000, 0x00000008, 0x0);

@@ -29,41 +29,38 @@ __error__(char *pcFilename, uint32_t ui32Line)
 //=============================================================================================//
 
 int  main(void) {
-	bool select;
 	SetupHardware();
 	CAN_Init();
-	uint8_t data[4];
-	while(1) {	
-		printf("recieve=1 or transmit=0?");
-		select = getchar();
-		if(select){
-			CAN_Slave();	
-		}
-		while(1){	
-			data[0] = 0;
-			data[1] = 0;
-			data[2] = 128; 
-			data[3] = 128;			
-			printf("sending message");
-			CAN_Transmit(data);
-			printf("send again?");
-			getchar(); 
-			data[0] = 0;
-			data[1] = 128;
-			data[2] = 0; 
-			data[3] = 128;			
-			printf("sending message");
-			CAN_Transmit(data);
-			printf("send again?");
-			getchar();
-		
-		
-		
-		}	
-	}	
+	
+	receive();
+	transmit();
+}	
+
+void receive() {
+	CAN_Slave();	
 }
 
-
+void transmit() {
+	uint8_t data[4];
+	while(1){	
+		data[0] = 0;
+		data[1] = 0;
+		data[2] = 128; 
+		data[3] = 128;			
+		printf("sending message");
+		CAN_Transmit(data);
+		printf("send again?");
+		getchar(); 
+		data[0] = 0;
+		data[1] = 128;
+		data[2] = 0; 
+		data[3] = 128;			
+		printf("sending message");
+		CAN_Transmit(data);
+		printf("send again?");
+		getchar();
+	}
+}
 
 void SetupHardware(){
 		ClockSetup();

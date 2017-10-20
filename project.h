@@ -46,3 +46,5 @@
 #include "src/Uart_helper.h"
 
 void SetupHardware(void);
+void receive(void);
+void transmit(void);

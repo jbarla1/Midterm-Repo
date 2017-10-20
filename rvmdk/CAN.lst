@@ -64133,6 +64133,9 @@ N
 L 47 "project.h" 2
 N
 Nvoid SetupHardware(void);
+Nvoid receive(void);
+W "project.h" 50 21 last line of file ends without a newline
+Nvoid transmit(void);
 L 6 "CAN.h" 2
 N
 N#include "inc/hw_types.h"
@@ -65507,7 +65510,6 @@ N	}
 N}
 N
 N
-N
 Nvoid CAN_Transmit(uint8_t data[4]){
 N	
 N	msgDataPtr[0] = data[0];
@@ -65556,29 +65558,24 @@ N	CANMessageSet(CAN0_BASE, 1, &msg[1], MSG_OBJ_TYPE_RX);
 X	CANMessageSet(0x40040000, 1, &msg[1], MSG_OBJ_TYPE_RX);	
 N	
 N	while (1) {}
-W "CAN.c" 89 16 variable "msgData"  was declared but never referenced
-W "CAN.c" 90 15 variable "data"  was declared but never referenced
+W "CAN.c" 88 16 variable "msgData"  was declared but never referenced
+W "CAN.c" 89 15 variable "data"  was declared but never referenced
 N}	
 N
+N
+N
 Nvoid CAN_Slave(){
-N
-N
 N	unsigned char msgData[8]; // 8 byte buffer for rx message data
 N	unsigned int data[4];
-N
-N
 N	// Load msg into CAN peripheral message object 1 so it can trigger interrupts on any matched rx messages
 N	CANMessageSet(CAN0_BASE, 1, &msg[1], MSG_OBJ_TYPE_RX);
 X	CANMessageSet(0x40040000, 1, &msg[1], MSG_OBJ_TYPE_RX);
 N	printf("\n\nInitializing node as slave...\n");
 N	
-N	
 N	while(1) {
 N		if(rxFlag) { // rx interrupt has occured
-N
-N			CANMessageGet(CAN0_BASE, 1, &msg[1], 0); // read CAN message object 1 from CAN peripheral
+N			CANMessageGet(CAN0_BASE, 1, &msg[1], 0); // read CAN message object 1 from CAN peripheral	
 X			CANMessageGet(0x40040000, 1, &msg[1], 0); 
-N			
 N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
 X			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
 N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x0);
@@ -65608,7 +65605,7 @@ X				GPIOPinWrite(0x40025000, 0x00000008, 0xF);
 N			}
 N		}
 N	}
-W "CAN.c" 102 15 variable "data"  was declared but never referenced
+W "CAN.c" 101 15 variable "data"  was declared but never referenced
 N}
 N
 N

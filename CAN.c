@@ -48,7 +48,6 @@ void CANIntHandler(void) {
 }
 
 
-
 void CAN_Transmit(uint8_t data[4]){
 	
 	msgDataPtr[0] = data[0];
@@ -95,23 +94,18 @@ void Init_Receiver(){
 	while (1) {}
 }	
 
+
+
 void CAN_Slave(){
-
-
 	unsigned char msgData[8]; // 8 byte buffer for rx message data
 	unsigned int data[4];
-
-
 	// Load msg into CAN peripheral message object 1 so it can trigger interrupts on any matched rx messages
 	CANMessageSet(CAN0_BASE, 1, &msg[1], MSG_OBJ_TYPE_RX);
 	printf("\n\nInitializing node as slave...\n");
 	
-	
 	while(1) {
 		if(rxFlag) { // rx interrupt has occured
-
-			CANMessageGet(CAN0_BASE, 1, &msg[1], 0); // read CAN message object 1 from CAN peripheral
-			
+			CANMessageGet(CAN0_BASE, 1, &msg[1], 0); // read CAN message object 1 from CAN peripheral	
 			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
 			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x0);
 			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);

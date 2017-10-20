@@ -21,10 +21,7 @@ void SelectionMenu() {
 				//CAN_Slave();
 			}
 		break;
-		case 3:
-			PWM_Setup();
-			printf("\n Sending PWM...");
-			pulse();
+
 		break;	
 	}
 }	

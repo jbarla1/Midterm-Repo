@@ -17832,6 +17832,8 @@ int fgetc(FILE *f);
 #line 47 "project.h"
 
 void SetupHardware(void);
+void receive(void);
+void transmit(void);
 #line 6 "Systic.h"
 #line 1 ".\\src\\Uart_helper.h"
 #line 2 ".\\src\\Uart_helper.h"
@@ -17948,27 +17950,20 @@ void SysTickPeriodSet(uint32_t ui32Period);
 uint32_t SysTickValueGet(void);
 void SysCtlClockSet(uint32_t ui32Config);
 
-
-
-
 void ClockSetup() {
 	SysCtlClockSet(0x07800000 | 0x00003800 |   0x00000000 | 0x00000540);
 	SysTickEnable(); 
 	SysTickPeriodSet(16000000); 
 }
 
-
 void delay(uint32_t duration)
 {
 	uint32_t time =0;
 	printf("waiter");
-
-
-while (time < duration){
-	printf("waiting");
-	time = SysTickValueGet();	
+	while (time < duration){
+		printf("waiting");
+		time = SysTickValueGet();	
 	}
-
  }
 
  void delayMS(int ms) {
