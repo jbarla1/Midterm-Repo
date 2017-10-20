@@ -37,8 +37,11 @@ void CANIntHandler(void) {
 		status = CANStatusGet(CAN0_BASE, CAN_STS_CONTROL); // read back error bits, do something with them?
 		errFlag = 1;
 	} 
-	else if(status == 1) { // message object 1
+	else if(status == 1) { // message object 1 this is the function to be editted to modify the receive message objects.
 		CANIntClear(CAN0_BASE, 1); // clear interrupt
+		
+		// CANMessageGet()?		
+		
 	  rxFlag = 1; // set rx flag
 		errFlag = 0; // clear any error flags
 	}
@@ -78,11 +81,6 @@ void Init_Structs(){
 }
 
 
-
-
-
-
-
 void Init_Receiver(){
 	
 	unsigned char msgData[8]; // 8 byte buffer for rx message data
@@ -116,7 +114,6 @@ void CAN_Slave(){
 				printf("CAN message loss detected\n");
 			}
 	    printf("Received colour\tr: %d  b: %d  g: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
-			
 			if (msgData[0] == 128){
 				GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
 			}
