@@ -65341,15 +65341,30 @@ N#include "stdbool.h"
 N#include "driverlib/can.h"
 N#include "inc/hw_memmap.h"
 N#include "./driverlib/sysctl.h"
+N	
+N//struct msg {
+N//	uint32_t ui32MsgID;
+N//	uint32_t ui32MsgIDMask;
+N	//uint32_t ui32Flags;
+N//	uint32_t ui32MsgLen;
+N//	uint8_t  *pui8MsgData;
+N//};
+N
+N//struct msg msg1, msg2, msg3, msg4;
 N
 N
 N
+N// create function to initialize every struct value 
 N
 N
-Nvoid CAN_Master(void);
+N
+Nvoid Init_Receiver(void);
+Nvoid CAN_Transmit(uint8_t data[4]);
 Nvoid CANIntHandler(void);
 Nvoid CAN_Init(void);
 Nvoid CAN_Slave(void);
+W "CAN.h" 36 25 last line of file ends without a newline
+Nvoid Init_Structs(void);
 L 2 "CAN.c" 2
 N#include <stdio.h>
 N#include <stdint.h>
@@ -65435,6 +65450,10 @@ Nvolatile bool errFlag = 0; // transmission error flag
 Xvolatile _Bool errFlag = 0; 
 Nvolatile bool rxFlag = 0; // msg recieved flag
 Xvolatile _Bool rxFlag = 0; 
+Nunsigned int msgData; // the message data is four bytes long which we can allocate as an int32
+Nunsigned char *msgDataPtr = (unsigned char *)&msgData; // make a pointer to msgData so we can access individual bytes
+N
+NtCANMsgObject msg[2];
 N
 Nvoid CAN_Init(){
 N	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
@@ -65464,26 +65483,24 @@ X	IntEnable(55);
 N	CANEnable(CAN0_BASE);
 X	CANEnable(0x40040000);
 N	printf("CAN Initialized.\n\n");
+N	Init_Structs();
 N}
 N
 Nvoid CANIntHandler(void) {
 N	unsigned long status = CANIntStatus(CAN0_BASE, CAN_INT_STS_CAUSE); // read interrupt status
 X	unsigned long status = CANIntStatus(0x40040000, CAN_INT_STS_CAUSE); 
-N
 N	if(status == CAN_INT_INTID_STATUS) { // controller status interrupt
 X	if(status == 0x00008000) { 
 N		status = CANStatusGet(CAN0_BASE, CAN_STS_CONTROL); // read back error bits, do something with them?
 X		status = CANStatusGet(0x40040000, CAN_STS_CONTROL); 
 N		errFlag = 1;
 N	} 
-N	
 N	else if(status == 1) { // message object 1
 N		CANIntClear(CAN0_BASE, 1); // clear interrupt
 X		CANIntClear(0x40040000, 1); 
 N	  rxFlag = 1; // set rx flag
 N		errFlag = 0; // clear any error flags
 N	}
-N	
 N	else { // should never happen
 N		printf("Unexpected CAN bus interrupt\n");
 N	}
@@ -65491,149 +65508,76 @@ N}
 N
 N
 N
-Nvoid CAN_Master(void) {
-N	tCANMsgObject msg; // the CAN message object
-N	unsigned int msgData; // the message data is four bytes long which we can allocate as an int32
-N	unsigned char *msgDataPtr = (unsigned char *)&msgData; // make a pointer to msgData so we can access individual bytes
-N	uint32_t x = 20;
-N	bool input;
-X	_Bool input;
-N	char choice;
-N	uint8_t loop =0;
+Nvoid CAN_Transmit(uint8_t data[4]){
 N	
-N	msgData = 0;
-N	msg.ui32MsgID = 1;
-N	msg.ui32MsgIDMask = 0;
-N	msg.ui32Flags = MSG_OBJ_TX_INT_ENABLE;
-X	msg.ui32Flags = 0x00000001;
-N	msg.ui32MsgLen = sizeof(msgDataPtr);
-N	msg.pui8MsgData = msgDataPtr;
+N	msgDataPtr[0] = data[0];
+N	msgDataPtr[1] = data[1];
+N	msgDataPtr[2] = data[2];
+N	msgDataPtr[3] = data[3];
 N	
-N	printf("\n\nInitializing node as master...\n");
-N	printf("\nWould you like to flash colors or select colors?\nEnter a 1 for flashing or 0 for selecting");
-N	input = getchar();
-X	input = getc((& __stdin));
-N
-N	if(input==1){
-N		while(1) {
+N	printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); // write colour to UART for debugging
+N	CANMessageSet(CAN0_BASE, 1, &msg[0], MSG_OBJ_TYPE_TX); // send as msg object 1
+X	CANMessageSet(0x40040000, 1, &msg[0], MSG_OBJ_TYPE_TX); 
 N		
-N			loop++;
-N
-N			if(loop==4){
-N				loop = 1;
-N			}
-N			switch (loop) {
-N				case 1:
-N					msgDataPtr[0] = 128;
-N					msgDataPtr[1] = 0;
-N					msgDataPtr[2] = 0;
-N					msgDataPtr[3] = 128;
-N				break;
-N				case 2:
-N					msgDataPtr[0] = 0;
-N					msgDataPtr[1] = 128;
-N					msgDataPtr[2] = 0;
-N					msgDataPtr[3] = 128;
-N				break;	
-N				case 3:
-N					msgDataPtr[0] = 0;
-N					msgDataPtr[1] = 0;
-N					msgDataPtr[2] = 128;
-N					msgDataPtr[3] = 128;
-N				break;
-N			}
-N			if(x == 100){
-N				x = 20;
-N			}
-N			printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); // write colour to UART for debugging
-N			CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_TX); // send as msg object 1		
-X			CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
-N			
-W "CAN.c" 104 4 function "delayMS" declared implicitly
-N			delayMS(x); // wait 100ms
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0xF);
-X			GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0xF);
-X			GPIOPinWrite(0x40025000, 0x00000004, 0xF);
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0xF);
-X			GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-N			delayMS(x);
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
-X			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_2, 0x0);
-X			GPIOPinWrite(0x40025000, 0x00000004, 0x0);
-N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_3, 0x0);
-X			GPIOPinWrite(0x40025000, 0x00000008, 0x0);
-N			x++;	
-N			if(errFlag) { // check for errors
-N				printf("CAN Bus Error\n");
-N			}
-N		}
+N	if(errFlag) { // check for errors
+N		printf("CAN Bus Error\n");
 N	}
-N	if(input==0){
-N		while(1){
-N			printf("\n\nRed, blue, or green? Enter 1, 2, or 3 respectively.\n");
-N			choice = getchar();
-X			choice = getc((& __stdin));
-N			switch(choice){
-N				case 1:
-N					msgDataPtr[0] = 128;
-N					msgDataPtr[1] = 0;
-N					msgDataPtr[2] = 0;
-N					msgDataPtr[3] = 128;
-N				break;
-N				case 2:
-N					msgDataPtr[0] = 0;
-N					msgDataPtr[1] = 128;
-N					msgDataPtr[2] = 0;
-N					msgDataPtr[3] = 128;
-N				break;
-N		
-N				case 3:
-N					msgDataPtr[0] = 0;
-N					msgDataPtr[1] = 0;
-N					msgDataPtr[2] = 128;
-N					msgDataPtr[3] = 128;
-N				break;
-N			}
-N			
-N			printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); // write colour to UART for debugging
-N			CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_TX); // send as msg object 1
-X			CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_TX); 
-N		
-N			if(errFlag) { // check for errors
-N				printf("CAN Bus Error\n");
-N			}
-N		}	
-N	}
+N}
+N
+Nvoid Init_Structs(){
+N	msg[0].ui32MsgID = 1; // set up transmit message
+N  msg[0].ui32MsgIDMask = 0;
+N  msg[0].ui32Flags = MSG_OBJ_TX_INT_ENABLE; 
+X  msg[0].ui32Flags = 0x00000001; 
+N  msg[0].ui32MsgLen = sizeof(msgDataPtr);
+N  msg[0].pui8MsgData = msgDataPtr; 
+N	
+N	msg[1].ui32MsgID = 0; // set up receive message
+N  msg[1].ui32MsgIDMask = 0;
+N  msg[1].ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
+X  msg[1].ui32Flags = 0x00000002 | 0x00000008;
+N  msg[1].ui32MsgLen = 8;
+N	msg[1].pui8MsgData = msgDataPtr; // set pointer to rx buffer
 N}
 N
 N
 N
-Nvoid CAN_Slave(){
 N
-N  volatile uint32_t ui32Loop;
-N	tCANMsgObject msg; // the CAN msg object
+N
+N
+N
+Nvoid Init_Receiver(){
+N	
 N	unsigned char msgData[8]; // 8 byte buffer for rx message data
 N	unsigned int data[4];
 N
-N	msg.ui32MsgID = 0;
-N	msg.ui32MsgIDMask = 0;
-N	msg.ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
-X	msg.ui32Flags = 0x00000002 | 0x00000008;
-N	msg.ui32MsgLen = 8; // allow up to 8 bytes
+N	// Load msg into CAN peripheral message object 1 so it can trigger interrupts on any matched rx messages
+N	CANMessageSet(CAN0_BASE, 1, &msg[1], MSG_OBJ_TYPE_RX);	
+X	CANMessageSet(0x40040000, 1, &msg[1], MSG_OBJ_TYPE_RX);	
+N	
+N	while (1) {}
+W "CAN.c" 89 16 variable "msgData"  was declared but never referenced
+W "CAN.c" 90 15 variable "data"  was declared but never referenced
+N}	
+N
+Nvoid CAN_Slave(){
+N
+N
+N	unsigned char msgData[8]; // 8 byte buffer for rx message data
+N	unsigned int data[4];
+N
 N
 N	// Load msg into CAN peripheral message object 1 so it can trigger interrupts on any matched rx messages
-N	CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_RX);
-X	CANMessageSet(0x40040000, 1, &msg, MSG_OBJ_TYPE_RX);
+N	CANMessageSet(CAN0_BASE, 1, &msg[1], MSG_OBJ_TYPE_RX);
+X	CANMessageSet(0x40040000, 1, &msg[1], MSG_OBJ_TYPE_RX);
 N	printf("\n\nInitializing node as slave...\n");
 N	
 N	
 N	while(1) {
 N		if(rxFlag) { // rx interrupt has occured
-N			msg.pui8MsgData = msgData; // set pointer to rx buffer
-N			CANMessageGet(CAN0_BASE, 1, &msg, 0); // read CAN message object 1 from CAN peripheral
-X			CANMessageGet(0x40040000, 1, &msg, 0); 
+N
+N			CANMessageGet(CAN0_BASE, 1, &msg[1], 0); // read CAN message object 1 from CAN peripheral
+X			CANMessageGet(0x40040000, 1, &msg[1], 0); 
 N			
 N			GPIOPinWrite(GPIO_PORTF_BASE, GPIO_PIN_1, 0x0);
 X			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
@@ -65644,8 +65588,8 @@ X			GPIOPinWrite(0x40025000, 0x00000008, 0x0);
 N			
 N			rxFlag = 0; // clear rx flag
 N
-N			if(msg.ui32Flags & MSG_OBJ_DATA_LOST) { // check msg flags for any lost messages
-X			if(msg.ui32Flags & 0x00000100) { 
+N			if(msg[1].ui32Flags & MSG_OBJ_DATA_LOST) { // check msg flags for any lost messages
+X			if(msg[1].ui32Flags & 0x00000100) { 
 N				printf("CAN message loss detected\n");
 N			}
 N	    printf("Received colour\tr: %d  b: %d  g: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
@@ -65664,6 +65608,7 @@ X				GPIOPinWrite(0x40025000, 0x00000008, 0xF);
 N			}
 N		}
 N	}
-W "CAN.c" 200 2 last line of file ends without a newline
-W "CAN.c" 161 15 variable "data"  was declared but never referenced
+W "CAN.c" 102 15 variable "data"  was declared but never referenced
 N}
+N
+N

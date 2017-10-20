@@ -64136,6 +64136,7 @@ S{
 S}
 N#endif
 N
+N
 N//=============================================================================================//
 N//	Jacob Clark
 N//	10/6/2016
@@ -64157,30 +64158,58 @@ N// be sent to the program to select menu options.
 N//=============================================================================================//
 N
 Nint  main(void) {
-N	bool choice = 1;
-X	_Bool choice = 1;
+N	bool select;
+X	_Bool select;
 N	SetupHardware();
-N
-N	while(choice) {
-W "project.c" 35 3 function "SelectionMenu" declared implicitly
-N		SelectionMenu(); 		
-N		printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
-N		choice = getchar();
-X		choice = getc((& __stdin));
+W "project.c" 34 2 function "CAN_Init" declared implicitly
+N	CAN_Init();
+N	uint8_t data[4];
+N	while(1) {	
+N		printf("recieve=1 or transmit=0?");
+N		select = getchar();
+X		select = getc((& __stdin));
+N		if(select){
+W "project.c" 40 4 function "CAN_Slave" declared implicitly
+N			CAN_Slave();	
+N		}
+N		while(1){	
+N			data[0] = 0;
+N			data[1] = 0;
+N			data[2] = 128; 
+N			data[3] = 128;			
+N			printf("sending message");
+W "project.c" 48 4 function "CAN_Transmit" declared implicitly
+N			CAN_Transmit(data);
+N			printf("send again?");
+N			getchar(); 
+X			getc((& __stdin)); 
+N			data[0] = 0;
+N			data[1] = 128;
+N			data[2] = 0; 
+N			data[3] = 128;			
+N			printf("sending message");
+N			CAN_Transmit(data);
+N			printf("send again?");
+N			getchar();
+X			getc((& __stdin));
+N		
+N		
+N		
+N		}	
 N	}	
 N}
 N
 N
 N
 Nvoid SetupHardware(){
-W "project.c" 44 3 function "ClockSetup" declared implicitly
+W "project.c" 69 3 function "ClockSetup" declared implicitly
 N		ClockSetup();
-W "project.c" 45 3 function "GPIO_Setup" declared implicitly
+W "project.c" 70 3 function "GPIO_Setup" declared implicitly
 N		GPIO_Setup();
 N		UartSetup();
 N		printf("Debugging interface initialized...\n");
 N		printf("GPIO ports initialized...\n");
 N		printf("Clock settings initialized...\n\n");
 N		printf("Set-up Complete.\n\n");
-W "project.c" 51 2 last line of file ends without a newline
+W "project.c" 76 2 last line of file ends without a newline
 N}

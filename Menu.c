@@ -15,10 +15,10 @@ void SelectionMenu() {
 			inputChar2 = getchar();
 		
 			if(inputChar2==1){
-				CAN_Master();
+
 			}
 			else if(inputChar2==2){
-				CAN_Slave();
+				//CAN_Slave();
 			}
 		break;
 		case 3:

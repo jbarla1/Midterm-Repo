@@ -17851,14 +17851,39 @@ void SetupHardware(void);
 
 
 
-int  main(void) {
-	_Bool choice = 1;
-	SetupHardware();
 
-	while(choice) {
-		SelectionMenu(); 		
-		printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
-		choice = getc((& __stdin));
+int  main(void) {
+	_Bool select;
+	SetupHardware();
+	CAN_Init();
+	uint8_t data[4];
+	while(1) {	
+		printf("recieve=1 or transmit=0?");
+		select = getc((& __stdin));
+		if(select){
+			CAN_Slave();	
+		}
+		while(1){	
+			data[0] = 0;
+			data[1] = 0;
+			data[2] = 128; 
+			data[3] = 128;			
+			printf("sending message");
+			CAN_Transmit(data);
+			printf("send again?");
+			getc((& __stdin)); 
+			data[0] = 0;
+			data[1] = 128;
+			data[2] = 0; 
+			data[3] = 128;			
+			printf("sending message");
+			CAN_Transmit(data);
+			printf("send again?");
+			getc((& __stdin));
+		
+		
+		
+		}	
 	}	
 }
 

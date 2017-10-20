@@ -17847,10 +17847,10 @@ void SelectionMenu() {
 			inputChar2 = getc((& __stdin));
 		
 			if(inputChar2==1){
-				CAN_Master();
+
 			}
 			else if(inputChar2==2){
-				CAN_Slave();
+				
 			}
 		break;
 		case 3:
