@@ -29,7 +29,7 @@
 
 
 void Init_Receiver(void);
-void CAN_Transmit(uint8_t data[4]);
+void CAN_Transmit(uint8_t data[4], uint8_t msgSelect);
 void CANIntHandler(void);
 void CAN_Init(void);
 void CAN_Slave(void);

@@ -5,7 +5,7 @@
 <h2>Tool Versions:</h2>
 IDE-Version: µVision V5.24.2.0
 Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Jacob Clark, Lawrence Technological University, LIC=----
+License Information: Jake Clark, LTU, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.24.1
@@ -21,8 +21,8 @@ Target DLL:      lmidk-agdi.dll V???
 Dialog DLL:      TCM.DLL V1.32.0.0
  
 <h2>Project:</h2>
-C:\Users\Jake\Documents\GitHub\Midterm-Repo\project.uvprojx
-Project File Date:  10/19/2017
+C:\Users\jclark2\Documents\GitHub\Midterm-Repo\project.uvprojx
+Project File Date:  10/20/2017
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 5 (build 528)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
@@ -49,15 +49,15 @@ project.h(50): warning:  #1-D: last line of file ends without a newline
   void transmit(void);
 project.c(33): warning:  #223-D: function "CAN_Init" declared implicitly
   	CAN_Init();
-project.c(40): warning:  #223-D: function "CAN_Slave" declared implicitly
-  	CAN_Slave();	
-project.c(51): warning:  #223-D: function "CAN_Transmit" declared implicitly
-  		CAN_Transmit(data);
-project.c(66): warning:  #223-D: function "ClockSetup" declared implicitly
+project.c(40): warning:  #223-D: function "Init_Receiver" declared implicitly
+  	Init_Receiver();	
+project.c(60): warning:  #223-D: function "CAN_Transmit" declared implicitly
+  		CAN_Transmit(data, msgSelect);
+project.c(77): warning:  #223-D: function "ClockSetup" declared implicitly
   		ClockSetup();
-project.c(67): warning:  #223-D: function "GPIO_Setup" declared implicitly
+project.c(78): warning:  #223-D: function "GPIO_Setup" declared implicitly
   		GPIO_Setup();
-project.c(73): warning:  #1-D: last line of file ends without a newline
+project.c(84): warning:  #1-D: last line of file ends without a newline
   }
 project.c: 11 warnings, 0 errors
 compiling Systic.c...
@@ -254,18 +254,12 @@ inc/hw_ints.h(474): warning:  #47-D: incompatible redefinition of macro "INT_WTI
   #define INT_WTIMER5B            INT_CONCAT(INT_WTIMER5B_, INT_DEVICE_CLASS)
 CAN.h(36): warning:  #1-D: last line of file ends without a newline
   void Init_Structs(void);
-CAN.c(88): warning:  #177-D: variable "msgData"  was declared but never referenced
-  	unsigned char msgData[8]; // 8 byte buffer for rx message data
-CAN.c(89): warning:  #177-D: variable "data"  was declared but never referenced
-  	unsigned int data[4];
-CAN.c(101): warning:  #177-D: variable "data"  was declared but never referenced
-  	unsigned int data[4];
-CAN.c: 87 warnings, 0 errors
+CAN.c: 84 warnings, 0 errors
 linking...
-Program Size: Code=5352 RO-data=1480 RW-data=1644 ZI-data=300  
+Program Size: Code=5336 RO-data=1480 RW-data=1644 ZI-data=356  
 FromELF: creating hex file...
 After Build - User command #1: fromelf --bin --output .\rvmdk\project.bin .\rvmdk\project.axf
-".\rvmdk\project.axf" - 0 Error(s), 109 Warning(s).
+".\rvmdk\project.axf" - 0 Error(s), 106 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -288,7 +282,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.0.1
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:05
 </pre>
 </body>
 </html>

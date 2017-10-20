@@ -64165,49 +64165,60 @@ N	SetupHardware();
 W "project.c" 33 2 function "CAN_Init" declared implicitly
 N	CAN_Init();
 N	
-N	receive();
+N//	receive();
 N	transmit();
 N}	
 N
 Nvoid receive() {
-W "project.c" 40 2 function "CAN_Slave" declared implicitly
-N	CAN_Slave();	
+W "project.c" 40 2 function "Init_Receiver" declared implicitly
+N	Init_Receiver();	
+N	//CAN_Slave();
 N}
 N
 Nvoid transmit() {
 N	uint8_t data[4];
+N	uint8_t msgSelect;
+N	
+N	
+N	
 N	while(1){	
+N		printf("which message?\n");
+N		msgSelect = getchar();
+X		msgSelect = getc((& __stdin));
+N		
 N		data[0] = 0;
 N		data[1] = 0;
 N		data[2] = 128; 
-N		data[3] = 128;			
-N		printf("sending message");
-W "project.c" 51 3 function "CAN_Transmit" declared implicitly
-N		CAN_Transmit(data);
-N		printf("send again?");
+N		data[3] = 128;		
+N		
+N		printf("sending message\n");
+W "project.c" 60 3 function "CAN_Transmit" declared implicitly
+N		CAN_Transmit(data, msgSelect);
+N
+N		printf("send again?\n");
 N		getchar(); 
 X		getc((& __stdin)); 
+N
 N		data[0] = 0;
 N		data[1] = 128;
 N		data[2] = 0; 
 N		data[3] = 128;			
-N		printf("sending message");
-N		CAN_Transmit(data);
-N		printf("send again?");
-N		getchar();
-X		getc((& __stdin));
+N
+N		printf("sending message\n");
+N		CAN_Transmit(data, msgSelect);
+N		
 N	}
 N}
 N
 Nvoid SetupHardware(){
-W "project.c" 66 3 function "ClockSetup" declared implicitly
+W "project.c" 77 3 function "ClockSetup" declared implicitly
 N		ClockSetup();
-W "project.c" 67 3 function "GPIO_Setup" declared implicitly
+W "project.c" 78 3 function "GPIO_Setup" declared implicitly
 N		GPIO_Setup();
 N		UartSetup();
 N		printf("Debugging interface initialized...\n");
 N		printf("GPIO ports initialized...\n");
 N		printf("Clock settings initialized...\n\n");
 N		printf("Set-up Complete.\n\n");
-W "project.c" 73 2 last line of file ends without a newline
+W "project.c" 84 2 last line of file ends without a newline
 N}

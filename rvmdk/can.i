@@ -18468,7 +18468,7 @@ void transmit(void);
 
 
 void Init_Receiver(void);
-void CAN_Transmit(uint8_t data[4]);
+void CAN_Transmit(uint8_t data[4], uint8_t msgSelect);
 void CANIntHandler(void);
 void CAN_Init(void);
 void CAN_Slave(void);
@@ -18557,13 +18557,44 @@ volatile _Bool rxFlag = 0;
 unsigned int msgData; 
 unsigned char *msgDataPtr = (unsigned char *)&msgData; 
 
-tCANMsgObject msg[2];
+unsigned int msgData2; 
+unsigned char *msgDataPtr2 = (unsigned char *)&msgData2; 
+
+unsigned char RxMsgData[8]; 
+
+unsigned char MsgData[2][8];
+
+tCANMsgObject msg[4];
+
+void Init_Structs(){
+	msg[0].ui32MsgID = 0x03; 
+  msg[0].ui32MsgIDMask = 0x00;
+  msg[0].ui32Flags = 0x00000001 | 0x00000008;  
+  msg[0].ui32MsgLen = sizeof(msgDataPtr);
+  msg[0].pui8MsgData = msgDataPtr; 
+	
+	msg[1].ui32MsgID = 0x03; 
+  msg[1].ui32MsgIDMask = 0x00; 
+  msg[1].ui32Flags = 0x00000002 | 0x00000008;
+  msg[1].ui32MsgLen = 8;
+	msg[1].pui8MsgData = RxMsgData; 
+	
+	msg[2].ui32MsgID = 0x02; 
+  msg[2].ui32MsgIDMask = 0x00;
+  msg[2].ui32Flags = 0x00000001 | 0x00000008; 
+  msg[2].ui32MsgLen = sizeof(msgDataPtr2);
+  msg[2].pui8MsgData = msgDataPtr2; 
+	
+
+
+
+
+
+}
 
 void CAN_Init(){
 	SysCtlPeripheralEnable(0xf0000804);
-	printf("\nInitializing CAN0RX...\n");
 	GPIOPinConfigure(0x00041008);
-	printf("Initializing CAN0TX...\n");
 	GPIOPinConfigure(0x00041408);
 	GPIOPinTypeCAN(0x40024000, 0x00000010 | 0x00000020);
 	SysCtlPeripheralEnable(0xf0003400);
@@ -18580,102 +18611,105 @@ void CAN_Init(){
 }
 
 void CANIntHandler(void) {
+	printf("Interrupt occurred\n");
 	unsigned long status = CANIntStatus(0x40040000, CAN_INT_STS_CAUSE); 
+	
+	printf("status: %d\n", status);
+	
 	if(status == 0x00008000) { 
 		status = CANStatusGet(0x40040000, CAN_STS_CONTROL); 
 		errFlag = 1;
+		printf("test0\n");
 	} 
 	else if(status == 1) { 
 		CANIntClear(0x40040000, 1); 
 	  rxFlag = 1; 
 		errFlag = 0; 
+		printf("test1\n");
+		CANMessageGet(0x40040000, 1, &msg[1], 0);	
+		
+		printf("B1 Received colour\tr: %d  b: %d  g: %d  i: %d\n", RxMsgData[0], RxMsgData[1], RxMsgData[2], RxMsgData[3]);
+		
+		if(RxMsgData[3]==1){
+			MsgData[0][0] = RxMsgData[0];
+			MsgData[0][1] = RxMsgData[1];
+			MsgData[0][2] = RxMsgData[2];
+			MsgData[0][3] = RxMsgData[3];
+		}
+	  else if(RxMsgData[3]==2){
+			MsgData[1][0] = RxMsgData[0];
+			MsgData[1][1] = RxMsgData[1];
+			MsgData[1][2] = RxMsgData[2];
+			MsgData[1][3] = RxMsgData[3];
+		}
+		
+	}
+	else if(status == 2) { 
+		CANIntClear(0x40040000, 2);
+	  rxFlag = 1; 
+		errFlag = 0; 
+		printf("test2\n");
+		CANMessageGet(0x40040000, 3, &msg[3], 0);
 	}
 	else { 
 		printf("Unexpected CAN bus interrupt\n");
 	}
 }
 
-
-void CAN_Transmit(uint8_t data[4]){
-	
-	msgDataPtr[0] = data[0];
-	msgDataPtr[1] = data[1];
-	msgDataPtr[2] = data[2];
-	msgDataPtr[3] = data[3];
-	
-	printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); 
-	CANMessageSet(0x40040000, 1, &msg[0], MSG_OBJ_TYPE_TX); 
-		
+void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
+	if(msgSelect==1){
+		msgDataPtr[0] = data[0];
+		msgDataPtr[1] = data[1];
+		msgDataPtr[2] = data[2];
+		msgDataPtr[3] = 1;
+		printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); 
+		CANMessageSet(0x40040000, 1, &msg[0], MSG_OBJ_TYPE_TX); 
+	}
+	else if(msgSelect==2){
+		msgDataPtr2[0] = data[0];
+		msgDataPtr2[1] = data[1];
+		msgDataPtr2[2] = data[2];
+		msgDataPtr2[3] = 2;
+		printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr2[0], msgDataPtr2[1], msgDataPtr2[2]); 
+		CANMessageSet(0x40040000, 2, &msg[2], MSG_OBJ_TYPE_TX); 
+	}
 	if(errFlag) { 
 		printf("CAN Bus Error\n");
 	}
 }
 
-void Init_Structs(){
-	msg[0].ui32MsgID = 1; 
-  msg[0].ui32MsgIDMask = 0;
-  msg[0].ui32Flags = 0x00000001; 
-  msg[0].ui32MsgLen = sizeof(msgDataPtr);
-  msg[0].pui8MsgData = msgDataPtr; 
-	
-	msg[1].ui32MsgID = 0; 
-  msg[1].ui32MsgIDMask = 0;
-  msg[1].ui32Flags = 0x00000002 | 0x00000008;
-  msg[1].ui32MsgLen = 8;
-	msg[1].pui8MsgData = msgDataPtr; 
-}
-
-
-
-
-
-
 
 void Init_Receiver(){
-	
-	unsigned char msgData[8]; 
-	unsigned int data[4];
 
+	
 	
 	CANMessageSet(0x40040000, 1, &msg[1], MSG_OBJ_TYPE_RX);	
 	
-	while (1) {}
+	
+	while (1) {
+		
+		if(rxFlag){		  
+				printf("B1 Received colour\tr: %d  b: %d  g: %d  i: %d\n", MsgData[0][0], MsgData[0][1], MsgData[0][2], MsgData[0][3]);
+				printf("B2 Received colour\tr: %d  b: %d  g: %d  i: %d\n", MsgData[1][0], MsgData[1][1], MsgData[1][2], MsgData[1][3]);
+				rxFlag=0;
+		}
+			if(msg[1].ui32Flags & 0x00000100) { 
+				printf("CAN message loss detected\n");
+			}
+			if (MsgData[0][0] == 128){
+				GPIOPinWrite(0x40025000, 0x00000002, 0xF);
+			}
+			if (MsgData[0][1] == 128){
+				GPIOPinWrite(0x40025000, 0x00000004, 0xF);
+			}
+			if (MsgData[0][2] == 128){
+				GPIOPinWrite(0x40025000, 0x00000008, 0xF);
+		}
+	}
 }	
 
 
 
-void CAN_Slave(){
-	unsigned char msgData[8]; 
-	unsigned int data[4];
-	
-	CANMessageSet(0x40040000, 1, &msg[1], MSG_OBJ_TYPE_RX);
-	printf("\n\nInitializing node as slave...\n");
-	
-	while(1) {
-		if(rxFlag) { 
-			CANMessageGet(0x40040000, 1, &msg[1], 0); 
-			GPIOPinWrite(0x40025000, 0x00000002, 0x0);
-			GPIOPinWrite(0x40025000, 0x00000004, 0x0);
-			GPIOPinWrite(0x40025000, 0x00000008, 0x0);
-			
-			rxFlag = 0; 
 
-			if(msg[1].ui32Flags & 0x00000100) { 
-				printf("CAN message loss detected\n");
-			}
-	    printf("Received colour\tr: %d  b: %d  g: %d  i: %d\n", msgData[0], msgData[1], msgData[2], msgData[3]);
-			
-			if (msgData[0] == 128){
-				GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-			}
-			if (msgData[1] == 128){
-				GPIOPinWrite(0x40025000, 0x00000004, 0xF);
-			}
-			if (msgData[2] == 128){
-				GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-			}
-		}
-	}
-}
 
 

@@ -421,14 +421,14 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>Systic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\Systic.c</FilePath>
-            </File>
-            <File>
               <FileName>Systic.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Systic.h</FilePath>
+            </File>
+            <File>
+              <FileName>Systic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Systic.c</FilePath>
             </File>
             <File>
               <FileName>Uart_helper.c</FileName>

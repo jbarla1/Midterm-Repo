@@ -32,33 +32,44 @@ int  main(void) {
 	SetupHardware();
 	CAN_Init();
 	
-	receive();
+//	receive();
 	transmit();
 }	
 
 void receive() {
-	CAN_Slave();	
+	Init_Receiver();	
+	//CAN_Slave();
 }
 
 void transmit() {
 	uint8_t data[4];
+	uint8_t msgSelect;
+	
+	
+	
 	while(1){	
+		printf("which message?\n");
+		msgSelect = getchar();
+		
 		data[0] = 0;
 		data[1] = 0;
 		data[2] = 128; 
-		data[3] = 128;			
-		printf("sending message");
-		CAN_Transmit(data);
-		printf("send again?");
+		data[3] = 128;		
+		
+		printf("sending message\n");
+		CAN_Transmit(data, msgSelect);
+
+		printf("send again?\n");
 		getchar(); 
+
 		data[0] = 0;
 		data[1] = 128;
 		data[2] = 0; 
 		data[3] = 128;			
-		printf("sending message");
-		CAN_Transmit(data);
-		printf("send again?");
-		getchar();
+
+		printf("sending message\n");
+		CAN_Transmit(data, msgSelect);
+		
 	}
 }
 
