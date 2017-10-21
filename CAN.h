@@ -34,3 +34,6 @@ void CANIntHandler(void);
 void CAN_Init(void);
 void CAN_Slave(void);
 void Init_Structs(void);
+void Init_Structs1(void);
+void Init_Structs2(void);
+void Init_Structs3(void);
