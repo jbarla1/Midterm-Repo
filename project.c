@@ -6,8 +6,6 @@ __error__(char *pcFilename, uint32_t ui32Line)
 {
 }
 #endif
-
-
 //=============================================================================================//
 //	Jacob Clark
 //	10/6/2016
@@ -44,7 +42,7 @@ void transmit() {
 		printf("sending message\n");
 		CAN_Transmit(data, msgSelect);
 
-		printf("send again?\n");
+		printf("send again new data on same message?\n");
 		getchar(); 
 
 		data[0] = 0;
@@ -56,7 +54,6 @@ void transmit() {
 		CAN_Transmit(data, msgSelect);
 	}
 }
-
 
 void SetupHardware(){
 		ClockSetup();

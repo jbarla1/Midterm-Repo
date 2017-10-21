@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\rvmdk\project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\rvmdk\project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Fri Oct 20 20:41:18 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Fri Oct 20 21:24:19 2017
 <BR><P>
 <H3>Maximum Stack Usage =         84 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -118,14 +118,14 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
 </UL>
 
-<P><STRONG><a name="[5]"></a>CANIntHandler</STRONG> (Thumb, 236 bytes, Stack size 32 bytes, can.o(i.CANIntHandler))
+<P><STRONG><a name="[5]"></a>CANIntHandler</STRONG> (Thumb, 230 bytes, Stack size 32 bytes, can.o(i.CANIntHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = CANIntHandler &rArr; __2printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANStatusGet
+<BR>[Calls]<UL><LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANStatusGet
 <LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANMessageGet
-<LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANIntStatus
+<LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANIntStatus
 <LI><a href="#[10]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANIntClear
-<LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> can.o(i.CAN_Init)
 </UL>
@@ -138,7 +138,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
 </UL>
 
-<P><STRONG><a name="[e]"></a>CANIntStatus</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, can.o(i.CANIntStatus))
+<P><STRONG><a name="[d]"></a>CANIntStatus</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, can.o(i.CANIntStatus))
 <BR><BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANIntHandler
 </UL>
 
@@ -154,7 +154,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
 </UL>
 
-<P><STRONG><a name="[f]"></a>CANStatusGet</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, can.o(i.CANStatusGet))
+<P><STRONG><a name="[e]"></a>CANStatusGet</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, can.o(i.CANStatusGet))
 <BR><BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANIntHandler
 </UL>
 
@@ -172,16 +172,16 @@ Global Symbols
 <LI><a href="#[16]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlPeripheralEnable
 <LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinConfigure
 <LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockGet
-<LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[1f]"></a>CAN_Transmit</STRONG> (Thumb, 120 bytes, Stack size 24 bytes, can.o(i.CAN_Transmit))
+<P><STRONG><a name="[1f]"></a>CAN_Transmit</STRONG> (Thumb, 118 bytes, Stack size 24 bytes, can.o(i.CAN_Transmit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = CAN_Transmit &rArr; CANMessageSet
 </UL>
 <BR>[Calls]<UL><LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANMessageSet
-<LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;transmit
 </UL>
@@ -218,8 +218,8 @@ Global Symbols
 <P><STRONG><a name="[18]"></a>GPIOPinTypeCAN</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeCAN))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = GPIOPinTypeCAN &rArr; GPIOPadConfigSet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
-<LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
+<BR>[Calls]<UL><LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
+<LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
 </UL>
 <BR>[Called By]<UL><LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
 </UL>
@@ -227,8 +227,8 @@ Global Symbols
 <P><STRONG><a name="[27]"></a>GPIOPinTypeGPIOOutput</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeGPIOOutput))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = GPIOPinTypeGPIOOutput &rArr; GPIOPadConfigSet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
-<LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
+<BR>[Calls]<UL><LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
+<LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
 </UL>
 <BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Setup
 </UL>
@@ -236,8 +236,8 @@ Global Symbols
 <P><STRONG><a name="[28]"></a>GPIOPinTypeUART</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeUART))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = GPIOPinTypeUART &rArr; GPIOPadConfigSet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
-<LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
+<BR>[Calls]<UL><LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
+<LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
 </UL>
 <BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
 </UL>
@@ -274,7 +274,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
 <LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Setup
 <LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClockSetup
-<LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -348,7 +348,7 @@ Global Symbols
 
 <P><STRONG><a name="[40]"></a>__1printf$1</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1), UNUSED)
 
-<P><STRONG><a name="[d]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1))
+<P><STRONG><a name="[f]"></a>__2printf</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANIntHandler
@@ -396,7 +396,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = transmit &rArr; CAN_Transmit &rArr; CANMessageSet
 </UL>
 <BR>[Calls]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
-<LI><a href="#[d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 <LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main

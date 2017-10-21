@@ -18469,96 +18469,23 @@ void Init_Structs3(void);
 #line 2 "CAN.c"
 #line 3 "CAN.c"
 #line 4 "CAN.c"
-#line 1 "menu.h"
-#line 2 "menu.h"
-#line 3 "menu.h"
-
-#line 5 "menu.h"
-#line 6 "menu.h"
-#line 7 "menu.h"
-#line 8 "menu.h"
-#line 9 "menu.h"
-#line 10 "menu.h"
-#line 11 "menu.h"
-#line 12 "menu.h"
-#line 13 "menu.h"
-#line 14 "menu.h"
-#line 15 "menu.h"
-#line 16 "menu.h"
-#line 17 "menu.h"
-#line 18 "menu.h"
-#line 19 "menu.h"
-#line 20 "menu.h"
-#line 21 "menu.h"
-#line 22 "menu.h"
-#line 23 "menu.h"
-#line 24 "menu.h"
-#line 25 "menu.h"
-#line 26 "menu.h"
-#line 27 "menu.h"
-#line 28 "menu.h"
-#line 29 "menu.h"
-#line 30 "menu.h"
-#line 31 "menu.h"
-#line 32 "menu.h"
-#line 33 "menu.h"
-#line 34 "menu.h"
-#line 35 "menu.h"
-#line 36 "menu.h"
-#line 37 "menu.h"
-#line 38 "menu.h"
-#line 39 "menu.h"
-#line 40 "menu.h"
-#line 41 "menu.h"
-#line 42 "menu.h"
-#line 43 "menu.h"
-#line 1 "src/Uart_helper.h"
-#line 2 "src/Uart_helper.h"
-#line 3 "src/Uart_helper.h"
-#line 4 "src/Uart_helper.h"
-#line 5 "src/Uart_helper.h"
-#line 6 "src/Uart_helper.h"
-#line 7 "src/Uart_helper.h"
-#line 8 "src/Uart_helper.h"
-#line 9 "src/Uart_helper.h"
-#line 10 "src/Uart_helper.h"
-
-
-void UartSetup(void);		
-
-
-int fputc(int ch, FILE *f);
 
 
 
-int fgetc(FILE *f);
+volatile _Bool errFlag = 0;                                                       
+volatile _Bool rxFlag = 0;                                                        
 
-#line 44 "menu.h"
+unsigned int msgData;                                                            
+unsigned char *msgDataPtr = (unsigned char *)&msgData;                           
+unsigned char RxMsgData[8];                                                      
 
-void LedMenu(void);
+unsigned int msgData2;                                                           
+unsigned char *msgDataPtr2 = (unsigned char *)&msgData2;                         
+unsigned char RxMsgData2[8];                                                     
 
+unsigned char MsgData[2][8];                                   		 
 
-
-
-
-
-#line 5 "CAN.c"
-
-volatile _Bool errFlag = 0; 
-volatile _Bool rxFlag = 0; 
-
-unsigned int msgData; 
-unsigned char *msgDataPtr = (unsigned char *)&msgData; 
-unsigned char RxMsgData[8]; 
-
-unsigned int msgData2; 
-unsigned char *msgDataPtr2 = (unsigned char *)&msgData2; 
-unsigned char RxMsgData2[8];
-
-unsigned char MsgData[2][8]; 
-
-tCANMsgObject TxObj[2], RxObj[2];                     
-
+tCANMsgObject TxObj[2], RxObj[2];                    
 
 
 
@@ -18582,29 +18509,25 @@ void CAN_Init(){
 
 
 
-
-
-
-
 void CANIntHandler(void) {
-	printf("Interrupt occurred\n");
+
 	unsigned long status = CANIntStatus(0x40040000, CAN_INT_STS_CAUSE); 
+	uint32_t NEW_DATA_ID = CANStatusGet(0x40040000, CAN_STS_NEWDAT);		 
 	
-	printf("status: %d\n", status);
+	printf("Interrupt status id: %d\n", status);
+	printf("New data status id: %d\n", NEW_DATA_ID);
 	
-	if(status == 0x00008000) { 
+	if(status == 0x00008000) {                           
 		status = CANStatusGet(0x40040000, CAN_STS_CONTROL); 
 		errFlag = 1;
-		printf("test0\n");
 	} 
 	else if(status == 1) { 
 		CANIntClear(0x40040000, 1); 
 	  rxFlag = 1; 
 		errFlag = 0; 
-		printf("test1\n");
 		CANMessageGet(0x40040000, 1, &RxObj[0], 0);	
 		
-		printf("B1 Received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", RxMsgData[0], RxMsgData[1], RxMsgData[2], RxMsgData[3]);
+		printf("RxBuffer[0] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", RxMsgData[0], RxMsgData[1], RxMsgData[2], RxMsgData[3]);
 		
 		if(RxMsgData[3]==1){
 			MsgData[0][0] = RxMsgData[0];
@@ -18623,10 +18546,9 @@ void CANIntHandler(void) {
 		CANIntClear(0x40040000, 2);
 	  rxFlag = 1; 
 		errFlag = 0; 
-		printf("test2\n");
 		CANMessageGet(0x40040000, 3, &RxObj[1], 0);
 		
-		printf("B1 Received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", RxMsgData2[0], RxMsgData2[1], RxMsgData2[2], RxMsgData2[3]);
+		printf("RxBuffer[1] received message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", RxMsgData2[0], RxMsgData2[1], RxMsgData2[2], RxMsgData2[3]);
 	
 	}
 	else { 
@@ -18641,7 +18563,7 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 		msgDataPtr[0] = data[0];
 		msgDataPtr[1] = data[1];
 		msgDataPtr[2] = data[2];
-		msgDataPtr[3] = 1;
+		msgDataPtr[3] = msgSelect;
 		printf("Sending message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); 
 		CANMessageSet(0x40040000, 1, &TxObj[0], MSG_OBJ_TYPE_TX); 
 	}
@@ -18649,7 +18571,7 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 		msgDataPtr2[0] = data[0];
 		msgDataPtr2[1] = data[1];
 		msgDataPtr2[2] = data[2];
-		msgDataPtr2[3] = 2;
+		msgDataPtr2[3] = msgSelect;
 		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); 
 		CANMessageSet(0x40040000, 2, &TxObj[1], MSG_OBJ_TYPE_TX); 
 	}
@@ -18667,8 +18589,8 @@ void Init_Receiver(){
 	
 	while (1) {		
 		if(rxFlag){		  
-			printf("B1 Received colour\tr: %d  b: %d  g: %d  i: %d\n", MsgData[0][0], MsgData[0][1], MsgData[0][2], MsgData[0][3]);
-			printf("B2 Received colour\tr: %d  b: %d  g: %d  i: %d\n", MsgData[1][0], MsgData[1][1], MsgData[1][2], MsgData[1][3]);
+			printf("MsgData[0] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[0][0], MsgData[0][1], MsgData[0][2], MsgData[0][3]);
+			printf("MsgData[1] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[1][0], MsgData[1][1], MsgData[1][2], MsgData[1][3]);
 			rxFlag=0;
 		}
 		if(RxObj[0].ui32Flags & 0x00000100) { 
@@ -18695,17 +18617,17 @@ void Init_Structs(){
   TxObj[0].ui32MsgLen = sizeof(msgDataPtr);
   TxObj[0].pui8MsgData = msgDataPtr; 
 	
-	RxObj[0].ui32MsgID = 0x03; 
-  RxObj[0].ui32MsgIDMask = 0x00; 
-  RxObj[0].ui32Flags = 0x00000002 | 0x00000008;
-  RxObj[0].ui32MsgLen = 8;
-	RxObj[0].pui8MsgData = RxMsgData; 
-	
 	TxObj[1].ui32MsgID = 0x02; 
   TxObj[1].ui32MsgIDMask = 0x00;
   TxObj[1].ui32Flags = 0x00000001 | 0x00000008; 
   TxObj[1].ui32MsgLen = sizeof(msgDataPtr2);
   TxObj[1].pui8MsgData = msgDataPtr2; 
+	
+	RxObj[0].ui32MsgID = 0x03; 
+  RxObj[0].ui32MsgIDMask = 0x00; 
+  RxObj[0].ui32Flags = 0x00000002 | 0x00000008;
+  RxObj[0].ui32MsgLen = 8;
+	RxObj[0].pui8MsgData = RxMsgData; 
 	
 
 

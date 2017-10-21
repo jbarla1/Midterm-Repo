@@ -17840,8 +17840,6 @@ void transmit(void);
 
 
 
-
-
 int  main(void) {
 	SetupHardware();
 	CAN_Init();
@@ -17870,7 +17868,7 @@ void transmit() {
 		printf("sending message\n");
 		CAN_Transmit(data, msgSelect);
 
-		printf("send again?\n");
+		printf("send again new data on same message?\n");
 		getc((& __stdin)); 
 
 		data[0] = 0;
@@ -17882,7 +17880,6 @@ void transmit() {
 		CAN_Transmit(data, msgSelect);
 	}
 }
-
 
 void SetupHardware(){
 		ClockSetup();

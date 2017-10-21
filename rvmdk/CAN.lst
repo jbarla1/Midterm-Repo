@@ -65364,102 +65364,27 @@ Nvoid Init_Structs3(void);
 L 2 "CAN.c" 2
 N#include <stdio.h>
 N#include <stdint.h>
-N#include "menu.h"
-L 1 "menu.h" 1
-N#include <stdbool.h>
-N#include <stdint.h>
+N// --------------------------------------------------------------------------------------
+N//			Global Variables/Structs:
+N// --------------------------------------------------------------------------------------
+Nvolatile bool errFlag = 0;                                                       // Transmission error flag
+Xvolatile _Bool errFlag = 0;                                                       
+Nvolatile bool rxFlag = 0;                                                        // Msg recieved flag
+Xvolatile _Bool rxFlag = 0;                                                        
 N
-N#include "inc/hw_memmap.h"
-N#include "driverlib/adc.h"
-N#include "driverlib/aes.h"
-N#include "driverlib/can.h"
-N#include "driverlib/comp.h"
-N#include "driverlib/cpu.h"
-N#include "driverlib/crc.h"
-N#include "driverlib/debug.h"
-N#include "driverlib/des.h"
-N#include "driverlib/eeprom.h"
-N#include "driverlib/emac.h"
-N#include "driverlib/epi.h"
-N#include "driverlib/flash.h"
-N#include "driverlib/fpu.h"
-N#include "driverlib/gpio.h"
-N#include "driverlib/hibernate.h"
-N#include "driverlib/i2c.h"
-N#include "driverlib/interrupt.h"
-N#include "driverlib/lcd.h"
-N#include "driverlib/mpu.h"
-N#include "driverlib/onewire.h"
-N#include "driverlib/pin_map.h"
-N#include "driverlib/pwm.h"
-N#include "driverlib/qei.h"
-N#include "driverlib/rom.h"
-N#include "driverlib/rom_map.h"
-N#include "driverlib/rtos_bindings.h"
-N#include "driverlib/shamd5.h"
-N#include "driverlib/ssi.h"
-N#include "driverlib/sw_crc.h"
-N#include "driverlib/sysctl.h"
-N#include "driverlib/sysexc.h"
-N#include "driverlib/systick.h"
-N#include "driverlib/timer.h"
-N#include "driverlib/uart.h"
-N#include "driverlib/udma.h"
-N#include "driverlib/usb.h"
-N#include "driverlib/watchdog.h"
-N#include "tm4c123gh6pm.h"
-N#include "src/Uart_helper.h"
-L 1 "src/Uart_helper.h" 1
-N#include <stdbool.h>
-N#include <stdint.h>
-N#include <stdio.h>
-N#include "sysctl.h"
-N#include "hw_memmap.h"
-N#include "gpio.h"
-N#include "uart.h"
-N#include "../inc/tm4c123gh6pm.h"
-N#include "pin_map.h"
+Nunsigned int msgData;                                                            // Four bytes of message data allocated as uint32
+Nunsigned char *msgDataPtr = (unsigned char *)&msgData;                           // Pointer to message data for individual byte access
+Nunsigned char RxMsgData[8];                                                      // 8 byte buffer for RxObj[0] message data
 N
+Nunsigned int msgData2;                                                           // The message data is four bytes long which we can allocate as an int32
+Nunsigned char *msgDataPtr2 = (unsigned char *)&msgData2;                         // Make a pointer to msgData so we can access individual bytes
+Nunsigned char RxMsgData2[8];                                                     // 8 byte buffer for RxObj[0] message data
 N
-Nvoid UartSetup(void);		//sets up Uart for my configuration using library
+Nunsigned char MsgData[NUM_RX_MESSAGES][8];                                   		 // Eventually will be external message data for Rx messages
+Xunsigned char MsgData[2][8];                                   		 
 N
-N//redirect for printf.
-Nint fputc(int ch, FILE *f);
-N
-N//redirect input from serial port
-N//read info edit by: Sir Hutson
-Nint fgetc(FILE *f);
-N
-L 44 "menu.h" 2
-N
-Nvoid LedMenu(void);
-N
-N
-N
-N
-N
-N
-L 5 "CAN.c" 2
-N
-Nvolatile bool errFlag = 0; // transmission error flag
-Xvolatile _Bool errFlag = 0; 
-Nvolatile bool rxFlag = 0; // msg recieved flag
-Xvolatile _Bool rxFlag = 0; 
-N
-Nunsigned int msgData; // the message data is four bytes long which we can allocate as an int32
-Nunsigned char *msgDataPtr = (unsigned char *)&msgData; // make a pointer to msgData so we can access individual bytes
-Nunsigned char RxMsgData[8]; // 8 byte buffer for rx message data
-N
-Nunsigned int msgData2; // the message data is four bytes long which we can allocate as an int32
-Nunsigned char *msgDataPtr2 = (unsigned char *)&msgData2; // make a pointer to msgData so we can access individual bytes
-Nunsigned char RxMsgData2[8];
-N
-Nunsigned char MsgData[NUM_RX_MESSAGES][8]; //eventually will be external message data 
-Xunsigned char MsgData[2][8]; 
-N
-NtCANMsgObject TxObj[NUM_TX_MESSAGES], RxObj[NUM_RX_MESSAGES];                     
-XtCANMsgObject TxObj[2], RxObj[2];                     
-N
+NtCANMsgObject TxObj[NUM_TX_MESSAGES], RxObj[NUM_RX_MESSAGES];                    // Set up Tx and Rx TCANMsgObject structs with defined quantites
+XtCANMsgObject TxObj[2], RxObj[2];                    
 N// --------------------------------------------------------------------------------------
 N//			CAN Initialize function:
 N// --------------------------------------------------------------------------------------
@@ -65494,34 +65419,31 @@ N}
 N// --------------------------------------------------------------------------------------
 N//			CAN Interrupt Handler:
 N// --------------------------------------------------------------------------------------
-N
-N// try using CAN_STS_NEWDAT to get data about which Rx Object generated an interrupt
-N// CANStatusGet(CAN0_BASE, CAN_STS_NEWDAT);
-N
 Nvoid CANIntHandler(void) {
-N	printf("Interrupt occurred\n");
-N	unsigned long status = CANIntStatus(CAN0_BASE, CAN_INT_STS_CAUSE); // read interrupt status
+N
+N	unsigned long status = CANIntStatus(CAN0_BASE, CAN_INT_STS_CAUSE); // read interrupt status cause
 X	unsigned long status = CANIntStatus(0x40040000, CAN_INT_STS_CAUSE); 
+N	uint32_t NEW_DATA_ID = CANStatusGet(CAN0_BASE, CAN_STS_NEWDAT);		 // read new data register
+X	uint32_t NEW_DATA_ID = CANStatusGet(0x40040000, CAN_STS_NEWDAT);		 
 N	
-N	printf("status: %d\n", status);
+N	printf("Interrupt status id: %d\n", status);
+N	printf("New data status id: %d\n", NEW_DATA_ID);
 N	
-N	if(status == CAN_INT_INTID_STATUS) { // controller status interrupt
-X	if(status == 0x00008000) { 
+N	if(status == CAN_INT_INTID_STATUS) {                           // controller status interrupt
+X	if(status == 0x00008000) {                           
 N		status = CANStatusGet(CAN0_BASE, CAN_STS_CONTROL); // read back error bits, do something with them?
 X		status = CANStatusGet(0x40040000, CAN_STS_CONTROL); 
 N		errFlag = 1;
-N		printf("test0\n");
 N	} 
 N	else if(status == 1) { 
 N		CANIntClear(CAN0_BASE, 1); // clear interrupt	
 X		CANIntClear(0x40040000, 1); 
 N	  rxFlag = 1; // set rx flag
 N		errFlag = 0; // clear any error flags	
-N		printf("test1\n");
 N		CANMessageGet(CAN0_BASE, 1, &RxObj[0], false);	
 X		CANMessageGet(0x40040000, 1, &RxObj[0], 0);	
 N		
-N		printf("B1 Received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", RxMsgData[0], RxMsgData[1], RxMsgData[2], RxMsgData[3]);
+N		printf("RxBuffer[0] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", RxMsgData[0], RxMsgData[1], RxMsgData[2], RxMsgData[3]);
 N		
 N		if(RxMsgData[3]==1){
 N			MsgData[0][0] = RxMsgData[0];
@@ -65541,11 +65463,10 @@ N		CANIntClear(CAN0_BASE, 2);
 X		CANIntClear(0x40040000, 2);
 N	  rxFlag = 1; // set rx flag
 N		errFlag = 0; // clear any error flags	
-N		printf("test2\n");
 N		CANMessageGet(CAN0_BASE, 3, &RxObj[1], false);
 X		CANMessageGet(0x40040000, 3, &RxObj[1], 0);
 N		
-N		printf("B1 Received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", RxMsgData2[0], RxMsgData2[1], RxMsgData2[2], RxMsgData2[3]);
+N		printf("RxBuffer[1] received message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", RxMsgData2[0], RxMsgData2[1], RxMsgData2[2], RxMsgData2[3]);
 N	
 N	}
 N	else { // should never happen
@@ -65560,7 +65481,7 @@ N	if(msgSelect==1){
 N		msgDataPtr[0] = data[0];
 N		msgDataPtr[1] = data[1];
 N		msgDataPtr[2] = data[2];
-N		msgDataPtr[3] = 1;
+N		msgDataPtr[3] = msgSelect;
 N		printf("Sending message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); // write colour to UART for debugging
 N		CANMessageSet(CAN0_BASE, 1, &TxObj[0], MSG_OBJ_TYPE_TX); // send as msg object 1
 X		CANMessageSet(0x40040000, 1, &TxObj[0], MSG_OBJ_TYPE_TX); 
@@ -65569,7 +65490,7 @@ N	else if(msgSelect==2){
 N		msgDataPtr2[0] = data[0];
 N		msgDataPtr2[1] = data[1];
 N		msgDataPtr2[2] = data[2];
-N		msgDataPtr2[3] = 2;
+N		msgDataPtr2[3] = msgSelect;
 N		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); // write colour to UART for debugging	
 N		CANMessageSet(CAN0_BASE, 2, &TxObj[1], MSG_OBJ_TYPE_TX); // send as msg object 2
 X		CANMessageSet(0x40040000, 2, &TxObj[1], MSG_OBJ_TYPE_TX); 
@@ -65590,8 +65511,8 @@ X	CANMessageSet(0x40040000, 2, &RxObj[1], MSG_OBJ_TYPE_RX);
 N	
 N	while (1) {		
 N		if(rxFlag){		  
-N			printf("B1 Received colour\tr: %d  b: %d  g: %d  i: %d\n", MsgData[0][0], MsgData[0][1], MsgData[0][2], MsgData[0][3]);
-N			printf("B2 Received colour\tr: %d  b: %d  g: %d  i: %d\n", MsgData[1][0], MsgData[1][1], MsgData[1][2], MsgData[1][3]);
+N			printf("MsgData[0] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[0][0], MsgData[0][1], MsgData[0][2], MsgData[0][3]);
+N			printf("MsgData[1] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[1][0], MsgData[1][1], MsgData[1][2], MsgData[1][3]);
 N			rxFlag=0;
 N		}
 N		if(RxObj[0].ui32Flags & MSG_OBJ_DATA_LOST) { // check msg flags for any lost messages
@@ -65623,19 +65544,19 @@ X  TxObj[0].ui32Flags = 0x00000001 | 0x00000008;
 N  TxObj[0].ui32MsgLen = sizeof(msgDataPtr);
 N  TxObj[0].pui8MsgData = msgDataPtr; 
 N	
-N	RxObj[0].ui32MsgID = 0x03; // this receive ID acts as the filter 
-N  RxObj[0].ui32MsgIDMask = 0x00; // mask to enable filtration bits
-N  RxObj[0].ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
-X  RxObj[0].ui32Flags = 0x00000002 | 0x00000008;
-N  RxObj[0].ui32MsgLen = 8;
-N	RxObj[0].pui8MsgData = RxMsgData; // This pointer needs to be set to buffer for Rx Message data. 
-N	
 N	TxObj[1].ui32MsgID = 0x02; 
 N  TxObj[1].ui32MsgIDMask = 0x00;
 N  TxObj[1].ui32Flags = MSG_OBJ_TX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER; 
 X  TxObj[1].ui32Flags = 0x00000001 | 0x00000008; 
 N  TxObj[1].ui32MsgLen = sizeof(msgDataPtr2);
 N  TxObj[1].pui8MsgData = msgDataPtr2; 
+N	
+N	RxObj[0].ui32MsgID = 0x03; // this receive ID acts as the filter 
+N  RxObj[0].ui32MsgIDMask = 0x00; // mask to enable filtration bits
+N  RxObj[0].ui32Flags = MSG_OBJ_RX_INT_ENABLE | MSG_OBJ_USE_ID_FILTER;
+X  RxObj[0].ui32Flags = 0x00000002 | 0x00000008;
+N  RxObj[0].ui32MsgLen = 8;
+N	RxObj[0].pui8MsgData = RxMsgData; // This pointer needs to be set to buffer for Rx Message data. 
 N	
 N//  RxObj[1].ui32MsgID = 0x02; // this receive ID acts as the filter 
 N//  RxObj[1].ui32MsgIDMask = 0x00; // mask to enable filtration bits
@@ -65703,5 +65624,5 @@ X  RxObj[1].ui32Flags = 0x00000002 | 0x00000008;
 N  RxObj[1].ui32MsgLen = 8;
 N	RxObj[1].pui8MsgData = RxMsgData2; // This pointer needs to be set to buffer for Rx Message data. 
 N}
-W "CAN.c" 227 58 last line of file ends without a newline
+W "CAN.c" 222 58 last line of file ends without a newline
 N// ------------------------------------------------------

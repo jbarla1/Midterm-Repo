@@ -62987,7 +62987,6 @@ N#endif
 N
 N#endif // __TM4C123GH6PM_H__
 L 43 "GPIO_init.h" 2
-N
 N#include "src/Uart_helper.h"
 L 1 "src/Uart_helper.h" 1
 N#include <stdbool.h>
@@ -64122,19 +64121,12 @@ N//redirect input from serial port
 N//read info edit by: Sir Hutson
 Nint fgetc(FILE *f);
 N
-L 45 "GPIO_init.h" 2
-N
-N
-N
-N
-N
+L 44 "GPIO_init.h" 2
 N
 Nvoid GPIO_Setup(void);
 L 2 "GPIO_init.c" 2
 N
-N
 Nvoid GPIO_Setup(void) {
-N	volatile uint32_t ui32Loop;
 N	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
 X	SysCtlPeripheralEnable(0xf0000805);
 N	GPIOPinTypeGPIOOutput(GPIO_PORTF_BASE, GPIO_PIN_1);

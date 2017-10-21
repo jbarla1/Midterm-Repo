@@ -16901,7 +16901,6 @@ extern void WatchdogStallDisable(uint32_t ui32Base);
 
 
 #line 43 "GPIO_init.h"
-
 #line 1 "src/Uart_helper.h"
 #line 2 "src/Uart_helper.h"
 #line 3 "src/Uart_helper.h"
@@ -17822,19 +17821,12 @@ int fputc(int ch, FILE *f);
 
 int fgetc(FILE *f);
 
-#line 45 "GPIO_init.h"
-
-
-
-
-
+#line 44 "GPIO_init.h"
 
 void GPIO_Setup(void);
 #line 2 "GPIO_init.c"
 
-
 void GPIO_Setup(void) {
-	volatile uint32_t ui32Loop;
 	SysCtlPeripheralEnable(0xf0000805);
 	GPIOPinTypeGPIOOutput(0x40025000, 0x00000002);
 	GPIOPinTypeGPIOOutput(0x40025000, 0x00000004);
