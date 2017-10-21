@@ -3,7 +3,6 @@
 #include <stdint.h>
 #include "menu.h"
 
-unsigned int sysClock; // clockspeed in hz
 volatile bool errFlag = 0; // transmission error flag
 volatile bool rxFlag = 0; // msg recieved flag
 
@@ -15,33 +14,33 @@ unsigned int msgData2; // the message data is four bytes long which we can alloc
 unsigned char *msgDataPtr2 = (unsigned char *)&msgData2; // make a pointer to msgData so we can access individual bytes
 unsigned char RxMsgData2[8];
 
-unsigned char MsgData[2][8]; //eventually will be external message data 
+unsigned char MsgData[NUM_RX_MESSAGES][8]; //eventually will be external message data 
 
-tCANMsgObject TxObj[2], RxObj[2]; 
+tCANMsgObject TxObj[NUM_TX_MESSAGES], RxObj[NUM_RX_MESSAGES];                     
 
-// ------------------------------------------------------
+// --------------------------------------------------------------------------------------
 //			CAN Initialize function:
-// ------------------------------------------------------
+// --------------------------------------------------------------------------------------
 void CAN_Init(){
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);
-	GPIOPinConfigure(GPIO_PE4_CAN0RX);
-	GPIOPinConfigure(GPIO_PE5_CAN0TX);
-	GPIOPinTypeCAN(GPIO_PORTE_BASE, GPIO_PIN_4 | GPIO_PIN_5);
-	SysCtlPeripheralEnable(SYSCTL_PERIPH_CAN0);
-	printf("Initializing CAN0_BASE...\n");
-	CANInit(CAN0_BASE);
-	CANBitRateSet(CAN0_BASE, SysCtlClockGet(), 500000);
-	printf("Setting CAN BitRate: 0.5 Megabytes/sec...\n");
-	CANIntRegister(CAN0_BASE, CANIntHandler); // use dynamic vector table allocation
-	CANIntEnable(CAN0_BASE, CAN_INT_MASTER | CAN_INT_ERROR | CAN_INT_STATUS);
-	IntEnable(INT_CAN0);
-	CANEnable(CAN0_BASE);
-	printf("CAN Initialized.\n\n");
-	Init_Structs();
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOE);                                   // Enable GPIO for port E for use on CAN
+	GPIOPinConfigure(GPIO_PE4_CAN0RX);                                             // Assign pin E4 to CAN0RX
+	GPIOPinConfigure(GPIO_PE5_CAN0TX);                                             // Assign pin E5 to CAN0TX
+	GPIOPinTypeCAN(GPIO_PORTE_BASE, GPIO_PIN_4 | GPIO_PIN_5);                      // Enable pin type for CAN
+	SysCtlPeripheralEnable(SYSCTL_PERIPH_CAN0);                                    // Enable CAN periph
+	printf("Initializing CAN0_BASE...\n");                                         // Printout for debugging
+	CANInit(CAN0_BASE);                                                            // Initialize CAN0 base
+	CANBitRateSet(CAN0_BASE, SysCtlClockGet(), 500000);                            // Set CAN bitrate
+	printf("Setting CAN BitRate: 0.5 Megabytes/sec...\n");                         // Printout for debugging
+	CANIntRegister(CAN0_BASE, CANIntHandler);                                      // Give dynamic vector table name of handler for CAN Interrupts
+	CANIntEnable(CAN0_BASE, CAN_INT_MASTER | CAN_INT_ERROR | CAN_INT_STATUS);      // Enable CAN interrupts
+	IntEnable(INT_CAN0);									                                         // Enable global interrupts
+	CANEnable(CAN0_BASE);                                                          // Enable CAN functionality
+	printf("CAN Initialized.\n\n");                                                // Printout for debugging
+	Init_Structs();                                                                // Call function to initialize message structs
 }
-// ------------------------------------------------------
+// --------------------------------------------------------------------------------------
 //			CAN Interrupt Handler:
-// -----------------------------------------------------
+// --------------------------------------------------------------------------------------
 
 // try using CAN_STS_NEWDAT to get data about which Rx Object generated an interrupt
 // CANStatusGet(CAN0_BASE, CAN_STS_NEWDAT);
@@ -64,7 +63,7 @@ void CANIntHandler(void) {
 		printf("test1\n");
 		CANMessageGet(CAN0_BASE, 1, &RxObj[0], false);	
 		
-		printf("B1 Received colour\tr: %d  b: %d  g: %d  i: %d\n", RxMsgData[0], RxMsgData[1], RxMsgData[2], RxMsgData[3]);
+		printf("B1 Received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", RxMsgData[0], RxMsgData[1], RxMsgData[2], RxMsgData[3]);
 		
 		if(RxMsgData[3]==1){
 			MsgData[0][0] = RxMsgData[0];
@@ -78,7 +77,6 @@ void CANIntHandler(void) {
 			MsgData[1][2] = RxMsgData[2];
 			MsgData[1][3] = RxMsgData[3];
 		}
-		
 	}
 	else if(status == 2) { 
 		CANIntClear(CAN0_BASE, 2);
@@ -86,6 +84,9 @@ void CANIntHandler(void) {
 		errFlag = 0; // clear any error flags	
 		printf("test2\n");
 		CANMessageGet(CAN0_BASE, 3, &RxObj[1], false);
+		
+		printf("B1 Received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", RxMsgData2[0], RxMsgData2[1], RxMsgData2[2], RxMsgData2[3]);
+	
 	}
 	else { // should never happen
 		printf("Unexpected CAN bus interrupt\n");
@@ -100,7 +101,7 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 		msgDataPtr[1] = data[1];
 		msgDataPtr[2] = data[2];
 		msgDataPtr[3] = 1;
-		printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2]); // write colour to UART for debugging
+		printf("Sending message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); // write colour to UART for debugging
 		CANMessageSet(CAN0_BASE, 1, &TxObj[0], MSG_OBJ_TYPE_TX); // send as msg object 1
 	}
 	else if(msgSelect==2){
@@ -108,7 +109,7 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 		msgDataPtr2[1] = data[1];
 		msgDataPtr2[2] = data[2];
 		msgDataPtr2[3] = 2;
-		printf("Sending colour\tr: %d\tg: %d\tb: %d\n", msgDataPtr2[0], msgDataPtr2[1], msgDataPtr2[2]); // write colour to UART for debugging	
+		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); // write colour to UART for debugging	
 		CANMessageSet(CAN0_BASE, 2, &TxObj[1], MSG_OBJ_TYPE_TX); // send as msg object 2
 	}
 	if(errFlag) { // check for errors
@@ -223,6 +224,4 @@ void Init_Structs2(){ // all use filter, both should reject and accept their cor
   RxObj[1].ui32MsgLen = 8;
 	RxObj[1].pui8MsgData = RxMsgData2; // This pointer needs to be set to buffer for Rx Message data. 
 }
-// ------------------------------------------------------
-//
 // ------------------------------------------------------

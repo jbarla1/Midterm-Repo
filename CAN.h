@@ -11,20 +11,10 @@
 #include "driverlib/can.h"
 #include "inc/hw_memmap.h"
 #include "./driverlib/sysctl.h"
-	
-//struct msg {
-//	uint32_t ui32MsgID;
-//	uint32_t ui32MsgIDMask;
-	//uint32_t ui32Flags;
-//	uint32_t ui32MsgLen;
-//	uint8_t  *pui8MsgData;
-//};
-
-//struct msg msg1, msg2, msg3, msg4;
 
 
-
-// create function to initialize every struct value 
+#define NUM_RX_MESSAGES 2
+#define NUM_TX_MESSAGES 2
 
 
 

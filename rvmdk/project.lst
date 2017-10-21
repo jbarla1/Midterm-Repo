@@ -64144,25 +64144,13 @@ N//=============================================================================
 N//	Jacob Clark
 N//	10/6/2016
 N//	Embedded Systems 
-N//	
-N//	This software is for the embedded systems lab midterm. It contains seven modules,
-N// a Systic, Uart_Helper, GPIO_init, PWM, CAN, ADC, and a Menu module. Some of them
-N// are always running, like the Uart, GPIO, Systic and Menu, while the others can be selected from
-N// the menu specifically. The NVIC is utilized without having a dedicated module.
-N// 
-N//	The CAN code contained in this software allows the user to select a board to function as 
-N// a reciever or transmitter. The transmitter board has two built-in transmission options, 
-N// but they can be editted. The CAN allows for a 32-bit data transmission per message. It is 
-N// set to operate at 0.5 Mbytes/sec. 
 N//
-N//	To interface with the software, you must use a serial port reading program such as 
-N// RealTerm. The data type should be set to Ansi at a baud rate of 38,400. Numeric data can
-N// be sent to the program to select menu options. 
+N//  Main C File:
 N//=============================================================================================//
 N
 Nint  main(void) {
 N	SetupHardware();
-W "project.c" 33 2 function "CAN_Init" declared implicitly
+W "project.c" 21 2 function "CAN_Init" declared implicitly
 N	CAN_Init();
 N	
 N//	receive();
@@ -64170,16 +64158,13 @@ N	transmit();
 N}	
 N
 Nvoid receive() {
-W "project.c" 40 2 function "Init_Receiver" declared implicitly
+W "project.c" 28 2 function "Init_Receiver" declared implicitly
 N	Init_Receiver();	
-N	//CAN_Slave();
 N}
 N
 Nvoid transmit() {
 N	uint8_t data[4];
 N	uint8_t msgSelect;
-N	
-N	
 N	
 N	while(1){	
 N		printf("which message?\n");
@@ -64192,7 +64177,7 @@ N		data[2] = 128;
 N		data[3] = 128;		
 N		
 N		printf("sending message\n");
-W "project.c" 60 3 function "CAN_Transmit" declared implicitly
+W "project.c" 45 3 function "CAN_Transmit" declared implicitly
 N		CAN_Transmit(data, msgSelect);
 N
 N		printf("send again?\n");
@@ -64206,19 +64191,19 @@ N		data[3] = 128;
 N
 N		printf("sending message\n");
 N		CAN_Transmit(data, msgSelect);
-N		
 N	}
 N}
 N
+N
 Nvoid SetupHardware(){
-W "project.c" 77 3 function "ClockSetup" declared implicitly
+W "project.c" 62 3 function "ClockSetup" declared implicitly
 N		ClockSetup();
-W "project.c" 78 3 function "GPIO_Setup" declared implicitly
+W "project.c" 63 3 function "GPIO_Setup" declared implicitly
 N		GPIO_Setup();
 N		UartSetup();
 N		printf("Debugging interface initialized...\n");
 N		printf("GPIO ports initialized...\n");
 N		printf("Clock settings initialized...\n\n");
 N		printf("Set-up Complete.\n\n");
-W "project.c" 84 2 last line of file ends without a newline
+W "project.c" 69 2 last line of file ends without a newline
 N}

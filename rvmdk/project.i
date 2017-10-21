@@ -17842,18 +17842,6 @@ void transmit(void);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 int  main(void) {
 	SetupHardware();
 	CAN_Init();
@@ -17864,14 +17852,11 @@ int  main(void) {
 
 void receive() {
 	Init_Receiver();	
-	
 }
 
 void transmit() {
 	uint8_t data[4];
 	uint8_t msgSelect;
-	
-	
 	
 	while(1){	
 		printf("which message?\n");
@@ -17895,9 +17880,9 @@ void transmit() {
 
 		printf("sending message\n");
 		CAN_Transmit(data, msgSelect);
-		
 	}
 }
+
 
 void SetupHardware(){
 		ClockSetup();

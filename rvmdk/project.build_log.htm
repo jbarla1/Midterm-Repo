@@ -47,17 +47,17 @@ driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
 project.h(50): warning:  #1-D: last line of file ends without a newline
   void transmit(void);
-project.c(33): warning:  #223-D: function "CAN_Init" declared implicitly
+project.c(21): warning:  #223-D: function "CAN_Init" declared implicitly
   	CAN_Init();
-project.c(40): warning:  #223-D: function "Init_Receiver" declared implicitly
+project.c(28): warning:  #223-D: function "Init_Receiver" declared implicitly
   	Init_Receiver();	
-project.c(60): warning:  #223-D: function "CAN_Transmit" declared implicitly
+project.c(45): warning:  #223-D: function "CAN_Transmit" declared implicitly
   		CAN_Transmit(data, msgSelect);
-project.c(77): warning:  #223-D: function "ClockSetup" declared implicitly
+project.c(62): warning:  #223-D: function "ClockSetup" declared implicitly
   		ClockSetup();
-project.c(78): warning:  #223-D: function "GPIO_Setup" declared implicitly
+project.c(63): warning:  #223-D: function "GPIO_Setup" declared implicitly
   		GPIO_Setup();
-project.c(84): warning:  #1-D: last line of file ends without a newline
+project.c(69): warning:  #1-D: last line of file ends without a newline
   }
 project.c: 11 warnings, 0 errors
 compiling Systic.c...
@@ -252,14 +252,16 @@ inc/hw_ints.h(473): warning:  #47-D: incompatible redefinition of macro "INT_WTI
   #define INT_WTIMER5A            INT_CONCAT(INT_WTIMER5A_, INT_DEVICE_CLASS)
 inc/hw_ints.h(474): warning:  #47-D: incompatible redefinition of macro "INT_WTIMER5B"  (declared at line 120 of ".\inc\tm4c123gh6pm.h")
   #define INT_WTIMER5B            INT_CONCAT(INT_WTIMER5B_, INT_DEVICE_CLASS)
-CAN.h(36): warning:  #1-D: last line of file ends without a newline
-  void Init_Structs(void);
-CAN.c: 84 warnings, 0 errors
+CAN.h(29): warning:  #1-D: last line of file ends without a newline
+  void Init_Structs3(void);
+CAN.c(227): warning:  #1-D: last line of file ends without a newline
+  // ------------------------------------------------------
+CAN.c: 85 warnings, 0 errors
 linking...
-Program Size: Code=5336 RO-data=1480 RW-data=1644 ZI-data=356  
+Program Size: Code=5296 RO-data=1688 RW-data=1644 ZI-data=356  
 FromELF: creating hex file...
 After Build - User command #1: fromelf --bin --output .\rvmdk\project.bin .\rvmdk\project.axf
-".\rvmdk\project.axf" - 0 Error(s), 106 Warning(s).
+".\rvmdk\project.axf" - 0 Error(s), 107 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -282,7 +284,7 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.0.1
-Build Time Elapsed:  00:00:05
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>
