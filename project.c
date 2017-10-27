@@ -18,8 +18,8 @@ int  main(void) {
 	SetupHardware();
 	CAN_Init();
 	
-//	receive();
-	transmit();
+	receive();
+//	transmit();
 }	
 
 void receive() {

@@ -17844,8 +17844,8 @@ int  main(void) {
 	SetupHardware();
 	CAN_Init();
 	
+	receive();
 
-	transmit();
 }	
 
 void receive() {

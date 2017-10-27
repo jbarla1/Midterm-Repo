@@ -18483,7 +18483,7 @@ unsigned int msgData2;
 unsigned char *msgDataPtr2 = (unsigned char *)&msgData2;                         
 unsigned char RxMsgData2[8];                                                     
 
-unsigned char MsgData[2][8];                                   		 
+unsigned char MsgData[2][4];                                   		 
 
 tCANMsgObject TxObj[2], RxObj[2];                    
 
@@ -18512,10 +18512,10 @@ void CAN_Init(){
 void CANIntHandler(void) {
 
 	unsigned long status = CANIntStatus(0x40040000, CAN_INT_STS_CAUSE); 
-	uint32_t NEW_DATA_ID = CANStatusGet(0x40040000, CAN_STS_NEWDAT);		 
+	
 	
 	printf("Interrupt status id: %d\n", status);
-	printf("New data status id: %d\n", NEW_DATA_ID);
+	
 	
 	if(status == 0x00008000) {                           
 		status = CANStatusGet(0x40040000, CAN_STS_CONTROL); 
@@ -18523,34 +18523,33 @@ void CANIntHandler(void) {
 	} 
 	else if(status == 1) { 
 		CANIntClear(0x40040000, 1); 
-	  rxFlag = 1; 
 		errFlag = 0; 
-		CANMessageGet(0x40040000, 1, &RxObj[0], 0);	
-		
-		printf("RxBuffer[0] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", RxMsgData[0], RxMsgData[1], RxMsgData[2], RxMsgData[3]);
-		
-		if(RxMsgData[3]==1){
-			MsgData[0][0] = RxMsgData[0];
-			MsgData[0][1] = RxMsgData[1];
-			MsgData[0][2] = RxMsgData[2];
-			MsgData[0][3] = RxMsgData[3];
-		}
-	  else if(RxMsgData[3]==2){
-			MsgData[1][0] = RxMsgData[0];
-			MsgData[1][1] = RxMsgData[1];
-			MsgData[1][2] = RxMsgData[2];
-			MsgData[1][3] = RxMsgData[3];
-		}
 	}
 	else if(status == 2) { 
 		CANIntClear(0x40040000, 2);
-	  rxFlag = 1; 
 		errFlag = 0; 
-		CANMessageGet(0x40040000, 3, &RxObj[1], 0);
 		
-		printf("RxBuffer[1] received message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", RxMsgData2[0], RxMsgData2[1], RxMsgData2[2], RxMsgData2[3]);
 	
 	}
+	else if(status == 3) { 
+		rxFlag = 1; 
+		errFlag = 0; 
+		CANIntClear(0x40040000, 3);
+	}
+	else if(status == 4) { 
+	rxFlag = 1; 
+	errFlag = 0; 
+	CANMessageGet(0x40040000, 4, &RxObj[1], 1);
+		
+	MsgData[1][0]=RxMsgData2[0];
+	MsgData[1][1]=RxMsgData2[1];
+	MsgData[1][2]=RxMsgData2[2];
+	MsgData[1][3]=RxMsgData2[3];
+	printf("RxBuffer[1] received message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[1][0], MsgData[1][1], MsgData[1][2], MsgData[1][3]);	
+	}
+	
+	
+	
 	else { 
 		printf("Unexpected CAN bus interrupt\n");
 	}
@@ -18563,17 +18562,19 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 		msgDataPtr[0] = data[0];
 		msgDataPtr[1] = data[1];
 		msgDataPtr[2] = data[2];
-		msgDataPtr[3] = msgSelect;
+		msgDataPtr[3] = data[3];
 		printf("Sending message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); 
 		CANMessageSet(0x40040000, 1, &TxObj[0], MSG_OBJ_TYPE_TX); 
+		printf("Message sent.\n");
 	}
 	else if(msgSelect==2){
 		msgDataPtr2[0] = data[0];
 		msgDataPtr2[1] = data[1];
 		msgDataPtr2[2] = data[2];
-		msgDataPtr2[3] = msgSelect;
-		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); 
+		msgDataPtr2[3] = data[3];
+		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr2[0], msgDataPtr2[1], msgDataPtr2[2], msgDataPtr2[3]); 
 		CANMessageSet(0x40040000, 2, &TxObj[1], MSG_OBJ_TYPE_TX); 
+		printf("Message sent.\n");
 	}
 	if(errFlag) { 
 		printf("CAN Bus Error\n");
@@ -18584,107 +18585,64 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 
 void Init_Receiver(){
 
-	CANMessageSet(0x40040000, 1, &RxObj[0], MSG_OBJ_TYPE_RX);	
-	CANMessageSet(0x40040000, 2, &RxObj[1], MSG_OBJ_TYPE_RX);	
+	CANMessageSet(0x40040000, 3, &RxObj[0], MSG_OBJ_TYPE_RX);	
+	CANMessageSet(0x40040000, 4, &RxObj[1], MSG_OBJ_TYPE_RX);	
 	
 	while (1) {		
 		if(rxFlag){		  
-			printf("MsgData[0] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[0][0], MsgData[0][1], MsgData[0][2], MsgData[0][3]);
-			printf("MsgData[1] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[1][0], MsgData[1][1], MsgData[1][2], MsgData[1][3]);
+		
+		
+		CANMessageGet(0x40040000, 3, &RxObj[0], 1);	
+		
+		MsgData[0][0]=RxMsgData[0];
+		MsgData[0][1]=RxMsgData[1];
+		MsgData[0][2]=RxMsgData[2];
+		MsgData[0][3]=RxMsgData[3];
+		CANMessageSet(0x40040000, 3, &RxObj[0], MSG_OBJ_TYPE_RX);	
+		CANMessageSet(0x40040000, 4, &RxObj[1], MSG_OBJ_TYPE_RX);
+		printf("RxBuffer[0] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[0][0], MsgData[0][1], MsgData[0][2], MsgData[0][3]);
+			
 			rxFlag=0;
 		}
-		if(RxObj[0].ui32Flags & 0x00000100) { 
-			printf("CAN message loss detected\n");
-		}
-		if (MsgData[0][0] == 128){
-			GPIOPinWrite(0x40025000, 0x00000002, 0xF);
-		}
-		if (MsgData[0][1] == 128){
-			GPIOPinWrite(0x40025000, 0x00000004, 0xF);
-		}
-		if (MsgData[0][2] == 128){
-			GPIOPinWrite(0x40025000, 0x00000008, 0xF);
-		}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	}
 }	
 
 
 
 void Init_Structs(){ 
-	TxObj[0].ui32MsgID = 0x03; 
-  TxObj[0].ui32MsgIDMask = 0x00;
-  TxObj[0].ui32Flags = 0x00000001 | 0x00000008;  
-  TxObj[0].ui32MsgLen = sizeof(msgDataPtr);
-  TxObj[0].pui8MsgData = msgDataPtr; 
-	
-	TxObj[1].ui32MsgID = 0x02; 
-  TxObj[1].ui32MsgIDMask = 0x00;
-  TxObj[1].ui32Flags = 0x00000001 | 0x00000008; 
-  TxObj[1].ui32MsgLen = sizeof(msgDataPtr2);
-  TxObj[1].pui8MsgData = msgDataPtr2; 
-	
-	RxObj[0].ui32MsgID = 0x03; 
-  RxObj[0].ui32MsgIDMask = 0x00; 
-  RxObj[0].ui32Flags = 0x00000002 | 0x00000008;
-  RxObj[0].ui32MsgLen = 8;
-	RxObj[0].pui8MsgData = RxMsgData; 
-	
-
-
-
-
-
-}
-
-void Init_Structs1(){ 
-	TxObj[0].ui32MsgID = 0x01; 
+	TxObj[0].ui32MsgID = 0x06; 
   TxObj[0].ui32MsgIDMask = 0x00;
   TxObj[0].ui32Flags = 0x00000001;  
   TxObj[0].ui32MsgLen = sizeof(msgDataPtr);
   TxObj[0].pui8MsgData = msgDataPtr; 
 	
-	TxObj[1].ui32MsgID = 0x02; 
+	TxObj[1].ui32MsgID = 0x10; 
   TxObj[1].ui32MsgIDMask = 0x00;
   TxObj[1].ui32Flags = 0x00000001; 
   TxObj[1].ui32MsgLen = sizeof(msgDataPtr2);
   TxObj[1].pui8MsgData = msgDataPtr2;  
 	
-	RxObj[0].ui32MsgID = 0x01; 
+	RxObj[0].ui32MsgID = 0x06; 
   RxObj[0].ui32MsgIDMask = 0x00; 
   RxObj[0].ui32Flags = 0x00000002;
   RxObj[0].ui32MsgLen = 8;
 	RxObj[0].pui8MsgData = RxMsgData; 
 	
-  RxObj[1].ui32MsgID = 0x02; 
+  RxObj[1].ui32MsgID = 0x10; 
   RxObj[1].ui32MsgIDMask = 0x00; 
   RxObj[1].ui32Flags = 0x00000002;
   RxObj[1].ui32MsgLen = 8;
 	RxObj[1].pui8MsgData = RxMsgData2; 
 }
-
-void Init_Structs2(){ 
-	TxObj[0].ui32MsgID = 0x0F; 
-  TxObj[0].ui32MsgIDMask = 0xFF;
-  TxObj[0].ui32Flags = 0x00000001 | 0x00000008;  
-  TxObj[0].ui32MsgLen = sizeof(msgDataPtr);
-  TxObj[0].pui8MsgData = msgDataPtr; 
-	
-	TxObj[1].ui32MsgID = 0xF0; 
-  TxObj[1].ui32MsgIDMask = 0xFF;
-  TxObj[1].ui32Flags = 0x00000001 | 0x00000008; 
-  TxObj[1].ui32MsgLen = sizeof(msgDataPtr2);
-  TxObj[1].pui8MsgData = msgDataPtr2;  
-	
-	RxObj[0].ui32MsgID = 0x0F; 
-  RxObj[0].ui32MsgIDMask = 0xFF; 
-  RxObj[0].ui32Flags = 0x00000002 | 0x00000008;
-  RxObj[0].ui32MsgLen = 8;
-	RxObj[0].pui8MsgData = RxMsgData; 
-	
-  RxObj[1].ui32MsgID = 0xF0; 
-  RxObj[1].ui32MsgIDMask = 0xFF; 
-  RxObj[1].ui32Flags = 0x00000002 | 0x00000008;
-  RxObj[1].ui32MsgLen = 8;
-	RxObj[1].pui8MsgData = RxMsgData2; 
-}
-
