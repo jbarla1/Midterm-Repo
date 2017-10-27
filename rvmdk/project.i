@@ -17803,6 +17803,7 @@ extern void WatchdogStallDisable(uint32_t ui32Base);
 
 #line 45 "project.h"
 
+
 #line 1 "src/Uart_helper.h"
 #line 2 "src/Uart_helper.h"
 #line 3 "src/Uart_helper.h"
@@ -17824,11 +17825,12 @@ int fputc(int ch, FILE *f);
 
 int fgetc(FILE *f);
 
-#line 47 "project.h"
+#line 48 "project.h"
 
 void SetupHardware(void);
 void receive(void);
 void transmit(void);
+void trial_recieve(void);
 #line 2 "project.c"
 
 #line 9 "project.c"
@@ -17840,17 +17842,49 @@ void transmit(void);
 
 
 
+unsigned char MsgData[NUM_RX_MESSAGES][4];
+
 int  main(void) {
 	SetupHardware();
 	CAN_Init();
 	
 
+
+	
+	
 	transmit();
 }	
 
 void receive() {
-	Init_Receiver();	
+	Steady_Receiver();	
 }
+
+void trial_recieve(){
+
+Init_receiver();
+
+	while(1){
+	printf("Display data?");
+	getc((& __stdin));
+		
+	
+		  printf("MsgData[0] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[0][0], MsgData[0][1], MsgData[0][2], MsgData[0][3]);
+			printf("MsgData[1] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[1][0], MsgData[1][1], MsgData[1][2], MsgData[1][3]);
+			printf("MsgData[2] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[2][0], MsgData[2][1], MsgData[2][2], MsgData[2][3]);
+			printf("MsgData[3] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[3][0], MsgData[3][1], MsgData[3][2], MsgData[3][3]);
+		
+		
+		
+	}
+	
+	
+	
+	
+}
+
+
+
+
 
 void transmit() {
 	uint8_t data[4];

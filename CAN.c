@@ -23,9 +23,9 @@ unsigned int msgData4;                                                          
 unsigned char *msgDataPtr4 = (unsigned char *)&msgData4;                         // Make a pointer to msgData so we can access individual bytes
 unsigned char RxMsgData4[8];                                                     // 8 byte buffer for RxObj[1] message data
 
-unsigned char MsgData[4][4];                                   		 // Eventually will be external message data for Rx messages
+unsigned char MsgData[NUM_RX_MESSAGES][4];                                   		 // Eventually will be external message data for Rx messages
 
-tCANMsgObject TxObj[4], RxObj[4];                    // Set up Tx and Rx TCANMsgObject structs with defined quantites
+tCANMsgObject TxObj[NUM_TX_MESSAGES], RxObj[NUM_RX_MESSAGES];                    // Set up Tx and Rx TCANMsgObject structs with defined quantites
 // --------------------------------------------------------------------------------------
 //			CAN initialize function:
 // --------------------------------------------------------------------------------------
@@ -171,9 +171,9 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 	}
 }
 // --------------------------------------------------------------------------------------
-//			CAN receive function:
+//			CAN receive functions:
 // --------------------------------------------------------------------------------------
-void Init_Receiver(){
+void Steady_Receiver(){
 
 	CANMessageSet(CAN0_BASE, 1, &RxObj[0], MSG_OBJ_TYPE_RX);	// Load msg into CAN peripheral message object 1 so it can trigger interrupts on any matched rx messages
 	CANMessageSet(CAN0_BASE, 2, &RxObj[1], MSG_OBJ_TYPE_RX);
@@ -204,6 +204,14 @@ void Init_Receiver(){
 		}
 	}
 }	
+
+void Init_receiver(){
+	CANMessageSet(CAN0_BASE, 1, &RxObj[0], MSG_OBJ_TYPE_RX);	// Load msg into CAN peripheral message object 1 so it can trigger interrupts on any matched rx messages
+	CANMessageSet(CAN0_BASE, 2, &RxObj[1], MSG_OBJ_TYPE_RX);
+	CANMessageSet(CAN0_BASE, 3, &RxObj[2], MSG_OBJ_TYPE_RX);	
+	CANMessageSet(CAN0_BASE, 4, &RxObj[3], MSG_OBJ_TYPE_RX);	
+}
+
 // --------------------------------------------------------------------------------------
 //						struct inits:
 // --------------------------------------------------------------------------------------

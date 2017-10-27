@@ -64108,6 +64108,7 @@ N
 N#endif // __TM4C123GH6PM_H__
 L 45 "project.h" 2
 N
+N
 N#include "src/Uart_helper.h"
 L 1 "src/Uart_helper.h" 1
 N#include <stdbool.h>
@@ -64130,12 +64131,13 @@ N//redirect input from serial port
 N//read info edit by: Sir Hutson
 Nint fgetc(FILE *f);
 N
-L 47 "project.h" 2
+L 48 "project.h" 2
 N
 Nvoid SetupHardware(void);
 Nvoid receive(void);
-W "project.h" 50 21 last line of file ends without a newline
 Nvoid transmit(void);
+W "project.h" 52 26 last line of file ends without a newline
+Nvoid trial_recieve(void);
 L 6 "CAN.h" 2
 N
 N#include "inc/hw_types.h"
@@ -65346,12 +65348,14 @@ N#include "inc/hw_memmap.h"
 N#include "./driverlib/sysctl.h"
 N
 N
-N#define NUM_RX_MESSAGES 2
-N#define NUM_TX_MESSAGES 2
+N#define NUM_RX_MESSAGES 4
+N#define NUM_TX_MESSAGES 4
 N
+Nextern unsigned char MsgData[NUM_RX_MESSAGES][4];
+Xextern unsigned char MsgData[4][4];
 N
-N
-Nvoid Init_Receiver(void);
+Nvoid Init_receiver(void);
+Nvoid Steady_Receiver(void);
 Nvoid CAN_Transmit(uint8_t data[4], uint8_t msgSelect);
 Nvoid CANIntHandler(void);
 Nvoid CAN_Init(void);
@@ -65359,7 +65363,7 @@ Nvoid CAN_Slave(void);
 Nvoid Init_Structs(void);
 Nvoid Init_Structs1(void);
 Nvoid Init_Structs2(void);
-W "CAN.h" 29 26 last line of file ends without a newline
+W "CAN.h" 30 26 last line of file ends without a newline
 Nvoid Init_Structs3(void);
 L 2 "CAN.c" 2
 N#include <stdio.h>
@@ -65388,9 +65392,11 @@ Nunsigned int msgData4;                                                         
 Nunsigned char *msgDataPtr4 = (unsigned char *)&msgData4;                         // Make a pointer to msgData so we can access individual bytes
 Nunsigned char RxMsgData4[8];                                                     // 8 byte buffer for RxObj[1] message data
 N
-Nunsigned char MsgData[4][4];                                   		 // Eventually will be external message data for Rx messages
+Nunsigned char MsgData[NUM_RX_MESSAGES][4];                                   		 // Eventually will be external message data for Rx messages
+Xunsigned char MsgData[4][4];                                   		 
 N
-NtCANMsgObject TxObj[4], RxObj[4];                    // Set up Tx and Rx TCANMsgObject structs with defined quantites
+NtCANMsgObject TxObj[NUM_TX_MESSAGES], RxObj[NUM_RX_MESSAGES];                    // Set up Tx and Rx TCANMsgObject structs with defined quantites
+XtCANMsgObject TxObj[4], RxObj[4];                    
 N// --------------------------------------------------------------------------------------
 N//			CAN initialize function:
 N// --------------------------------------------------------------------------------------
@@ -65522,10 +65528,10 @@ N//			CAN transmit function:
 N// --------------------------------------------------------------------------------------
 Nvoid CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 N	if(msgSelect==1){
-N		msgDataPtr[0] = 128;//data[0];
-N		msgDataPtr[1] = 128;//data[1];
-N		msgDataPtr[2] = 128;//data[2];
-N		msgDataPtr[3] = 128;//data[3];
+N		msgDataPtr[0] = data[0];
+N		msgDataPtr[1] = data[1];
+N		msgDataPtr[2] = data[2];
+N		msgDataPtr[3] = data[3];
 N		printf("Sending message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); // write colour to UART for debugging
 N		CANMessageSet(CAN0_BASE, 5, &TxObj[0], MSG_OBJ_TYPE_TX); // send as msg object 1
 X		CANMessageSet(0x40040000, 5, &TxObj[0], MSG_OBJ_TYPE_TX); 
@@ -65566,9 +65572,9 @@ N		printf("CAN Bus Error\n");
 N	}
 N}
 N// --------------------------------------------------------------------------------------
-N//			CAN receive function:
+N//			CAN receive functions:
 N// --------------------------------------------------------------------------------------
-Nvoid Init_Receiver(){
+Nvoid Steady_Receiver(){
 N
 N	CANMessageSet(CAN0_BASE, 1, &RxObj[0], MSG_OBJ_TYPE_RX);	// Load msg into CAN peripheral message object 1 so it can trigger interrupts on any matched rx messages
 X	CANMessageSet(0x40040000, 1, &RxObj[0], MSG_OBJ_TYPE_RX);	
@@ -65607,6 +65613,18 @@ N			}
 N		}
 N	}
 N}	
+N
+Nvoid Init_receiver(){
+N	CANMessageSet(CAN0_BASE, 1, &RxObj[0], MSG_OBJ_TYPE_RX);	// Load msg into CAN peripheral message object 1 so it can trigger interrupts on any matched rx messages
+X	CANMessageSet(0x40040000, 1, &RxObj[0], MSG_OBJ_TYPE_RX);	
+N	CANMessageSet(CAN0_BASE, 2, &RxObj[1], MSG_OBJ_TYPE_RX);
+X	CANMessageSet(0x40040000, 2, &RxObj[1], MSG_OBJ_TYPE_RX);
+N	CANMessageSet(CAN0_BASE, 3, &RxObj[2], MSG_OBJ_TYPE_RX);	
+X	CANMessageSet(0x40040000, 3, &RxObj[2], MSG_OBJ_TYPE_RX);	
+N	CANMessageSet(CAN0_BASE, 4, &RxObj[3], MSG_OBJ_TYPE_RX);	
+X	CANMessageSet(0x40040000, 4, &RxObj[3], MSG_OBJ_TYPE_RX);	
+N}
+N
 N// --------------------------------------------------------------------------------------
 N//						struct inits:
 N// --------------------------------------------------------------------------------------
@@ -65666,5 +65684,5 @@ N  RxObj[3].ui32Flags = MSG_OBJ_RX_INT_ENABLE;
 X  RxObj[3].ui32Flags = 0x00000002;
 N  RxObj[3].ui32MsgLen = 8;
 N	RxObj[3].pui8MsgData = RxMsgData4; // This pointer needs to be set to buffer for Rx Message data. 
-W "CAN.c" 258 2 last line of file ends without a newline
+W "CAN.c" 266 2 last line of file ends without a newline
 N}

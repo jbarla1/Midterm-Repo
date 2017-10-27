@@ -45,21 +45,25 @@ driverlib/hibernate.h(231): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchSet(uint32_t ui32Index, struct tm *psTime);
 driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
-project.h(50): warning:  #1-D: last line of file ends without a newline
-  void transmit(void);
-project.c(19): warning:  #223-D: function "CAN_Init" declared implicitly
+project.h(52): warning:  #1-D: last line of file ends without a newline
+  void trial_recieve(void);
+project.c(17): error:  #20: identifier "NUM_RX_MESSAGES" is undefined
+  unsigned char MsgData[NUM_RX_MESSAGES][4];
+project.c(21): warning:  #223-D: function "CAN_Init" declared implicitly
   	CAN_Init();
-project.c(26): warning:  #223-D: function "Init_Receiver" declared implicitly
-  	Init_Receiver();	
-project.c(43): warning:  #223-D: function "CAN_Transmit" declared implicitly
+project.c(31): warning:  #223-D: function "Steady_Receiver" declared implicitly
+  	Steady_Receiver();	
+project.c(36): warning:  #223-D: function "Init_receiver" declared implicitly
+  Init_receiver();
+project.c(75): warning:  #223-D: function "CAN_Transmit" declared implicitly
   		CAN_Transmit(data, msgSelect);
-project.c(59): warning:  #223-D: function "ClockSetup" declared implicitly
+project.c(91): warning:  #223-D: function "ClockSetup" declared implicitly
   		ClockSetup();
-project.c(60): warning:  #223-D: function "GPIO_Setup" declared implicitly
+project.c(92): warning:  #223-D: function "GPIO_Setup" declared implicitly
   		GPIO_Setup();
-project.c(66): warning:  #1-D: last line of file ends without a newline
+project.c(98): warning:  #1-D: last line of file ends without a newline
   }
-project.c: 11 warnings, 0 errors
+project.c: 12 warnings, 1 error
 compiling Systic.c...
 driverlib/hibernate.h(229): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarSet(struct tm *psTime);
@@ -69,8 +73,8 @@ driverlib/hibernate.h(231): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchSet(uint32_t ui32Index, struct tm *psTime);
 driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
-project.h(50): warning:  #1-D: last line of file ends without a newline
-  void transmit(void);
+project.h(52): warning:  #1-D: last line of file ends without a newline
+  void trial_recieve(void);
 Systic.h(129): warning:  #1-D: last line of file ends without a newline
   #endif // __DRIVERLIB_SYSTICK_H__
 Systic.c: 6 warnings, 0 errors
@@ -94,8 +98,8 @@ driverlib/hibernate.h(231): warning:  #231-D: declaration is not visible outside
   extern void HibernateCalendarMatchSet(uint32_t ui32Index, struct tm *psTime);
 driverlib/hibernate.h(232): warning:  #231-D: declaration is not visible outside of function
   extern void HibernateCalendarMatchGet(uint32_t ui32Index, struct tm *psTime);
-project.h(50): warning:  #1-D: last line of file ends without a newline
-  void transmit(void);
+project.h(52): warning:  #1-D: last line of file ends without a newline
+  void trial_recieve(void);
 inc/hw_ints.h(352): warning:  #47-D: incompatible redefinition of macro "INT_ADC0SS0"  (declared at line 62 of ".\inc\tm4c123gh6pm.h")
   #define INT_ADC0SS0             INT_CONCAT(INT_ADC0SS0_, INT_DEVICE_CLASS)
 inc/hw_ints.h(353): warning:  #47-D: incompatible redefinition of macro "INT_ADC0SS1"  (declared at line 63 of ".\inc\tm4c123gh6pm.h")
@@ -252,16 +256,12 @@ inc/hw_ints.h(473): warning:  #47-D: incompatible redefinition of macro "INT_WTI
   #define INT_WTIMER5A            INT_CONCAT(INT_WTIMER5A_, INT_DEVICE_CLASS)
 inc/hw_ints.h(474): warning:  #47-D: incompatible redefinition of macro "INT_WTIMER5B"  (declared at line 120 of ".\inc\tm4c123gh6pm.h")
   #define INT_WTIMER5B            INT_CONCAT(INT_WTIMER5B_, INT_DEVICE_CLASS)
-CAN.h(29): warning:  #1-D: last line of file ends without a newline
+CAN.h(30): warning:  #1-D: last line of file ends without a newline
   void Init_Structs3(void);
-CAN.c(258): warning:  #1-D: last line of file ends without a newline
+CAN.c(266): warning:  #1-D: last line of file ends without a newline
   }
 CAN.c: 85 warnings, 0 errors
-linking...
-Program Size: Code=5536 RO-data=1616 RW-data=1644 ZI-data=436  
-FromELF: creating hex file...
-After Build - User command #1: fromelf --bin --output .\rvmdk\project.bin .\rvmdk\project.axf
-".\rvmdk\project.axf" - 0 Error(s), 107 Warning(s).
+".\rvmdk\project.axf" - 1 Error(s), 108 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -284,7 +284,8 @@ Package Vendor: Keil
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.0.1
-Build Time Elapsed:  00:00:05
+Target not created.
+Build Time Elapsed:  00:00:04
 </pre>
 </body>
 </html>

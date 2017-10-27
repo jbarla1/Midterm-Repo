@@ -13,12 +13,13 @@
 #include "./driverlib/sysctl.h"
 
 
-#define NUM_RX_MESSAGES 2
-#define NUM_TX_MESSAGES 2
+#define NUM_RX_MESSAGES 4
+#define NUM_TX_MESSAGES 4
 
+extern unsigned char MsgData[NUM_RX_MESSAGES][4];
 
-
-void Init_Receiver(void);
+void Init_receiver(void);
+void Steady_Receiver(void);
 void CAN_Transmit(uint8_t data[4], uint8_t msgSelect);
 void CANIntHandler(void);
 void CAN_Init(void);

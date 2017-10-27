@@ -64108,6 +64108,7 @@ N
 N#endif // __TM4C123GH6PM_H__
 L 45 "project.h" 2
 N
+N
 N#include "src/Uart_helper.h"
 L 1 "src/Uart_helper.h" 1
 N#include <stdbool.h>
@@ -64130,12 +64131,13 @@ N//redirect input from serial port
 N//read info edit by: Sir Hutson
 Nint fgetc(FILE *f);
 N
-L 47 "project.h" 2
+L 48 "project.h" 2
 N
 Nvoid SetupHardware(void);
 Nvoid receive(void);
-W "project.h" 50 21 last line of file ends without a newline
 Nvoid transmit(void);
+W "project.h" 52 26 last line of file ends without a newline
+Nvoid trial_recieve(void);
 L 6 "Systic.h" 2
 N#include "Uart_helper.h"
 L 1 ".\src\Uart_helper.h" 1

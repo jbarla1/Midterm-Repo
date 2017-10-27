@@ -17808,6 +17808,7 @@ extern void WatchdogStallDisable(uint32_t ui32Base);
 
 #line 45 "project.h"
 
+
 #line 1 "src/Uart_helper.h"
 #line 2 "src/Uart_helper.h"
 #line 3 "src/Uart_helper.h"
@@ -17829,11 +17830,12 @@ int fputc(int ch, FILE *f);
 
 int fgetc(FILE *f);
 
-#line 47 "project.h"
+#line 48 "project.h"
 
 void SetupHardware(void);
 void receive(void);
 void transmit(void);
+void trial_recieve(void);
 #line 6 "CAN.h"
 
 #line 1 "inc/hw_types.h"
@@ -18455,9 +18457,10 @@ void transmit(void);
 
 
 
+extern unsigned char MsgData[4][4];
 
-
-void Init_Receiver(void);
+void Init_receiver(void);
+void Steady_Receiver(void);
 void CAN_Transmit(uint8_t data[4], uint8_t msgSelect);
 void CANIntHandler(void);
 void CAN_Init(void);
@@ -18599,10 +18602,10 @@ void CANIntHandler(void) {
 
 void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 	if(msgSelect==1){
-		msgDataPtr[0] = 128;
-		msgDataPtr[1] = 128;
-		msgDataPtr[2] = 128;
-		msgDataPtr[3] = 128;
+		msgDataPtr[0] = data[0];
+		msgDataPtr[1] = data[1];
+		msgDataPtr[2] = data[2];
+		msgDataPtr[3] = data[3];
 		printf("Sending message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); 
 		CANMessageSet(0x40040000, 5, &TxObj[0], MSG_OBJ_TYPE_TX); 
 		printf("Message sent.\n");
@@ -18641,7 +18644,7 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 
 
 
-void Init_Receiver(){
+void Steady_Receiver(){
 
 	CANMessageSet(0x40040000, 1, &RxObj[0], MSG_OBJ_TYPE_RX);	
 	CANMessageSet(0x40040000, 2, &RxObj[1], MSG_OBJ_TYPE_RX);
@@ -18672,6 +18675,14 @@ void Init_Receiver(){
 		}
 	}
 }	
+
+void Init_receiver(){
+	CANMessageSet(0x40040000, 1, &RxObj[0], MSG_OBJ_TYPE_RX);	
+	CANMessageSet(0x40040000, 2, &RxObj[1], MSG_OBJ_TYPE_RX);
+	CANMessageSet(0x40040000, 3, &RxObj[2], MSG_OBJ_TYPE_RX);	
+	CANMessageSet(0x40040000, 4, &RxObj[3], MSG_OBJ_TYPE_RX);	
+}
+
 
 
 

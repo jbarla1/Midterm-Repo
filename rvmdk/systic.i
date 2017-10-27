@@ -17808,6 +17808,7 @@ extern void WatchdogStallDisable(uint32_t ui32Base);
 
 #line 45 "project.h"
 
+
 #line 1 "src/Uart_helper.h"
 #line 2 "src/Uart_helper.h"
 #line 3 "src/Uart_helper.h"
@@ -17829,11 +17830,12 @@ int fputc(int ch, FILE *f);
 
 int fgetc(FILE *f);
 
-#line 47 "project.h"
+#line 48 "project.h"
 
 void SetupHardware(void);
 void receive(void);
 void transmit(void);
+void trial_recieve(void);
 #line 6 "Systic.h"
 #line 1 ".\\src\\Uart_helper.h"
 #line 2 ".\\src\\Uart_helper.h"

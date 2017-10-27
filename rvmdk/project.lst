@@ -64102,6 +64102,7 @@ N
 N#endif // __TM4C123GH6PM_H__
 L 45 "project.h" 2
 N
+N
 N#include "src/Uart_helper.h"
 L 1 "src/Uart_helper.h" 1
 N#include <stdbool.h>
@@ -64124,12 +64125,13 @@ N//redirect input from serial port
 N//read info edit by: Sir Hutson
 Nint fgetc(FILE *f);
 N
-L 47 "project.h" 2
+L 48 "project.h" 2
 N
 Nvoid SetupHardware(void);
 Nvoid receive(void);
-W "project.h" 50 21 last line of file ends without a newline
 Nvoid transmit(void);
+W "project.h" 52 26 last line of file ends without a newline
+Nvoid trial_recieve(void);
 L 2 "project.c" 2
 N
 N#ifdef DEBUG
@@ -64146,19 +64148,54 @@ N//
 N//  Main C File:
 N//=============================================================================================//
 N
+E "project.c" 17 23 identifier "NUM_RX_MESSAGES" is undefined
+Nunsigned char MsgData[NUM_RX_MESSAGES][4];
+N
 Nint  main(void) {
 N	SetupHardware();
-W "project.c" 19 2 function "CAN_Init" declared implicitly
+W "project.c" 21 2 function "CAN_Init" declared implicitly
 N	CAN_Init();
 N	
 N//	receive();
+N//  trial_recieve();	
+N	
+N	
 N	transmit();
 N}	
 N
 Nvoid receive() {
-W "project.c" 26 2 function "Init_Receiver" declared implicitly
-N	Init_Receiver();	
+W "project.c" 31 2 function "Steady_Receiver" declared implicitly
+N	Steady_Receiver();	
 N}
+N
+Nvoid trial_recieve(){
+N
+W "project.c" 36 1 function "Init_receiver" declared implicitly
+NInit_receiver();
+N
+N	while(1){
+N	printf("Display data?");
+N	getchar();
+X	getc((& __stdin));
+N		
+N	
+N		  printf("MsgData[0] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[0][0], MsgData[0][1], MsgData[0][2], MsgData[0][3]);
+N			printf("MsgData[1] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[1][0], MsgData[1][1], MsgData[1][2], MsgData[1][3]);
+N			printf("MsgData[2] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[2][0], MsgData[2][1], MsgData[2][2], MsgData[2][3]);
+N			printf("MsgData[3] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[3][0], MsgData[3][1], MsgData[3][2], MsgData[3][3]);
+N		
+N		
+N		
+N	}
+N	
+N	
+N	
+N	
+N}
+N
+N
+N
+N
 N
 Nvoid transmit() {
 N	uint8_t data[4];
@@ -64175,7 +64212,7 @@ N		data[2] = 128;
 N		data[3] = 128;		
 N		
 N		printf("sending message\n");
-W "project.c" 43 3 function "CAN_Transmit" declared implicitly
+W "project.c" 75 3 function "CAN_Transmit" declared implicitly
 N		CAN_Transmit(data, msgSelect);
 N
 N		printf("send again new data on same message?\n");
@@ -64193,14 +64230,14 @@ N	}
 N}
 N
 Nvoid SetupHardware(){
-W "project.c" 59 3 function "ClockSetup" declared implicitly
+W "project.c" 91 3 function "ClockSetup" declared implicitly
 N		ClockSetup();
-W "project.c" 60 3 function "GPIO_Setup" declared implicitly
+W "project.c" 92 3 function "GPIO_Setup" declared implicitly
 N		GPIO_Setup();
 N		UartSetup();
 N		printf("Debugging interface initialized...\n");
 N		printf("GPIO ports initialized...\n");
 N		printf("Clock settings initialized...\n\n");
 N		printf("Set-up Complete.\n\n");
-W "project.c" 66 2 last line of file ends without a newline
+W "project.c" 98 2 last line of file ends without a newline
 N}

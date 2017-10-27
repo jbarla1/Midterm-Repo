@@ -43,8 +43,10 @@
 #include "driverlib/watchdog.h"
 #include "tm4c123gh6pm.h"
 
+
 #include "src/Uart_helper.h"
 
 void SetupHardware(void);
 void receive(void);
 void transmit(void);
+void trial_recieve(void);
