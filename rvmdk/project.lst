@@ -64151,8 +64151,8 @@ N	SetupHardware();
 W "project.c" 19 2 function "CAN_Init" declared implicitly
 N	CAN_Init();
 N	
-N	receive();
-N//	transmit();
+N//	receive();
+N	transmit();
 N}	
 N
 Nvoid receive() {
