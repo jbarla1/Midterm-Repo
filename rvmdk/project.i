@@ -17824,66 +17824,6 @@ int fputc(int ch, FILE *f);
 
 int fgetc(FILE *f);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 #line 47 "project.h"
 
 void SetupHardware(void);
@@ -17916,12 +17856,10 @@ int  main(void) {
 	SetupHardware();
 
 	while(choice) {
-		SelectionMenu(); 	
-			
+		SelectionMenu(); 		
 		printf("Would you like to return to the menu or terminate the program? (1=continue, 0=terminate)");
 		choice = getc((& __stdin));
 	}	
-	
 }
 
 
