@@ -18469,32 +18469,8 @@ volatile _Bool rxFlag = 0;
 
 unsigned int msgData;                                                            
 unsigned char *msgDataPtr = (unsigned char *)&msgData;                           
-unsigned char RxMsgData[7][8];                                                      
 
-unsigned int msgData2;                                                           
-unsigned char *msgDataPtr2 = (unsigned char *)&msgData2;                         
-                                                    
-
-unsigned int msgData3;                                                           
-unsigned char *msgDataPtr3 = (unsigned char *)&msgData3;                         
-                                                    
-
-unsigned int msgData4;                                                           
-unsigned char *msgDataPtr4 = (unsigned char *)&msgData4;                         
-                                                     
-
-unsigned int msgData5;                                                           
-unsigned char *msgDataPtr5 = (unsigned char *)&msgData5;                         
-                                                  
-
-unsigned int msgData6;                                                           
-unsigned char *msgDataPtr6 = (unsigned char *)&msgData6;                         
-                                                     
-
-unsigned int msgData7;                                                           
-unsigned char *msgDataPtr7 = (unsigned char *)&msgData7;                         
-                                                    
-
+unsigned char RxMsgData[7][8];                                     
 unsigned char MsgData[7][4];                                   		 
 
 tCANMsgObject TxObj[7], RxObj[7];                    
@@ -18554,69 +18530,13 @@ void CANIntHandler(void) {
 
 
 void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
-	if(msgSelect==1){
 		msgDataPtr[0] = data[0];
 		msgDataPtr[1] = data[1];
 		msgDataPtr[2] = data[2];
 		msgDataPtr[3] = data[3];
-		printf("Sending message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); 
-		CANMessageSet(0x40040000, 8, &TxObj[0], MSG_OBJ_TYPE_TX); 
+		printf("Sending message %d:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgSelect, msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); 
+		CANMessageSet(0x40040000, (msgSelect+7), &TxObj[msgSelect-1], MSG_OBJ_TYPE_TX); 
 		printf("Message sent.\n");
-	}
-	else if(msgSelect==2){
-		msgDataPtr2[0] = data[0];
-		msgDataPtr2[1] = data[1];
-		msgDataPtr2[2] = data[2];
-		msgDataPtr2[3] = data[3];
-		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr2[0], msgDataPtr2[1], msgDataPtr2[2], msgDataPtr2[3]); 
-		CANMessageSet(0x40040000, 9, &TxObj[1], MSG_OBJ_TYPE_TX); 
-		printf("Message sent.\n");
-	}
-	else if(msgSelect==3){
-		msgDataPtr3[0] = data[0];
-		msgDataPtr3[1] = data[1];
-		msgDataPtr3[2] = data[2];
-		msgDataPtr3[3] = data[3];
-		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr3[0], msgDataPtr3[1], msgDataPtr3[2], msgDataPtr3[3]); 
-		CANMessageSet(0x40040000, 10, &TxObj[2], MSG_OBJ_TYPE_TX); 
-		printf("Message sent.\n");
-	}
-		else if(msgSelect==4){
-		msgDataPtr4[0] = data[0];
-		msgDataPtr4[1] = data[1];
-		msgDataPtr4[2] = data[2];
-		msgDataPtr4[3] = data[3];
-		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr4[0], msgDataPtr4[1], msgDataPtr4[2], msgDataPtr4[3]); 
-		CANMessageSet(0x40040000, 11, &TxObj[3], MSG_OBJ_TYPE_TX); 
-		printf("Message sent.\n");
-	}
-		else if(msgSelect==5){
-		msgDataPtr5[0] = data[0];
-		msgDataPtr5[1] = data[1];
-		msgDataPtr5[2] = data[2];
-		msgDataPtr5[3] = data[3];
-		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr5[0], msgDataPtr5[1], msgDataPtr5[2], msgDataPtr5[3]); 
-		CANMessageSet(0x40040000, 12, &TxObj[4], MSG_OBJ_TYPE_TX); 
-		printf("Message sent.\n");
-	}
-		else if(msgSelect==6){
-		msgDataPtr6[0] = data[0];
-		msgDataPtr6[1] = data[1];
-		msgDataPtr6[2] = data[2];
-		msgDataPtr6[3] = data[3];
-		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr6[0], msgDataPtr6[1], msgDataPtr6[2], msgDataPtr6[3]); 
-		CANMessageSet(0x40040000, 13, &TxObj[5], MSG_OBJ_TYPE_TX); 
-		printf("Message sent.\n");
-	}
-		else if(msgSelect==7){
-		msgDataPtr7[0] = data[0];
-		msgDataPtr7[1] = data[1];
-		msgDataPtr7[2] = data[2];
-		msgDataPtr7[3] = data[3];
-		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr7[0], msgDataPtr7[1], msgDataPtr7[2], msgDataPtr7[3]); 
-		CANMessageSet(0x40040000, 14, &TxObj[6], MSG_OBJ_TYPE_TX); 
-		printf("Message sent.\n");
-	}		
 	if(errFlag) { 
 		printf("CAN Bus Error\n");
 	}
@@ -18648,38 +18568,38 @@ void Init_Structs(){
 	TxObj[1].ui32MsgID = 0x02; 
   TxObj[1].ui32MsgIDMask = 0x00;
   TxObj[1].ui32Flags = 0x00000001; 
-  TxObj[1].ui32MsgLen = sizeof(msgDataPtr2);
-  TxObj[1].pui8MsgData = msgDataPtr2;  
+  TxObj[1].ui32MsgLen = sizeof(msgDataPtr);
+  TxObj[1].pui8MsgData = msgDataPtr;  
 	
 	TxObj[2].ui32MsgID = 0x03; 
   TxObj[2].ui32MsgIDMask = 0x00;
   TxObj[2].ui32Flags = 0x00000001; 
-  TxObj[2].ui32MsgLen = sizeof(msgDataPtr3);
-  TxObj[2].pui8MsgData = msgDataPtr3;  
+  TxObj[2].ui32MsgLen = sizeof(msgDataPtr);
+  TxObj[2].pui8MsgData = msgDataPtr;  
 	
 	TxObj[3].ui32MsgID = 0x04; 
   TxObj[3].ui32MsgIDMask = 0x00;
   TxObj[3].ui32Flags = 0x00000001; 
-  TxObj[3].ui32MsgLen = sizeof(msgDataPtr4);
-  TxObj[3].pui8MsgData = msgDataPtr4;  
+  TxObj[3].ui32MsgLen = sizeof(msgDataPtr);
+  TxObj[3].pui8MsgData = msgDataPtr;  
 	
 	TxObj[4].ui32MsgID = 0x05; 
   TxObj[4].ui32MsgIDMask = 0x00;
   TxObj[4].ui32Flags = 0x00000001; 
-  TxObj[4].ui32MsgLen = sizeof(msgDataPtr5);
-  TxObj[4].pui8MsgData = msgDataPtr5;  
+  TxObj[4].ui32MsgLen = sizeof(msgDataPtr);
+  TxObj[4].pui8MsgData = msgDataPtr;  
 	
 	TxObj[5].ui32MsgID = 0x06; 
   TxObj[5].ui32MsgIDMask = 0x00;
   TxObj[5].ui32Flags = 0x00000001; 
-  TxObj[5].ui32MsgLen = sizeof(msgDataPtr6);
-  TxObj[5].pui8MsgData = msgDataPtr6;  
+  TxObj[5].ui32MsgLen = sizeof(msgDataPtr);
+  TxObj[5].pui8MsgData = msgDataPtr;  
 	
 	TxObj[6].ui32MsgID = 0x07; 
   TxObj[6].ui32MsgIDMask = 0x00;
   TxObj[6].ui32Flags = 0x00000001; 
-  TxObj[6].ui32MsgLen = sizeof(msgDataPtr7);
-  TxObj[6].pui8MsgData = msgDataPtr7;  
+  TxObj[6].ui32MsgLen = sizeof(msgDataPtr);
+  TxObj[6].pui8MsgData = msgDataPtr;  
 	
 	RxObj[0].ui32MsgID = 0x01; 
   RxObj[0].ui32MsgIDMask = 0x00; 
