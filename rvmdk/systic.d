@@ -43,5 +43,10 @@
 .\rvmdk\systic.o: driverlib/usb.h
 .\rvmdk\systic.o: driverlib/watchdog.h
 .\rvmdk\systic.o: .\inc\tm4c123gh6pm.h
+.\rvmdk\systic.o: CAN.h
+.\rvmdk\systic.o: inc/hw_types.h
+.\rvmdk\systic.o: inc/hw_can.h
+.\rvmdk\systic.o: inc/hw_ints.h
+.\rvmdk\systic.o: src/Uart_helper.h
 .\rvmdk\systic.o: src/Uart_helper.h
 .\rvmdk\systic.o: .\src\Uart_helper.h

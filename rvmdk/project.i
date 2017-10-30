@@ -17803,7 +17803,708 @@ extern void WatchdogStallDisable(uint32_t ui32Base);
 
 #line 45 "project.h"
 
+#line 1 "CAN.h"
+#line 2 "CAN.h"
+#line 3 "CAN.h"
+#line 4 "CAN.h"
+#line 5 "CAN.h"
 
+#line 1 "inc/hw_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 63 "inc/hw_types.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 7 "CAN.h"
+#line 1 "inc/hw_can.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 55 "inc/hw_can.h"
+                                            
+#line 86 "inc/hw_can.h"
+
+
+
+
+
+
+#line 99 "inc/hw_can.h"
+
+
+
+
+
+
+
+
+
+
+
+                                            
+#line 120 "inc/hw_can.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 145 "inc/hw_can.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 169 "inc/hw_can.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 201 "inc/hw_can.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 255 "inc/hw_can.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 311 "inc/hw_can.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 365 "inc/hw_can.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 8 "CAN.h"
+#line 1 "inc/hw_ints.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 58 "inc/hw_ints.h"
+
+
+
+
+
+
+#line 94 "inc/hw_ints.h"
+                                            
+#line 170 "inc/hw_ints.h"
+
+
+
+
+
+
+#line 244 "inc/hw_ints.h"
+                                            
+#line 283 "inc/hw_ints.h"
+
+
+
+
+
+
+#line 318 "inc/hw_ints.h"
+
+
+
+
+
+
+#line 339 "inc/hw_ints.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 475 "inc/hw_ints.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 9 "CAN.h"
+#line 10 "CAN.h"
+#line 11 "CAN.h"
+#line 12 "CAN.h"
+#line 13 "CAN.h"
+
+#line 15 "CAN.h"
+#line 16 "CAN.h"
+#line 17 "CAN.h"
+
+#line 19 "CAN.h"
+#line 20 "CAN.h"
+#line 21 "CAN.h"
+#line 22 "CAN.h"
+#line 23 "CAN.h"
+#line 24 "CAN.h"
+#line 25 "CAN.h"
+#line 26 "CAN.h"
+#line 27 "CAN.h"
+#line 28 "CAN.h"
+#line 29 "CAN.h"
+#line 30 "CAN.h"
+#line 31 "CAN.h"
+#line 32 "CAN.h"
+#line 33 "CAN.h"
+#line 34 "CAN.h"
+#line 35 "CAN.h"
+#line 36 "CAN.h"
+#line 37 "CAN.h"
+#line 38 "CAN.h"
+#line 39 "CAN.h"
+#line 40 "CAN.h"
+#line 41 "CAN.h"
+#line 42 "CAN.h"
+#line 43 "CAN.h"
+#line 44 "CAN.h"
+#line 45 "CAN.h"
+#line 46 "CAN.h"
+#line 47 "CAN.h"
+#line 48 "CAN.h"
+#line 49 "CAN.h"
+#line 50 "CAN.h"
+#line 51 "CAN.h"
+#line 52 "CAN.h"
+#line 53 "CAN.h"
+#line 54 "CAN.h"
+#line 55 "CAN.h"
+#line 56 "CAN.h"
+#line 1 "src/Uart_helper.h"
+#line 2 "src/Uart_helper.h"
+#line 3 "src/Uart_helper.h"
+#line 4 "src/Uart_helper.h"
+#line 5 "src/Uart_helper.h"
+#line 6 "src/Uart_helper.h"
+#line 7 "src/Uart_helper.h"
+#line 8 "src/Uart_helper.h"
+#line 9 "src/Uart_helper.h"
+#line 10 "src/Uart_helper.h"
+
+
+void UartSetup(void);		
+
+
+int fputc(int ch, FILE *f);
+
+
+
+int fgetc(FILE *f);
+
+#line 57 "CAN.h"
+
+
+
+
+extern unsigned char MsgData[7][4];
+
+void initReceiver(void);
+void Steady_Receiver(void);
+void CAN_Transmit(uint8_t data[4], uint8_t msgSelect);
+void CANIntHandler(void);
+void CAN_Init(void);
+void CAN_Slave(void);
+void Init_Structs(void);
+void Init_Structs1(void);
+void Init_Structs2(void);
+void Init_Structs3(void);
+#line 47 "project.h"
 #line 1 "src/Uart_helper.h"
 #line 2 "src/Uart_helper.h"
 #line 3 "src/Uart_helper.h"
@@ -17827,10 +18528,11 @@ int fgetc(FILE *f);
 
 #line 48 "project.h"
 
-void SetupHardware(void);
+void setupHardware(void);
 void receive(void);
 void transmit(void);
 void trial_recieve(void);
+void displayData(void);
 #line 2 "project.c"
 
 #line 9 "project.c"
@@ -17842,44 +18544,32 @@ void trial_recieve(void);
 
 
 
-unsigned char MsgData[NUM_RX_MESSAGES][4];
+
 
 int  main(void) {
-	SetupHardware();
-	CAN_Init();
+	setupHardware();
+
+  trial_recieve();	
 	
 
-
-	
-	
-	transmit();
 }	
 
-void receive() {
-	Steady_Receiver();	
-}
+
+
 
 void trial_recieve(){
-
-Init_receiver();
-
+	initReceiver();
 	while(1){
-	printf("Display data?");
-	getc((& __stdin));
-		
-	
-		  printf("MsgData[0] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[0][0], MsgData[0][1], MsgData[0][2], MsgData[0][3]);
-			printf("MsgData[1] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[1][0], MsgData[1][1], MsgData[1][2], MsgData[1][3]);
-			printf("MsgData[2] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[2][0], MsgData[2][1], MsgData[2][2], MsgData[2][3]);
-			printf("MsgData[3] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[3][0], MsgData[3][1], MsgData[3][2], MsgData[3][3]);
-		
-		
-		
+		printf("Display data?");
+		getc((& __stdin));
+		printf("MsgData[0] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[0][0], MsgData[0][1], MsgData[0][2], MsgData[0][3]);
+		printf("MsgData[1] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[1][0], MsgData[1][1], MsgData[1][2], MsgData[1][3]);
+		printf("MsgData[2] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[2][0], MsgData[2][1], MsgData[2][2], MsgData[2][3]);
+		printf("MsgData[3] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[3][0], MsgData[3][1], MsgData[3][2], MsgData[3][3]);	
+		printf("MsgData[4] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[4][0], MsgData[4][1], MsgData[4][2], MsgData[4][3]);
+		printf("MsgData[5] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[5][0], MsgData[5][1], MsgData[5][2], MsgData[5][3]);
+		printf("MsgData[6] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[6][0], MsgData[6][1], MsgData[6][2], MsgData[6][3]);
 	}
-	
-	
-	
-	
 }
 
 
@@ -17915,12 +18605,18 @@ void transmit() {
 	}
 }
 
-void SetupHardware(){
+void setupHardware(){
 		ClockSetup();
 		GPIO_Setup();
 		UartSetup();
+	  CAN_Init();
 		printf("Debugging interface initialized...\n");
 		printf("GPIO ports initialized...\n");
 		printf("Clock settings initialized...\n\n");
 		printf("Set-up Complete.\n\n");
+}
+
+
+void displayData(){
+
 }

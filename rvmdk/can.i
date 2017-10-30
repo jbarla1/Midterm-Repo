@@ -1238,14 +1238,9 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 #line 150 "inc/hw_memmap.h"
 
 #line 5 "CAN.h"
-#line 1 "project.h"
-#line 2 "project.h"
-#line 3 "project.h"
-#line 4 "project.h"
 
+#line 1 "inc/hw_types.h"
 
-#line 7 "project.h"
-#line 1 "driverlib/adc.h"
 
 
 
@@ -1292,6 +1287,7 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 
 
 
+#line 63 "inc/hw_types.h"
 
 
 
@@ -1305,7 +1301,6 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 
 
 
-#line 74 "driverlib/adc.h"
 
 
 
@@ -1313,7 +1308,6 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 
 
 
-#line 124 "driverlib/adc.h"
 
 
 
@@ -1321,12 +1315,135 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 
 
 
-#line 148 "driverlib/adc.h"
 
-#line 155 "driverlib/adc.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 7 "CAN.h"
+#line 1 "inc/hw_can.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 55 "inc/hw_can.h"
                                             
-#line 165 "driverlib/adc.h"
+#line 86 "inc/hw_can.h"
+
+
+
+
+
+
+#line 99 "inc/hw_can.h"
+
+
+
+
+
+
+
+
+
+
+
                                             
+#line 120 "inc/hw_can.h"
 
 
 
@@ -1344,9 +1461,9 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 
 
 
+#line 145 "inc/hw_can.h"
 
 
-#line 201 "driverlib/adc.h"
 
 
 
@@ -1360,91 +1477,22 @@ extern __declspec(__nothrow) void __use_no_semihosting(void);
 
 
 
+#line 169 "inc/hw_can.h"
 
 
-#line 228 "driverlib/adc.h"
 
 
 
 
 
 
-#line 242 "driverlib/adc.h"
 
 
 
 
 
 
-extern void ADCIntRegister(uint32_t ui32Base, uint32_t ui32SequenceNum,
-                           void (*pfnHandler)(void));
-extern void ADCIntUnregister(uint32_t ui32Base, uint32_t ui32SequenceNum);
-extern void ADCIntDisable(uint32_t ui32Base, uint32_t ui32SequenceNum);
-extern void ADCIntEnable(uint32_t ui32Base, uint32_t ui32SequenceNum);
-extern uint32_t ADCIntStatus(uint32_t ui32Base, uint32_t ui32SequenceNum,
-                             _Bool bMasked);
-extern void ADCIntClear(uint32_t ui32Base, uint32_t ui32SequenceNum);
-extern void ADCSequenceEnable(uint32_t ui32Base, uint32_t ui32SequenceNum);
-extern void ADCSequenceDisable(uint32_t ui32Base, uint32_t ui32SequenceNum);
-extern void ADCSequenceConfigure(uint32_t ui32Base, uint32_t ui32SequenceNum,
-                                 uint32_t ui32Trigger, uint32_t ui32Priority);
-extern void ADCSequenceStepConfigure(uint32_t ui32Base,
-                                     uint32_t ui32SequenceNum,
-                                     uint32_t ui32Step, uint32_t ui32Config);
-extern int32_t ADCSequenceOverflow(uint32_t ui32Base,
-                                   uint32_t ui32SequenceNum);
-extern void ADCSequenceOverflowClear(uint32_t ui32Base,
-                                     uint32_t ui32SequenceNum);
-extern int32_t ADCSequenceUnderflow(uint32_t ui32Base,
-                                    uint32_t ui32SequenceNum);
-extern void ADCSequenceUnderflowClear(uint32_t ui32Base,
-                                      uint32_t ui32SequenceNum);
-extern int32_t ADCSequenceDataGet(uint32_t ui32Base, uint32_t ui32SequenceNum,
-                                  uint32_t *pui32Buffer);
-extern void ADCProcessorTrigger(uint32_t ui32Base, uint32_t ui32SequenceNum);
-extern void ADCSoftwareOversampleConfigure(uint32_t ui32Base,
-                                           uint32_t ui32SequenceNum,
-                                           uint32_t ui32Factor);
-extern void ADCSoftwareOversampleStepConfigure(uint32_t ui32Base,
-                                               uint32_t ui32SequenceNum,
-                                               uint32_t ui32Step,
-                                               uint32_t ui32Config);
-extern void ADCSoftwareOversampleDataGet(uint32_t ui32Base,
-                                         uint32_t ui32SequenceNum,
-                                         uint32_t *pui32Buffer,
-                                         uint32_t ui32Count);
-extern void ADCHardwareOversampleConfigure(uint32_t ui32Base,
-                                           uint32_t ui32Factor);
-extern void ADCClockConfigSet(uint32_t ui32Base, uint32_t ui32Config,
-                              uint32_t ui32ClockDiv);
-extern uint32_t ADCClockConfigGet(uint32_t ui32Base, uint32_t *pui32ClockDiv);
 
-extern void ADCComparatorConfigure(uint32_t ui32Base, uint32_t ui32Comp,
-                                   uint32_t ui32Config);
-extern void ADCComparatorRegionSet(uint32_t ui32Base, uint32_t ui32Comp,
-                                   uint32_t ui32LowRef, uint32_t ui32HighRef);
-extern void ADCComparatorReset(uint32_t ui32Base, uint32_t ui32Comp,
-                               _Bool bTrigger, _Bool bInterrupt);
-extern void ADCComparatorIntDisable(uint32_t ui32Base,
-                                    uint32_t ui32SequenceNum);
-extern void ADCComparatorIntEnable(uint32_t ui32Base,
-                                   uint32_t ui32SequenceNum);
-extern uint32_t ADCComparatorIntStatus(uint32_t ui32Base);
-extern void ADCComparatorIntClear(uint32_t ui32Base, uint32_t ui32Status);
-extern void ADCIntDisableEx(uint32_t ui32Base, uint32_t ui32IntFlags);
-extern void ADCIntEnableEx(uint32_t ui32Base, uint32_t ui32IntFlags);
-extern uint32_t ADCIntStatusEx(uint32_t ui32Base, _Bool bMasked);
-extern void ADCIntClearEx(uint32_t ui32Base, uint32_t ui32IntFlags);
-extern void ADCSequenceDMAEnable(uint32_t ui32Base, uint32_t ui32SequenceNum);
-extern void ADCSequenceDMADisable(uint32_t ui32Base, uint32_t ui32SequenceNum);
-extern _Bool ADCBusy(uint32_t ui32Base);
-extern void ADCReferenceSet(uint32_t ui32Base, uint32_t ui32Ref);
-extern uint32_t ADCReferenceGet(uint32_t ui32Base);
-extern void ADCPhaseDelaySet(uint32_t ui32Base, uint32_t ui32Phase);
-extern uint32_t ADCPhaseDelayGet(uint32_t ui32Base);
-extern void ADCSampleRateSet(uint32_t ui32Base, uint32_t ui32ADCClock,
-                             uint32_t ui32Rate);
-extern uint32_t ADCSampleRateGet(uint32_t ui32Base);
 
 
 
@@ -1453,10 +1501,9 @@ extern uint32_t ADCSampleRateGet(uint32_t ui32Base);
 
 
 
+#line 201 "inc/hw_can.h"
 
 
-#line 8 "project.h"
-#line 1 "driverlib/aes.h"
 
 
 
@@ -1498,6 +1545,7 @@ extern uint32_t ADCSampleRateGet(uint32_t ui32Base);
 
 
 
+#line 255 "inc/hw_can.h"
 
 
 
@@ -1535,7 +1583,6 @@ extern uint32_t ADCSampleRateGet(uint32_t ui32Base);
 
 
 
-#line 101 "driverlib/aes.h"
 
 
 
@@ -1546,6 +1593,7 @@ extern uint32_t ADCSampleRateGet(uint32_t ui32Base);
 
 
 
+#line 311 "inc/hw_can.h"
 
 
 
@@ -1556,7 +1604,6 @@ extern uint32_t ADCSampleRateGet(uint32_t ui32Base);
 
 
 
-#line 129 "driverlib/aes.h"
 
 
 
@@ -1565,7 +1612,6 @@ extern uint32_t ADCSampleRateGet(uint32_t ui32Base);
 
 
 
-#line 144 "driverlib/aes.h"
 
 
 
@@ -1573,7 +1619,6 @@ extern uint32_t ADCSampleRateGet(uint32_t ui32Base);
 
 
 
-#line 159 "driverlib/aes.h"
 
 
 
@@ -1591,39 +1636,8 @@ extern uint32_t ADCSampleRateGet(uint32_t ui32Base);
 
 
 
-extern void AESAuthLengthSet(uint32_t ui32Base, uint32_t ui32Length);
-extern void AESConfigSet(uint32_t ui32Base, uint32_t ui32Config);
-extern void AESDataRead(uint32_t ui32Base, uint32_t *pui32Dest);
-extern _Bool AESDataReadNonBlocking(uint32_t ui32Base, uint32_t *pui32Dest);
-extern _Bool AESDataProcess(uint32_t ui32Base, uint32_t *pui32Src,
-                           uint32_t *pui32Dest, uint32_t ui32Length);
-extern _Bool AESDataAuth(uint32_t ui32Base, uint32_t *pui32Src,
-                        uint32_t ui32Length, uint32_t *pui32Tag);
-extern _Bool AESDataProcessAuth(uint32_t ui32Base, uint32_t *pui32Src,
-                               uint32_t *pui32Dest, uint32_t ui32Length,
-                               uint32_t *pui32AuthSrc,
-                               uint32_t ui32AuthLength, uint32_t *pui32Tag);
-extern void AESDataWrite(uint32_t ui32Base, uint32_t *pui32Src);
-extern _Bool AESDataWriteNonBlocking(uint32_t ui32Base, uint32_t *pui32Src);
-extern void AESDMADisable(uint32_t ui32Base, uint32_t ui32Flags);
-extern void AESDMAEnable(uint32_t ui32Base, uint32_t ui32Flags);
-extern void AESIntClear(uint32_t ui32Base, uint32_t ui32IntFlags);
-extern void AESIntDisable(uint32_t ui32Base, uint32_t ui32IntFlags);
-extern void AESIntEnable(uint32_t ui32Base, uint32_t ui32IntFlags);
-extern void AESIntRegister(uint32_t ui32Base, void (*pfnHandler)(void));
-extern uint32_t AESIntStatus(uint32_t ui32Base, _Bool bMasked);
-extern void AESIntUnregister(uint32_t ui32Base);
-extern void AESIVSet(uint32_t ui32Base, uint32_t *pui32IVdata);
-extern void AESIVRead(uint32_t ui32Base, uint32_t *pui32IVdata);
-extern void AESKey1Set(uint32_t ui32Base, uint32_t *pui32Key,
-                       uint32_t ui32Keysize);
-extern void AESKey2Set(uint32_t ui32Base, uint32_t *pui32Key,
-                       uint32_t ui32Keysize);
-extern void AESKey3Set(uint32_t ui32Base, uint32_t *pui32Key);
-extern void AESLengthSet(uint32_t ui32Base, uint64_t ui64Length);
-extern void AESReset(uint32_t ui32Base);
-extern void AESTagRead(uint32_t ui32Base, uint32_t *pui32TagData);
 
+#line 365 "inc/hw_can.h"
 
 
 
@@ -1633,7 +1647,209 @@ extern void AESTagRead(uint32_t ui32Base, uint32_t *pui32TagData);
 
 
 
-#line 9 "project.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 8 "CAN.h"
+#line 1 "inc/hw_ints.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 58 "inc/hw_ints.h"
+
+
+
+
+
+
+#line 94 "inc/hw_ints.h"
+                                            
+#line 170 "inc/hw_ints.h"
+
+
+
+
+
+
+#line 244 "inc/hw_ints.h"
+                                            
+#line 283 "inc/hw_ints.h"
+
+
+
+
+
+
+#line 318 "inc/hw_ints.h"
+
+
+
+
+
+
+#line 339 "inc/hw_ints.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 475 "inc/hw_ints.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 9 "CAN.h"
+#line 10 "CAN.h"
 #line 1 "driverlib/can.h"
 
 
@@ -2083,7 +2299,697 @@ extern uint32_t CANStatusGet(uint32_t ui32Base, tCANStsReg eStatusReg);
 
 
 
-#line 10 "project.h"
+#line 11 "CAN.h"
+#line 12 "CAN.h"
+#line 1 "./driverlib/sysctl.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 140 "./driverlib/sysctl.h"
+
+
+
+
+
+
+
+
+#line 155 "./driverlib/sysctl.h"
+
+
+
+
+
+
+
+
+#line 171 "./driverlib/sysctl.h"
+
+
+
+
+
+
+
+#line 185 "./driverlib/sysctl.h"
+                                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 214 "./driverlib/sysctl.h"
+
+
+
+
+
+
+
+#line 385 "./driverlib/sysctl.h"
+
+
+
+
+
+
+
+#line 462 "./driverlib/sysctl.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 486 "./driverlib/sysctl.h"
+
+
+
+
+
+
+
+
+                                            
+
+                                            
+
+
+
+
+
+
+
+
+
+
+
+#line 516 "./driverlib/sysctl.h"
+
+
+
+
+
+
+#line 535 "./driverlib/sysctl.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 556 "./driverlib/sysctl.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern uint32_t SysCtlSRAMSizeGet(void);
+extern uint32_t SysCtlFlashSizeGet(void);
+extern uint32_t SysCtlFlashSectorSizeGet(void);
+extern _Bool SysCtlPeripheralPresent(uint32_t ui32Peripheral);
+extern _Bool SysCtlPeripheralReady(uint32_t ui32Peripheral);
+extern void SysCtlPeripheralPowerOn(uint32_t ui32Peripheral);
+extern void SysCtlPeripheralPowerOff(uint32_t ui32Peripheral);
+extern void SysCtlPeripheralReset(uint32_t ui32Peripheral);
+extern void SysCtlPeripheralEnable(uint32_t ui32Peripheral);
+extern void SysCtlPeripheralDisable(uint32_t ui32Peripheral);
+extern void SysCtlPeripheralSleepEnable(uint32_t ui32Peripheral);
+extern void SysCtlPeripheralSleepDisable(uint32_t ui32Peripheral);
+extern void SysCtlPeripheralDeepSleepEnable(uint32_t ui32Peripheral);
+extern void SysCtlPeripheralDeepSleepDisable(uint32_t ui32Peripheral);
+extern void SysCtlPeripheralClockGating(_Bool bEnable);
+extern void SysCtlIntRegister(void (*pfnHandler)(void));
+extern void SysCtlIntUnregister(void);
+extern void SysCtlIntEnable(uint32_t ui32Ints);
+extern void SysCtlIntDisable(uint32_t ui32Ints);
+extern void SysCtlIntClear(uint32_t ui32Ints);
+extern uint32_t SysCtlIntStatus(_Bool bMasked);
+extern void SysCtlLDOSleepSet(uint32_t ui32Voltage);
+extern uint32_t SysCtlLDOSleepGet(void);
+extern void SysCtlLDODeepSleepSet(uint32_t ui32Voltage);
+extern uint32_t SysCtlLDODeepSleepGet(void);
+extern void SysCtlSleepPowerSet(uint32_t ui32Config);
+extern void SysCtlDeepSleepPowerSet(uint32_t ui32Config);
+extern void SysCtlReset(void);
+extern void SysCtlSleep(void);
+extern void SysCtlDeepSleep(void);
+extern uint32_t SysCtlResetCauseGet(void);
+extern void SysCtlResetCauseClear(uint32_t ui32Causes);
+extern void SysCtlBrownOutConfigSet(uint32_t ui32Config,
+                                    uint32_t ui32Delay);
+extern void SysCtlDelay(uint32_t ui32Count);
+extern void SysCtlMOSCConfigSet(uint32_t ui32Config);
+extern uint32_t SysCtlPIOSCCalibrate(uint32_t ui32Type);
+extern void SysCtlClockSet(uint32_t ui32Config);
+extern uint32_t SysCtlClockGet(void);
+extern void SysCtlDeepSleepClockSet(uint32_t ui32Config);
+extern void SysCtlDeepSleepClockConfigSet(uint32_t ui32Div,
+                                          uint32_t ui32Config);
+extern void SysCtlPWMClockSet(uint32_t ui32Config);
+extern uint32_t SysCtlPWMClockGet(void);
+extern void SysCtlIOSCVerificationSet(_Bool bEnable);
+extern void SysCtlMOSCVerificationSet(_Bool bEnable);
+extern void SysCtlPLLVerificationSet(_Bool bEnable);
+extern void SysCtlClkVerificationClear(void);
+extern void SysCtlGPIOAHBEnable(uint32_t ui32GPIOPeripheral);
+extern void SysCtlGPIOAHBDisable(uint32_t ui32GPIOPeripheral);
+extern void SysCtlUSBPLLEnable(void);
+extern void SysCtlUSBPLLDisable(void);
+extern uint32_t SysCtlClockFreqSet(uint32_t ui32Config,
+                                   uint32_t ui32SysClock);
+extern void SysCtlResetBehaviorSet(uint32_t ui32Behavior);
+extern uint32_t SysCtlResetBehaviorGet(void);
+extern void SysCtlClockOutConfig(uint32_t ui32Config, uint32_t ui32Div);
+extern void SysCtlAltClkConfig(uint32_t ui32Config);
+extern uint32_t SysCtlNMIStatus(void);
+extern void SysCtlNMIClear(uint32_t ui32Status);
+extern void SysCtlVoltageEventConfig(uint32_t ui32Config);
+extern uint32_t SysCtlVoltageEventStatus(void);
+extern void SysCtlVoltageEventClear(uint32_t ui32Status);
+extern _Bool SysCtlVCOGet(uint32_t ui32Crystal, uint32_t *pui32VCOFrequency);
+
+
+
+
+
+
+
+
+
+
+#line 13 "CAN.h"
+
+#line 15 "CAN.h"
+#line 16 "CAN.h"
+#line 17 "CAN.h"
+
+#line 1 "driverlib/adc.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 74 "driverlib/adc.h"
+
+
+
+
+
+
+
+#line 124 "driverlib/adc.h"
+
+
+
+
+
+
+
+#line 148 "driverlib/adc.h"
+
+#line 155 "driverlib/adc.h"
+                                            
+#line 165 "driverlib/adc.h"
+                                            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 201 "driverlib/adc.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 228 "driverlib/adc.h"
+
+
+
+
+
+
+#line 242 "driverlib/adc.h"
+
+
+
+
+
+
+extern void ADCIntRegister(uint32_t ui32Base, uint32_t ui32SequenceNum,
+                           void (*pfnHandler)(void));
+extern void ADCIntUnregister(uint32_t ui32Base, uint32_t ui32SequenceNum);
+extern void ADCIntDisable(uint32_t ui32Base, uint32_t ui32SequenceNum);
+extern void ADCIntEnable(uint32_t ui32Base, uint32_t ui32SequenceNum);
+extern uint32_t ADCIntStatus(uint32_t ui32Base, uint32_t ui32SequenceNum,
+                             _Bool bMasked);
+extern void ADCIntClear(uint32_t ui32Base, uint32_t ui32SequenceNum);
+extern void ADCSequenceEnable(uint32_t ui32Base, uint32_t ui32SequenceNum);
+extern void ADCSequenceDisable(uint32_t ui32Base, uint32_t ui32SequenceNum);
+extern void ADCSequenceConfigure(uint32_t ui32Base, uint32_t ui32SequenceNum,
+                                 uint32_t ui32Trigger, uint32_t ui32Priority);
+extern void ADCSequenceStepConfigure(uint32_t ui32Base,
+                                     uint32_t ui32SequenceNum,
+                                     uint32_t ui32Step, uint32_t ui32Config);
+extern int32_t ADCSequenceOverflow(uint32_t ui32Base,
+                                   uint32_t ui32SequenceNum);
+extern void ADCSequenceOverflowClear(uint32_t ui32Base,
+                                     uint32_t ui32SequenceNum);
+extern int32_t ADCSequenceUnderflow(uint32_t ui32Base,
+                                    uint32_t ui32SequenceNum);
+extern void ADCSequenceUnderflowClear(uint32_t ui32Base,
+                                      uint32_t ui32SequenceNum);
+extern int32_t ADCSequenceDataGet(uint32_t ui32Base, uint32_t ui32SequenceNum,
+                                  uint32_t *pui32Buffer);
+extern void ADCProcessorTrigger(uint32_t ui32Base, uint32_t ui32SequenceNum);
+extern void ADCSoftwareOversampleConfigure(uint32_t ui32Base,
+                                           uint32_t ui32SequenceNum,
+                                           uint32_t ui32Factor);
+extern void ADCSoftwareOversampleStepConfigure(uint32_t ui32Base,
+                                               uint32_t ui32SequenceNum,
+                                               uint32_t ui32Step,
+                                               uint32_t ui32Config);
+extern void ADCSoftwareOversampleDataGet(uint32_t ui32Base,
+                                         uint32_t ui32SequenceNum,
+                                         uint32_t *pui32Buffer,
+                                         uint32_t ui32Count);
+extern void ADCHardwareOversampleConfigure(uint32_t ui32Base,
+                                           uint32_t ui32Factor);
+extern void ADCClockConfigSet(uint32_t ui32Base, uint32_t ui32Config,
+                              uint32_t ui32ClockDiv);
+extern uint32_t ADCClockConfigGet(uint32_t ui32Base, uint32_t *pui32ClockDiv);
+
+extern void ADCComparatorConfigure(uint32_t ui32Base, uint32_t ui32Comp,
+                                   uint32_t ui32Config);
+extern void ADCComparatorRegionSet(uint32_t ui32Base, uint32_t ui32Comp,
+                                   uint32_t ui32LowRef, uint32_t ui32HighRef);
+extern void ADCComparatorReset(uint32_t ui32Base, uint32_t ui32Comp,
+                               _Bool bTrigger, _Bool bInterrupt);
+extern void ADCComparatorIntDisable(uint32_t ui32Base,
+                                    uint32_t ui32SequenceNum);
+extern void ADCComparatorIntEnable(uint32_t ui32Base,
+                                   uint32_t ui32SequenceNum);
+extern uint32_t ADCComparatorIntStatus(uint32_t ui32Base);
+extern void ADCComparatorIntClear(uint32_t ui32Base, uint32_t ui32Status);
+extern void ADCIntDisableEx(uint32_t ui32Base, uint32_t ui32IntFlags);
+extern void ADCIntEnableEx(uint32_t ui32Base, uint32_t ui32IntFlags);
+extern uint32_t ADCIntStatusEx(uint32_t ui32Base, _Bool bMasked);
+extern void ADCIntClearEx(uint32_t ui32Base, uint32_t ui32IntFlags);
+extern void ADCSequenceDMAEnable(uint32_t ui32Base, uint32_t ui32SequenceNum);
+extern void ADCSequenceDMADisable(uint32_t ui32Base, uint32_t ui32SequenceNum);
+extern _Bool ADCBusy(uint32_t ui32Base);
+extern void ADCReferenceSet(uint32_t ui32Base, uint32_t ui32Ref);
+extern uint32_t ADCReferenceGet(uint32_t ui32Base);
+extern void ADCPhaseDelaySet(uint32_t ui32Base, uint32_t ui32Phase);
+extern uint32_t ADCPhaseDelayGet(uint32_t ui32Base);
+extern void ADCSampleRateSet(uint32_t ui32Base, uint32_t ui32ADCClock,
+                             uint32_t ui32Rate);
+extern uint32_t ADCSampleRateGet(uint32_t ui32Base);
+
+
+
+
+
+
+
+
+
+
+#line 19 "CAN.h"
+#line 1 "driverlib/aes.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 101 "driverlib/aes.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#line 129 "driverlib/aes.h"
+
+
+
+
+
+
+
+
+#line 144 "driverlib/aes.h"
+
+
+
+
+
+
+
+#line 159 "driverlib/aes.h"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+extern void AESAuthLengthSet(uint32_t ui32Base, uint32_t ui32Length);
+extern void AESConfigSet(uint32_t ui32Base, uint32_t ui32Config);
+extern void AESDataRead(uint32_t ui32Base, uint32_t *pui32Dest);
+extern _Bool AESDataReadNonBlocking(uint32_t ui32Base, uint32_t *pui32Dest);
+extern _Bool AESDataProcess(uint32_t ui32Base, uint32_t *pui32Src,
+                           uint32_t *pui32Dest, uint32_t ui32Length);
+extern _Bool AESDataAuth(uint32_t ui32Base, uint32_t *pui32Src,
+                        uint32_t ui32Length, uint32_t *pui32Tag);
+extern _Bool AESDataProcessAuth(uint32_t ui32Base, uint32_t *pui32Src,
+                               uint32_t *pui32Dest, uint32_t ui32Length,
+                               uint32_t *pui32AuthSrc,
+                               uint32_t ui32AuthLength, uint32_t *pui32Tag);
+extern void AESDataWrite(uint32_t ui32Base, uint32_t *pui32Src);
+extern _Bool AESDataWriteNonBlocking(uint32_t ui32Base, uint32_t *pui32Src);
+extern void AESDMADisable(uint32_t ui32Base, uint32_t ui32Flags);
+extern void AESDMAEnable(uint32_t ui32Base, uint32_t ui32Flags);
+extern void AESIntClear(uint32_t ui32Base, uint32_t ui32IntFlags);
+extern void AESIntDisable(uint32_t ui32Base, uint32_t ui32IntFlags);
+extern void AESIntEnable(uint32_t ui32Base, uint32_t ui32IntFlags);
+extern void AESIntRegister(uint32_t ui32Base, void (*pfnHandler)(void));
+extern uint32_t AESIntStatus(uint32_t ui32Base, _Bool bMasked);
+extern void AESIntUnregister(uint32_t ui32Base);
+extern void AESIVSet(uint32_t ui32Base, uint32_t *pui32IVdata);
+extern void AESIVRead(uint32_t ui32Base, uint32_t *pui32IVdata);
+extern void AESKey1Set(uint32_t ui32Base, uint32_t *pui32Key,
+                       uint32_t ui32Keysize);
+extern void AESKey2Set(uint32_t ui32Base, uint32_t *pui32Key,
+                       uint32_t ui32Keysize);
+extern void AESKey3Set(uint32_t ui32Base, uint32_t *pui32Key);
+extern void AESLengthSet(uint32_t ui32Base, uint64_t ui64Length);
+extern void AESReset(uint32_t ui32Base);
+extern void AESTagRead(uint32_t ui32Base, uint32_t *pui32TagData);
+
+
+
+
+
+
+
+
+
+
+#line 20 "CAN.h"
+#line 21 "CAN.h"
 #line 1 "driverlib/comp.h"
 
 
@@ -2182,7 +3088,7 @@ extern void ComparatorIntClear(uint32_t ui32Base, uint32_t ui32Comp);
 
 
 
-#line 11 "project.h"
+#line 22 "CAN.h"
 #line 1 "driverlib/cpu.h"
 
 
@@ -2258,7 +3164,7 @@ extern void CPUbasepriSet(uint32_t ui32NewBasepri);
 
 
 
-#line 12 "project.h"
+#line 23 "CAN.h"
 #line 1 "driverlib/crc.h"
 
 
@@ -2346,7 +3252,7 @@ extern void CRCSeedSet(uint32_t ui32Base, uint32_t ui32Seed);
 
 
 
-#line 13 "project.h"
+#line 24 "CAN.h"
 #line 1 "driverlib/debug.h"
 
 
@@ -2406,7 +3312,7 @@ extern void __error__(char *pcFilename, uint32_t ui32Line);
 
 #line 69 "driverlib/debug.h"
 
-#line 14 "project.h"
+#line 25 "CAN.h"
 #line 1 "driverlib/des.h"
 
 
@@ -2542,7 +3448,7 @@ extern void DESReset(uint32_t ui32Base);
 
 
 
-#line 15 "project.h"
+#line 26 "CAN.h"
 #line 1 "driverlib/eeprom.h"
 
 
@@ -2827,7 +3733,7 @@ extern void EEPROMIntClear(uint32_t ui32IntFlags);
 
 
 
-#line 16 "project.h"
+#line 27 "CAN.h"
 #line 1 "driverlib/emac.h"
 
 
@@ -3536,7 +4442,7 @@ extern uint16_t EMACPHYMMDRead(uint32_t ui32Base, uint8_t ui8PhyAddr,
 
 
 
-#line 17 "project.h"
+#line 28 "CAN.h"
 #line 1 "driverlib/epi.h"
 
 
@@ -3940,7 +4846,7 @@ extern void EPIIntUnregister(uint32_t ui32Base);
 
 
 
-#line 18 "project.h"
+#line 29 "CAN.h"
 #line 1 "driverlib/flash.h"
 
 
@@ -4057,7 +4963,7 @@ extern void FlashIntClear(uint32_t ui32IntFlags);
 
 
 
-#line 19 "project.h"
+#line 30 "CAN.h"
 #line 1 "driverlib/fpu.h"
 
 
@@ -4171,7 +5077,7 @@ extern void FPURoundingModeSet(uint32_t ui32Mode);
 
 
 
-#line 20 "project.h"
+#line 31 "CAN.h"
 #line 1 "driverlib/gpio.h"
 
 
@@ -4344,7 +5250,7 @@ extern void GPIOADCTriggerDisable(uint32_t ui32Port, uint8_t ui8Pins);
 
 
 
-#line 21 "project.h"
+#line 32 "CAN.h"
 #line 1 "driverlib/hibernate.h"
 
 
@@ -4532,7 +5438,7 @@ extern _Bool HibernateTamperExtOscValid(void);
 
 
 
-#line 22 "project.h"
+#line 33 "CAN.h"
 #line 1 "driverlib/i2c.h"
 
 
@@ -4761,7 +5667,7 @@ extern void I2CLoopbackEnable(uint32_t ui32Base);
 
 
 
-#line 23 "project.h"
+#line 34 "CAN.h"
 #line 1 "driverlib/interrupt.h"
 
 
@@ -4856,7 +5762,7 @@ extern void IntTrigger(uint32_t ui32Interrupt);
 
 
 
-#line 24 "project.h"
+#line 35 "CAN.h"
 #line 1 "driverlib/lcd.h"
 
 
@@ -5250,7 +6156,7 @@ extern void LCDIntUnregister(uint32_t ui32Base);
 
 
 
-#line 25 "project.h"
+#line 36 "CAN.h"
 #line 1 "driverlib/mpu.h"
 
 
@@ -5381,7 +6287,7 @@ extern void MPUIntUnregister(void);
 
 
 
-#line 26 "project.h"
+#line 37 "CAN.h"
 #line 1 "driverlib/onewire.h"
 
 
@@ -5689,7 +6595,7 @@ extern void OneWireTransaction(uint32_t ui32Base, uint32_t ui32OpFlags,
 
 
 
-#line 27 "project.h"
+#line 38 "CAN.h"
 #line 1 "driverlib/pin_map.h"
 
 
@@ -6379,7 +7285,7 @@ extern void OneWireTransaction(uint32_t ui32Base, uint32_t ui32OpFlags,
 
 #line 20952 "driverlib/pin_map.h"
 
-#line 28 "project.h"
+#line 39 "CAN.h"
 #line 1 "driverlib/pwm.h"
 
 
@@ -6630,7 +7536,7 @@ extern void PWMOutputUpdateMode(uint32_t ui32Base,
 
 
 
-#line 29 "project.h"
+#line 40 "CAN.h"
 #line 1 "driverlib/qei.h"
 
 
@@ -6756,7 +7662,7 @@ extern void QEIIntClear(uint32_t ui32Base, uint32_t ui32IntFlags);
 
 
 
-#line 30 "project.h"
+#line 41 "CAN.h"
 #line 1 "driverlib/rom.h"
 
 
@@ -7048,7 +7954,7 @@ extern void QEIIntClear(uint32_t ui32Base, uint32_t ui32IntFlags);
 
 #line 8345 "driverlib/rom.h"
 
-#line 31 "project.h"
+#line 42 "CAN.h"
 #line 1 "driverlib/rom_map.h"
 
 
@@ -7324,7 +8230,7 @@ extern void QEIIntClear(uint32_t ui32Base, uint32_t ui32IntFlags);
 
 #line 6408 "driverlib/rom_map.h"
 
-#line 32 "project.h"
+#line 43 "CAN.h"
 #line 1 "driverlib/rtos_bindings.h"
 
 
@@ -7418,7 +8324,7 @@ extern void QEIIntClear(uint32_t ui32Base, uint32_t ui32IntFlags);
 
 
 
-#line 33 "project.h"
+#line 44 "CAN.h"
 #line 1 "driverlib/shamd5.h"
 
 
@@ -7529,7 +8435,7 @@ extern void SHAMD5ResultRead(uint32_t ui32Base, uint32_t *pui32Dest);
 
 
 
-#line 34 "project.h"
+#line 45 "CAN.h"
 #line 1 "driverlib/ssi.h"
 
 
@@ -7670,7 +8576,7 @@ extern void SSIAdvFrameHoldDisable(uint32_t ui32Base);
 
 
 
-#line 35 "project.h"
+#line 46 "CAN.h"
 #line 1 "driverlib/sw_crc.h"
 
 
@@ -7749,301 +8655,8 @@ extern uint32_t Crc32(uint32_t ui32Crc, const uint8_t *pui8Data,
 
 
 
-#line 36 "project.h"
-#line 1 "driverlib/sysctl.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 140 "driverlib/sysctl.h"
-
-
-
-
-
-
-
-
-#line 155 "driverlib/sysctl.h"
-
-
-
-
-
-
-
-
-#line 171 "driverlib/sysctl.h"
-
-
-
-
-
-
-
-#line 185 "driverlib/sysctl.h"
-                                            
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 214 "driverlib/sysctl.h"
-
-
-
-
-
-
-
-#line 385 "driverlib/sysctl.h"
-
-
-
-
-
-
-
-#line 462 "driverlib/sysctl.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 486 "driverlib/sysctl.h"
-
-
-
-
-
-
-
-
-                                            
-
-                                            
-
-
-
-
-
-
-
-
-
-
-
-#line 516 "driverlib/sysctl.h"
-
-
-
-
-
-
-#line 535 "driverlib/sysctl.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 556 "driverlib/sysctl.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-extern uint32_t SysCtlSRAMSizeGet(void);
-extern uint32_t SysCtlFlashSizeGet(void);
-extern uint32_t SysCtlFlashSectorSizeGet(void);
-extern _Bool SysCtlPeripheralPresent(uint32_t ui32Peripheral);
-extern _Bool SysCtlPeripheralReady(uint32_t ui32Peripheral);
-extern void SysCtlPeripheralPowerOn(uint32_t ui32Peripheral);
-extern void SysCtlPeripheralPowerOff(uint32_t ui32Peripheral);
-extern void SysCtlPeripheralReset(uint32_t ui32Peripheral);
-extern void SysCtlPeripheralEnable(uint32_t ui32Peripheral);
-extern void SysCtlPeripheralDisable(uint32_t ui32Peripheral);
-extern void SysCtlPeripheralSleepEnable(uint32_t ui32Peripheral);
-extern void SysCtlPeripheralSleepDisable(uint32_t ui32Peripheral);
-extern void SysCtlPeripheralDeepSleepEnable(uint32_t ui32Peripheral);
-extern void SysCtlPeripheralDeepSleepDisable(uint32_t ui32Peripheral);
-extern void SysCtlPeripheralClockGating(_Bool bEnable);
-extern void SysCtlIntRegister(void (*pfnHandler)(void));
-extern void SysCtlIntUnregister(void);
-extern void SysCtlIntEnable(uint32_t ui32Ints);
-extern void SysCtlIntDisable(uint32_t ui32Ints);
-extern void SysCtlIntClear(uint32_t ui32Ints);
-extern uint32_t SysCtlIntStatus(_Bool bMasked);
-extern void SysCtlLDOSleepSet(uint32_t ui32Voltage);
-extern uint32_t SysCtlLDOSleepGet(void);
-extern void SysCtlLDODeepSleepSet(uint32_t ui32Voltage);
-extern uint32_t SysCtlLDODeepSleepGet(void);
-extern void SysCtlSleepPowerSet(uint32_t ui32Config);
-extern void SysCtlDeepSleepPowerSet(uint32_t ui32Config);
-extern void SysCtlReset(void);
-extern void SysCtlSleep(void);
-extern void SysCtlDeepSleep(void);
-extern uint32_t SysCtlResetCauseGet(void);
-extern void SysCtlResetCauseClear(uint32_t ui32Causes);
-extern void SysCtlBrownOutConfigSet(uint32_t ui32Config,
-                                    uint32_t ui32Delay);
-extern void SysCtlDelay(uint32_t ui32Count);
-extern void SysCtlMOSCConfigSet(uint32_t ui32Config);
-extern uint32_t SysCtlPIOSCCalibrate(uint32_t ui32Type);
-extern void SysCtlClockSet(uint32_t ui32Config);
-extern uint32_t SysCtlClockGet(void);
-extern void SysCtlDeepSleepClockSet(uint32_t ui32Config);
-extern void SysCtlDeepSleepClockConfigSet(uint32_t ui32Div,
-                                          uint32_t ui32Config);
-extern void SysCtlPWMClockSet(uint32_t ui32Config);
-extern uint32_t SysCtlPWMClockGet(void);
-extern void SysCtlIOSCVerificationSet(_Bool bEnable);
-extern void SysCtlMOSCVerificationSet(_Bool bEnable);
-extern void SysCtlPLLVerificationSet(_Bool bEnable);
-extern void SysCtlClkVerificationClear(void);
-extern void SysCtlGPIOAHBEnable(uint32_t ui32GPIOPeripheral);
-extern void SysCtlGPIOAHBDisable(uint32_t ui32GPIOPeripheral);
-extern void SysCtlUSBPLLEnable(void);
-extern void SysCtlUSBPLLDisable(void);
-extern uint32_t SysCtlClockFreqSet(uint32_t ui32Config,
-                                   uint32_t ui32SysClock);
-extern void SysCtlResetBehaviorSet(uint32_t ui32Behavior);
-extern uint32_t SysCtlResetBehaviorGet(void);
-extern void SysCtlClockOutConfig(uint32_t ui32Config, uint32_t ui32Div);
-extern void SysCtlAltClkConfig(uint32_t ui32Config);
-extern uint32_t SysCtlNMIStatus(void);
-extern void SysCtlNMIClear(uint32_t ui32Status);
-extern void SysCtlVoltageEventConfig(uint32_t ui32Config);
-extern uint32_t SysCtlVoltageEventStatus(void);
-extern void SysCtlVoltageEventClear(uint32_t ui32Status);
-extern _Bool SysCtlVCOGet(uint32_t ui32Crystal, uint32_t *pui32VCOFrequency);
-
-
-
-
-
-
-
-
-
-
-#line 37 "project.h"
+#line 47 "CAN.h"
+#line 48 "CAN.h"
 #line 1 "driverlib/sysexc.h"
 
 
@@ -8128,7 +8741,7 @@ extern void SysExcIntClear(uint32_t ui32IntFlags);
 
 
 
-#line 38 "project.h"
+#line 49 "CAN.h"
 #line 1 "driverlib/systick.h"
 
 
@@ -8207,7 +8820,7 @@ extern uint32_t SysTickValueGet(void);
 
 
 
-#line 39 "project.h"
+#line 50 "CAN.h"
 #line 1 "driverlib/timer.h"
 
 
@@ -8440,7 +9053,7 @@ extern void TimerUpdateMode(uint32_t ui32Base, uint32_t ui32Timer,
 
 
 
-#line 40 "project.h"
+#line 51 "CAN.h"
 #line 1 "driverlib/uart.h"
 
 
@@ -8671,7 +9284,7 @@ extern void UARTLoopbackEnable(uint32_t ui32Base);
 
 
 
-#line 41 "project.h"
+#line 52 "CAN.h"
 #line 1 "driverlib/udma.h"
 
 
@@ -9128,7 +9741,7 @@ extern void uDMAChannelSelectSecondary(uint32_t ui32SecPeriphs);
 
 
 
-#line 42 "project.h"
+#line 53 "CAN.h"
 #line 1 "driverlib/usb.h"
 
 
@@ -9650,7 +10263,7 @@ extern uint32_t USBNumEndpointsGet(uint32_t ui32Base);
 
 
 
-#line 43 "project.h"
+#line 54 "CAN.h"
 #line 1 "driverlib/watchdog.h"
 
 
@@ -9746,7 +10359,7 @@ extern void WatchdogStallDisable(uint32_t ui32Base);
 
 
 
-#line 44 "project.h"
+#line 55 "CAN.h"
 #line 1 ".\\inc\\tm4c123gh6pm.h"
 
 
@@ -17806,9 +18419,7 @@ extern void WatchdogStallDisable(uint32_t ui32Base);
 
 
 
-#line 45 "project.h"
-
-
+#line 56 "CAN.h"
 #line 1 "src/Uart_helper.h"
 #line 2 "src/Uart_helper.h"
 #line 3 "src/Uart_helper.h"
@@ -17830,636 +18441,14 @@ int fputc(int ch, FILE *f);
 
 int fgetc(FILE *f);
 
-#line 48 "project.h"
+#line 57 "CAN.h"
 
-void SetupHardware(void);
-void receive(void);
-void transmit(void);
-void trial_recieve(void);
-#line 6 "CAN.h"
 
-#line 1 "inc/hw_types.h"
 
 
+extern unsigned char MsgData[7][4];
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 63 "inc/hw_types.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 8 "CAN.h"
-#line 1 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 55 "inc/hw_can.h"
-                                            
-#line 86 "inc/hw_can.h"
-
-
-
-
-
-
-#line 99 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-                                            
-#line 120 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 145 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 169 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 201 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 255 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 311 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 365 "inc/hw_can.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 9 "CAN.h"
-#line 1 "inc/hw_ints.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 58 "inc/hw_ints.h"
-
-
-
-
-
-
-#line 94 "inc/hw_ints.h"
-                                            
-#line 170 "inc/hw_ints.h"
-
-
-
-
-
-
-#line 244 "inc/hw_ints.h"
-                                            
-#line 283 "inc/hw_ints.h"
-
-
-
-
-
-
-#line 318 "inc/hw_ints.h"
-
-
-
-
-
-
-#line 339 "inc/hw_ints.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 475 "inc/hw_ints.h"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#line 10 "CAN.h"
-#line 11 "CAN.h"
-#line 12 "CAN.h"
-#line 13 "CAN.h"
-#line 14 "CAN.h"
-
-
-
-
-
-extern unsigned char MsgData[4][4];
-
-void Init_receiver(void);
+void initReceiver(void);
 void Steady_Receiver(void);
 void CAN_Transmit(uint8_t data[4], uint8_t msgSelect);
 void CANIntHandler(void);
@@ -18480,23 +18469,35 @@ volatile _Bool rxFlag = 0;
 
 unsigned int msgData;                                                            
 unsigned char *msgDataPtr = (unsigned char *)&msgData;                           
-unsigned char RxMsgData[8];                                                      
+unsigned char RxMsgData[7][8];                                                      
 
 unsigned int msgData2;                                                           
 unsigned char *msgDataPtr2 = (unsigned char *)&msgData2;                         
-unsigned char RxMsgData2[8];                                                     
+                                                    
 
 unsigned int msgData3;                                                           
 unsigned char *msgDataPtr3 = (unsigned char *)&msgData3;                         
-unsigned char RxMsgData3[8];                                                     
+                                                    
 
 unsigned int msgData4;                                                           
 unsigned char *msgDataPtr4 = (unsigned char *)&msgData4;                         
-unsigned char RxMsgData4[8];                                                     
+                                                     
 
-unsigned char MsgData[4][4];                                   		 
+unsigned int msgData5;                                                           
+unsigned char *msgDataPtr5 = (unsigned char *)&msgData5;                         
+                                                  
 
-tCANMsgObject TxObj[4], RxObj[4];                    
+unsigned int msgData6;                                                           
+unsigned char *msgDataPtr6 = (unsigned char *)&msgData6;                         
+                                                     
+
+unsigned int msgData7;                                                           
+unsigned char *msgDataPtr7 = (unsigned char *)&msgData7;                         
+                                                    
+
+unsigned char MsgData[7][4];                                   		 
+
+tCANMsgObject TxObj[7], RxObj[7];                    
 
 
 
@@ -18529,70 +18530,22 @@ void CANIntHandler(void) {
 		status = CANStatusGet(0x40040000, CAN_STS_CONTROL); 
 		errFlag = 1;
 	} 
-	else if(status == 1) { 
-		CANIntClear(0x40040000, 1); 
-		errFlag = 0; 
-		CANMessageGet(0x40040000, 1, &RxObj[0], 0);
-		rxFlag=0;
-		
-		MsgData[0][0]=RxMsgData[0];
-		MsgData[0][1]=RxMsgData[1];
-		MsgData[0][2]=RxMsgData[2];
-		MsgData[0][3]=RxMsgData[3];
-		
-	}
-	else if(status == 2) { 
-		CANIntClear(0x40040000, 2); 
-		errFlag = 0; 
-		CANMessageGet(0x40040000, 2, &RxObj[1], 0);
-		
-		MsgData[1][0]=RxMsgData2[0];
-		MsgData[1][1]=RxMsgData2[1];
-		MsgData[1][2]=RxMsgData2[2];
-		MsgData[1][3]=RxMsgData2[3];
-		
-		rxFlag=0;		
-	}
-		else if(status == 3) { 
-		CANIntClear(0x40040000, 3); 
-		errFlag = 0; 
-		CANMessageGet(0x40040000, 3, &RxObj[2], 0);
-		
-		MsgData[2][0]=RxMsgData3[0];
-		MsgData[2][1]=RxMsgData3[1];
-		MsgData[2][2]=RxMsgData3[2];
-		MsgData[2][3]=RxMsgData3[3];		
-			
-		rxFlag=0;		
-	}
-	else if(status == 4) { 
-	CANIntClear(0x40040000, 4); 
-	errFlag = 0; 
-	CANMessageGet(0x40040000, 4, &RxObj[3], 0);	
 	
-		MsgData[3][0]=RxMsgData4[0];
-	  MsgData[3][1]=RxMsgData4[1];
-		MsgData[3][2]=RxMsgData4[2];
-		MsgData[3][3]=RxMsgData4[3];
-		
-	rxFlag=1;
-	}	
-	else if(status == 5) { 
-		CANIntClear(0x40040000, 5); 
+	else if(1<=status | 7 >= status) {
+		CANIntClear(0x40040000, status); 
 		errFlag = 0; 
-	}	
-	else if(status == 6) { 
-		CANIntClear(0x40040000, 6); 
-		errFlag = 0; 
-	}	
-		else if(status == 7) { 
-		CANIntClear(0x40040000, 7); 
-		errFlag = 0; 
-	}	
-		else if(status == 8) { 
-		CANIntClear(0x40040000, 8); 
-		errFlag = 0; 
-	}	
+		CANMessageGet(0x40040000, status, &RxObj[status-1], 0);
+		MsgData[status-1][0]=RxMsgData[status-1][0];
+		MsgData[status-1][1]=RxMsgData[status-1][1];
+		MsgData[status-1][2]=RxMsgData[status-1][2];
+		MsgData[status-1][3]=RxMsgData[status-1][3];
+	}
+
+	else if((7+1)<=status |(7+7)>= status) {
+		CANIntClear(0x40040000, status);
+		errFlag = 0;
+}
+	
 	else { 
 		printf("Unexpected CAN bus interrupt\n");
 	}
@@ -18607,7 +18560,7 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 		msgDataPtr[2] = data[2];
 		msgDataPtr[3] = data[3];
 		printf("Sending message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr[0], msgDataPtr[1], msgDataPtr[2], msgDataPtr[3]); 
-		CANMessageSet(0x40040000, 5, &TxObj[0], MSG_OBJ_TYPE_TX); 
+		CANMessageSet(0x40040000, 8, &TxObj[0], MSG_OBJ_TYPE_TX); 
 		printf("Message sent.\n");
 	}
 	else if(msgSelect==2){
@@ -18616,7 +18569,7 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 		msgDataPtr2[2] = data[2];
 		msgDataPtr2[3] = data[3];
 		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr2[0], msgDataPtr2[1], msgDataPtr2[2], msgDataPtr2[3]); 
-		CANMessageSet(0x40040000, 6, &TxObj[1], MSG_OBJ_TYPE_TX); 
+		CANMessageSet(0x40040000, 9, &TxObj[1], MSG_OBJ_TYPE_TX); 
 		printf("Message sent.\n");
 	}
 	else if(msgSelect==3){
@@ -18625,7 +18578,7 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 		msgDataPtr3[2] = data[2];
 		msgDataPtr3[3] = data[3];
 		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr3[0], msgDataPtr3[1], msgDataPtr3[2], msgDataPtr3[3]); 
-		CANMessageSet(0x40040000, 7, &TxObj[2], MSG_OBJ_TYPE_TX); 
+		CANMessageSet(0x40040000, 10, &TxObj[2], MSG_OBJ_TYPE_TX); 
 		printf("Message sent.\n");
 	}
 		else if(msgSelect==4){
@@ -18634,9 +18587,36 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 		msgDataPtr4[2] = data[2];
 		msgDataPtr4[3] = data[3];
 		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr4[0], msgDataPtr4[1], msgDataPtr4[2], msgDataPtr4[3]); 
-		CANMessageSet(0x40040000, 8, &TxObj[3], MSG_OBJ_TYPE_TX); 
+		CANMessageSet(0x40040000, 11, &TxObj[3], MSG_OBJ_TYPE_TX); 
 		printf("Message sent.\n");
 	}
+		else if(msgSelect==5){
+		msgDataPtr5[0] = data[0];
+		msgDataPtr5[1] = data[1];
+		msgDataPtr5[2] = data[2];
+		msgDataPtr5[3] = data[3];
+		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr5[0], msgDataPtr5[1], msgDataPtr5[2], msgDataPtr5[3]); 
+		CANMessageSet(0x40040000, 12, &TxObj[4], MSG_OBJ_TYPE_TX); 
+		printf("Message sent.\n");
+	}
+		else if(msgSelect==6){
+		msgDataPtr6[0] = data[0];
+		msgDataPtr6[1] = data[1];
+		msgDataPtr6[2] = data[2];
+		msgDataPtr6[3] = data[3];
+		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr6[0], msgDataPtr6[1], msgDataPtr6[2], msgDataPtr6[3]); 
+		CANMessageSet(0x40040000, 13, &TxObj[5], MSG_OBJ_TYPE_TX); 
+		printf("Message sent.\n");
+	}
+		else if(msgSelect==7){
+		msgDataPtr7[0] = data[0];
+		msgDataPtr7[1] = data[1];
+		msgDataPtr7[2] = data[2];
+		msgDataPtr7[3] = data[3];
+		printf("Sending message 2:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", msgDataPtr7[0], msgDataPtr7[1], msgDataPtr7[2], msgDataPtr7[3]); 
+		CANMessageSet(0x40040000, 14, &TxObj[6], MSG_OBJ_TYPE_TX); 
+		printf("Message sent.\n");
+	}		
 	if(errFlag) { 
 		printf("CAN Bus Error\n");
 	}
@@ -18644,43 +18624,15 @@ void CAN_Transmit(uint8_t data[4], uint8_t msgSelect){
 
 
 
-void Steady_Receiver(){
 
+void initReceiver(){
 	CANMessageSet(0x40040000, 1, &RxObj[0], MSG_OBJ_TYPE_RX);	
 	CANMessageSet(0x40040000, 2, &RxObj[1], MSG_OBJ_TYPE_RX);
 	CANMessageSet(0x40040000, 3, &RxObj[2], MSG_OBJ_TYPE_RX);	
 	CANMessageSet(0x40040000, 4, &RxObj[3], MSG_OBJ_TYPE_RX);	
-	
-	while (1) {		
-		if(rxFlag){		
-	
-			printf("MsgData[0] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[0][0], MsgData[0][1], MsgData[0][2], MsgData[0][3]);
-			printf("MsgData[1] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[1][0], MsgData[1][1], MsgData[1][2], MsgData[1][3]);
-			printf("MsgData[2] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[2][0], MsgData[2][1], MsgData[2][2], MsgData[2][3]);
-			printf("MsgData[3] received message 1:\tByte 1: %d\tByte 2: %d\tByte 3: %d\t Byte 4: %d\n", MsgData[3][0], MsgData[3][1], MsgData[3][2], MsgData[3][3]);
-			rxFlag=0;
-		
-		if(RxObj[0].ui32Flags & 0x00000100) { 
-			printf("CAN message loss detected on 1\n");
-			}
-		if(RxObj[1].ui32Flags & 0x00000100) { 
-			printf("CAN message loss detectedon 2\n");
-			}
-		if(RxObj[2].ui32Flags & 0x00000100) { 
-			printf("CAN message loss detectedon 3\n");
-			}
-		if(RxObj[3].ui32Flags & 0x00000100) { 
-			printf("CAN message loss detectedon 4\n");
-			}
-		}
-	}
-}	
-
-void Init_receiver(){
-	CANMessageSet(0x40040000, 1, &RxObj[0], MSG_OBJ_TYPE_RX);	
-	CANMessageSet(0x40040000, 2, &RxObj[1], MSG_OBJ_TYPE_RX);
-	CANMessageSet(0x40040000, 3, &RxObj[2], MSG_OBJ_TYPE_RX);	
-	CANMessageSet(0x40040000, 4, &RxObj[3], MSG_OBJ_TYPE_RX);	
+	CANMessageSet(0x40040000, 5, &RxObj[4], MSG_OBJ_TYPE_RX);
+	CANMessageSet(0x40040000, 6, &RxObj[5], MSG_OBJ_TYPE_RX);	
+	CANMessageSet(0x40040000, 7, &RxObj[6], MSG_OBJ_TYPE_RX);
 }
 
 
@@ -18711,27 +18663,63 @@ void Init_Structs(){
   TxObj[3].ui32MsgLen = sizeof(msgDataPtr4);
   TxObj[3].pui8MsgData = msgDataPtr4;  
 	
+	TxObj[4].ui32MsgID = 0x05; 
+  TxObj[4].ui32MsgIDMask = 0x00;
+  TxObj[4].ui32Flags = 0x00000001; 
+  TxObj[4].ui32MsgLen = sizeof(msgDataPtr5);
+  TxObj[4].pui8MsgData = msgDataPtr5;  
+	
+	TxObj[5].ui32MsgID = 0x06; 
+  TxObj[5].ui32MsgIDMask = 0x00;
+  TxObj[5].ui32Flags = 0x00000001; 
+  TxObj[5].ui32MsgLen = sizeof(msgDataPtr6);
+  TxObj[5].pui8MsgData = msgDataPtr6;  
+	
+	TxObj[6].ui32MsgID = 0x07; 
+  TxObj[6].ui32MsgIDMask = 0x00;
+  TxObj[6].ui32Flags = 0x00000001; 
+  TxObj[6].ui32MsgLen = sizeof(msgDataPtr7);
+  TxObj[6].pui8MsgData = msgDataPtr7;  
+	
 	RxObj[0].ui32MsgID = 0x01; 
   RxObj[0].ui32MsgIDMask = 0x00; 
   RxObj[0].ui32Flags = 0x00000002;
   RxObj[0].ui32MsgLen = 8;
-	RxObj[0].pui8MsgData = RxMsgData; 
+	RxObj[0].pui8MsgData = RxMsgData[0]; 
 	
   RxObj[1].ui32MsgID = 0x02; 
   RxObj[1].ui32MsgIDMask = 0x00; 
   RxObj[1].ui32Flags = 0x00000002;
   RxObj[1].ui32MsgLen = 8;
-	RxObj[1].pui8MsgData = RxMsgData2; 
+	RxObj[1].pui8MsgData = RxMsgData[1]; 
 	
 	RxObj[2].ui32MsgID = 0x03; 
   RxObj[2].ui32MsgIDMask = 0x00; 
   RxObj[2].ui32Flags = 0x00000002;
   RxObj[2].ui32MsgLen = 8;
-	RxObj[2].pui8MsgData = RxMsgData3; 
+	RxObj[2].pui8MsgData = RxMsgData[2]; 
 	
 	RxObj[3].ui32MsgID = 0x04; 
   RxObj[3].ui32MsgIDMask = 0x00; 
   RxObj[3].ui32Flags = 0x00000002;
   RxObj[3].ui32MsgLen = 8;
-	RxObj[3].pui8MsgData = RxMsgData4; 
+	RxObj[3].pui8MsgData = RxMsgData[3]; 
+	
+	RxObj[4].ui32MsgID = 0x05; 
+  RxObj[4].ui32MsgIDMask = 0x00; 
+  RxObj[4].ui32Flags = 0x00000002;
+  RxObj[4].ui32MsgLen = 8;
+	RxObj[4].pui8MsgData = RxMsgData[4]; 
+	
+	RxObj[5].ui32MsgID = 0x06; 
+  RxObj[5].ui32MsgIDMask = 0x00; 
+  RxObj[5].ui32Flags = 0x00000002;
+  RxObj[5].ui32MsgLen = 8;
+	RxObj[5].pui8MsgData = RxMsgData[5]; 
+	
+	RxObj[6].ui32MsgID = 0x07; 
+  RxObj[6].ui32MsgIDMask = 0x00; 
+  RxObj[6].ui32Flags = 0x00000002;
+  RxObj[6].ui32MsgLen = 8;
+	RxObj[6].pui8MsgData = RxMsgData[6]; 
 }

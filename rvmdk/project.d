@@ -42,4 +42,9 @@
 .\rvmdk\project.o: driverlib/usb.h
 .\rvmdk\project.o: driverlib/watchdog.h
 .\rvmdk\project.o: .\inc\tm4c123gh6pm.h
+.\rvmdk\project.o: CAN.h
+.\rvmdk\project.o: inc/hw_types.h
+.\rvmdk\project.o: inc/hw_can.h
+.\rvmdk\project.o: inc/hw_ints.h
+.\rvmdk\project.o: src/Uart_helper.h
 .\rvmdk\project.o: src/Uart_helper.h

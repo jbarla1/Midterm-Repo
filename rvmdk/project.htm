@@ -3,11 +3,11 @@
 <title>Static Call Graph - [.\rvmdk\project.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\rvmdk\project.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Fri Oct 27 16:12:13 2017
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060528: Last Updated: Mon Oct 30 15:26:14 2017
 <BR><P>
-<H3>Maximum Stack Usage =         84 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
+<H3>Maximum Stack Usage =         68 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
-main &rArr; transmit &rArr; CAN_Transmit &rArr; CANMessageSet
+main &rArr; trial_recieve &rArr; initReceiver &rArr; CANMessageSet
 <P>
 <H3>
 Functions with no stack information
@@ -21,7 +21,7 @@ Functions with no stack information
 <P>
 <H3>
 Mutually Recursive functions
-</H3> <LI><a href="#[2c]">UARTConfigSetExpClk</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[2c]">UARTConfigSetExpClk</a><BR>
+</H3> <LI><a href="#[28]">UARTConfigSetExpClk</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[28]">UARTConfigSetExpClk</a><BR>
  <LI><a href="#[b]">SysCtlDelay</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[b]">SysCtlDelay</a><BR>
  <LI><a href="#[1]">NmiSR</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[1]">NmiSR</a><BR>
  <LI><a href="#[2]">FaultISR</a>&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;&nbsp;<a href="#[2]">FaultISR</a><BR>
@@ -75,13 +75,13 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlDelay
 </UL>
 <BR>[Called By]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlDelay
-<LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockSet
+<LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockSet
 </UL>
 
 <P><STRONG><a name="[3c]"></a>__aeabi_uidiv</STRONG> (Thumb, 0 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
 
-<P><STRONG><a name="[30]"></a>__aeabi_uidivmod</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
-<BR><BR>[Called By]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
+<P><STRONG><a name="[2d]"></a>__aeabi_uidivmod</STRONG> (Thumb, 44 bytes, Stack size 12 bytes, uidiv.o(.text), UNUSED)
+<BR><BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
 
 <P><STRONG><a name="[a]"></a>__scatterload</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, init.o(.text))
@@ -118,8 +118,8 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
 </UL>
 
-<P><STRONG><a name="[5]"></a>CANIntHandler</STRONG> (Thumb, 332 bytes, Stack size 32 bytes, can.o(i.CANIntHandler))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = CANIntHandler &rArr; __2printf
+<P><STRONG><a name="[5]"></a>CANIntHandler</STRONG> (Thumb, 190 bytes, Stack size 24 bytes, can.o(i.CANIntHandler))
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = CANIntHandler &rArr; __2printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANStatusGet
 <LI><a href="#[11]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANMessageGet
@@ -148,10 +148,10 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANIntHandler
 </UL>
 
-<P><STRONG><a name="[20]"></a>CANMessageSet</STRONG> (Thumb, 358 bytes, Stack size 52 bytes, can.o(i.CANMessageSet))
+<P><STRONG><a name="[33]"></a>CANMessageSet</STRONG> (Thumb, 358 bytes, Stack size 52 bytes, can.o(i.CANMessageSet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = CANMessageSet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
+<BR>[Called By]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initReceiver
 </UL>
 
 <P><STRONG><a name="[f]"></a>CANStatusGet</STRONG> (Thumb, 68 bytes, Stack size 0 bytes, can.o(i.CANStatusGet))
@@ -174,84 +174,75 @@ Global Symbols
 <LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockGet
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<BR>[Called By]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setupHardware
 </UL>
 
-<P><STRONG><a name="[1f]"></a>CAN_Transmit</STRONG> (Thumb, 200 bytes, Stack size 24 bytes, can.o(i.CAN_Transmit))
-<BR><BR>[Stack]<UL><LI>Max Depth = 76<LI>Call Chain = CAN_Transmit &rArr; CANMessageSet
-</UL>
-<BR>[Calls]<UL><LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANMessageSet
-<LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-</UL>
-<BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;transmit
-</UL>
-
-<P><STRONG><a name="[21]"></a>ClockSetup</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, systic.o(i.ClockSetup))
+<P><STRONG><a name="[1f]"></a>ClockSetup</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, systic.o(i.ClockSetup))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = ClockSetup &rArr; SysCtlClockSet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTickPeriodSet
-<LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTickEnable
-<LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockSet
+<BR>[Calls]<UL><LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTickPeriodSet
+<LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTickEnable
+<LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockSet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetupHardware
+<BR>[Called By]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setupHardware
 </UL>
 
-<P><STRONG><a name="[25]"></a>GPIODirModeSet</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, gpio.o(i.GPIODirModeSet))
+<P><STRONG><a name="[23]"></a>GPIODirModeSet</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, gpio.o(i.GPIODirModeSet))
 <BR><BR>[Called By]<UL><LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeCAN
-<LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
-<LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeUART
+<LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
+<LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeUART
 </UL>
 
-<P><STRONG><a name="[26]"></a>GPIOPadConfigSet</STRONG> (Thumb, 312 bytes, Stack size 24 bytes, gpio.o(i.GPIOPadConfigSet))
+<P><STRONG><a name="[24]"></a>GPIOPadConfigSet</STRONG> (Thumb, 312 bytes, Stack size 24 bytes, gpio.o(i.GPIOPadConfigSet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = GPIOPadConfigSet
 </UL>
 <BR>[Called By]<UL><LI><a href="#[18]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeCAN
-<LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
-<LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeUART
+<LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
+<LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeUART
 </UL>
 
 <P><STRONG><a name="[17]"></a>GPIOPinConfigure</STRONG> (Thumb, 60 bytes, Stack size 0 bytes, gpio.o(i.GPIOPinConfigure))
-<BR><BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
+<BR><BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
 <LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
 </UL>
 
 <P><STRONG><a name="[18]"></a>GPIOPinTypeCAN</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeCAN))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = GPIOPinTypeCAN &rArr; GPIOPadConfigSet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
-<LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
+<BR>[Calls]<UL><LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
+<LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
 </UL>
 <BR>[Called By]<UL><LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
 </UL>
 
-<P><STRONG><a name="[27]"></a>GPIOPinTypeGPIOOutput</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeGPIOOutput))
+<P><STRONG><a name="[25]"></a>GPIOPinTypeGPIOOutput</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeGPIOOutput))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = GPIOPinTypeGPIOOutput &rArr; GPIOPadConfigSet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
-<LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
+<BR>[Calls]<UL><LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
+<LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Setup
+<BR>[Called By]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Setup
 </UL>
 
-<P><STRONG><a name="[28]"></a>GPIOPinTypeUART</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeUART))
+<P><STRONG><a name="[26]"></a>GPIOPinTypeUART</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeUART))
 <BR><BR>[Stack]<UL><LI>Max Depth = 36<LI>Call Chain = GPIOPinTypeUART &rArr; GPIOPadConfigSet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
-<LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
+<BR>[Calls]<UL><LI><a href="#[24]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPadConfigSet
+<LI><a href="#[23]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIODirModeSet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
+<BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
 </UL>
 
-<P><STRONG><a name="[29]"></a>GPIO_Setup</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, gpio_init.o(i.GPIO_Setup))
+<P><STRONG><a name="[27]"></a>GPIO_Setup</STRONG> (Thumb, 38 bytes, Stack size 8 bytes, gpio_init.o(i.GPIO_Setup))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = GPIO_Setup &rArr; GPIOPinTypeGPIOOutput &rArr; GPIOPadConfigSet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
+<BR>[Calls]<UL><LI><a href="#[25]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
 <LI><a href="#[16]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlPeripheralEnable
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetupHardware
+<BR>[Called By]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setupHardware
 </UL>
 
-<P><STRONG><a name="[1e]"></a>Init_Structs</STRONG> (Thumb, 120 bytes, Stack size 20 bytes, can.o(i.Init_Structs))
+<P><STRONG><a name="[1e]"></a>Init_Structs</STRONG> (Thumb, 208 bytes, Stack size 20 bytes, can.o(i.Init_Structs))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = Init_Structs
 </UL>
 <BR>[Called By]<UL><LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
@@ -268,82 +259,71 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[12]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANIntRegister
 </UL>
 
-<P><STRONG><a name="[2a]"></a>SetupHardware</STRONG> (Thumb, 42 bytes, Stack size 8 bytes, project.o(i.SetupHardware))
-<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = SetupHardware &rArr; UartSetup &rArr; GPIOPinTypeUART &rArr; GPIOPadConfigSet
-</UL>
-<BR>[Calls]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
-<LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Setup
-<LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClockSetup
-<LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-</UL>
-<BR>[Called By]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-</UL>
-
 <P><STRONG><a name="[1a]"></a>SysCtlClockGet</STRONG> (Thumb, 304 bytes, Stack size 12 bytes, sysctl.o(i.SysCtlClockGet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = SysCtlClockGet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
+<BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
 <LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
 </UL>
 
-<P><STRONG><a name="[22]"></a>SysCtlClockSet</STRONG> (Thumb, 270 bytes, Stack size 8 bytes, sysctl.o(i.SysCtlClockSet))
+<P><STRONG><a name="[20]"></a>SysCtlClockSet</STRONG> (Thumb, 270 bytes, Stack size 8 bytes, sysctl.o(i.SysCtlClockSet))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SysCtlClockSet
 </UL>
 <BR>[Calls]<UL><LI><a href="#[b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlDelay
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
-<LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClockSetup
+<BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
+<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClockSetup
 </UL>
 
 <P><STRONG><a name="[16]"></a>SysCtlPeripheralEnable</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, sysctl.o(i.SysCtlPeripheralEnable))
-<BR><BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
-<LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Setup
+<BR><BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
+<LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Setup
 <LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
 </UL>
 
-<P><STRONG><a name="[2d]"></a>SysCtlPeripheralReady</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, sysctl.o(i.SysCtlPeripheralReady))
-<BR><BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
+<P><STRONG><a name="[2a]"></a>SysCtlPeripheralReady</STRONG> (Thumb, 40 bytes, Stack size 0 bytes, sysctl.o(i.SysCtlPeripheralReady))
+<BR><BR>[Called By]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
 </UL>
 
-<P><STRONG><a name="[23]"></a>SysTickEnable</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, systick.o(i.SysTickEnable))
-<BR><BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClockSetup
+<P><STRONG><a name="[21]"></a>SysTickEnable</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, systick.o(i.SysTickEnable))
+<BR><BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClockSetup
 </UL>
 
-<P><STRONG><a name="[24]"></a>SysTickPeriodSet</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, systick.o(i.SysTickPeriodSet))
-<BR><BR>[Called By]<UL><LI><a href="#[21]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClockSetup
+<P><STRONG><a name="[22]"></a>SysTickPeriodSet</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, systick.o(i.SysTickPeriodSet))
+<BR><BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClockSetup
 </UL>
 
-<P><STRONG><a name="[2c]"></a>UARTConfigSetExpClk</STRONG> (Thumb, 110 bytes, Stack size 0 bytes, uart.o(i.UARTConfigSetExpClk))
-<BR><BR>[Calls]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UARTConfigSetExpClk
+<P><STRONG><a name="[28]"></a>UARTConfigSetExpClk</STRONG> (Thumb, 110 bytes, Stack size 0 bytes, uart.o(i.UARTConfigSetExpClk))
+<BR><BR>[Calls]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UARTConfigSetExpClk
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UARTConfigSetExpClk
-<LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
-</UL>
-
-<P><STRONG><a name="[32]"></a>UART_InChar</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, uart_helper.o(i.UART_InChar))
-<BR><BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fgetc
+<BR>[Called By]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UARTConfigSetExpClk
+<LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
 </UL>
 
-<P><STRONG><a name="[33]"></a>UART_OutChar</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, uart_helper.o(i.UART_OutChar))
+<P><STRONG><a name="[2f]"></a>UART_InChar</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, uart_helper.o(i.UART_InChar))
+<BR><BR>[Called By]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fgetc
+</UL>
+
+<P><STRONG><a name="[30]"></a>UART_OutChar</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, uart_helper.o(i.UART_OutChar))
 <BR><BR>[Called By]<UL><LI><a href="#[6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fputc
 </UL>
 
-<P><STRONG><a name="[2b]"></a>UartSetup</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, uart_helper.o(i.UartSetup))
+<P><STRONG><a name="[29]"></a>UartSetup</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, uart_helper.o(i.UartSetup))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = UartSetup &rArr; GPIOPinTypeUART &rArr; GPIOPadConfigSet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UARTConfigSetExpClk
-<LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlPeripheralReady
+<BR>[Calls]<UL><LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UARTConfigSetExpClk
+<LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlPeripheralReady
 <LI><a href="#[16]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlPeripheralEnable
-<LI><a href="#[28]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeUART
+<LI><a href="#[26]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeUART
 <LI><a href="#[17]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinConfigure
-<LI><a href="#[22]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockSet
+<LI><a href="#[20]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockSet
 <LI><a href="#[1a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlClockGet
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetupHardware
+<BR>[Called By]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setupHardware
 </UL>
 
-<P><STRONG><a name="[2e]"></a>__0printf$1</STRONG> (Thumb, 22 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
+<P><STRONG><a name="[2b]"></a>__0printf$1</STRONG> (Thumb, 22 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[2c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_printf_core
 </UL>
 
 <P><STRONG><a name="[40]"></a>__1printf$1</STRONG> (Thumb, 0 bytes, Stack size 24 bytes, printf1.o(i.__0printf$1), UNUSED)
@@ -352,10 +332,9 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = __2printf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANIntHandler
-<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
 <LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
-<LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;transmit
-<LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetupHardware
+<LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;trial_recieve
+<LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setupHardware
 </UL>
 
 <P><STRONG><a name="[41]"></a>__scatterload_copy</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_copy), UNUSED)
@@ -364,40 +343,59 @@ Global Symbols
 
 <P><STRONG><a name="[43]"></a>__scatterload_zeroinit</STRONG> (Thumb, 14 bytes, Stack size unknown bytes, handlers.o(i.__scatterload_zeroinit), UNUSED)
 
-<P><STRONG><a name="[31]"></a>fgetc</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, uart_helper.o(i.fgetc))
-<BR><BR>[Calls]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_InChar
+<P><STRONG><a name="[2e]"></a>fgetc</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, uart_helper.o(i.fgetc))
+<BR><BR>[Calls]<UL><LI><a href="#[2f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_InChar
 </UL>
-<BR>[Called By]<UL><LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getc
+<BR>[Called By]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getc
 </UL>
 
 <P><STRONG><a name="[6]"></a>fputc</STRONG> (Thumb, 34 bytes, Stack size 4 bytes, uart_helper.o(i.fputc))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = fputc
 </UL>
-<BR>[Calls]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutChar
+<BR>[Calls]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART_OutChar
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> printf1.o(i.__0printf$1)
 </UL>
-<P><STRONG><a name="[34]"></a>getc</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, getc.o(i.getc))
-<BR><BR>[Calls]<UL><LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fgetc
+<P><STRONG><a name="[31]"></a>getc</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, getc.o(i.getc))
+<BR><BR>[Calls]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;fgetc
 </UL>
-<BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;transmit
+<BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;trial_recieve
 </UL>
 
-<P><STRONG><a name="[4]"></a>main</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, project.o(i.main))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = main &rArr; transmit &rArr; CAN_Transmit &rArr; CANMessageSet
+<P><STRONG><a name="[32]"></a>initReceiver</STRONG> (Thumb, 104 bytes, Stack size 8 bytes, can.o(i.initReceiver))
+<BR><BR>[Stack]<UL><LI>Max Depth = 60<LI>Call Chain = initReceiver &rArr; CANMessageSet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
-<LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;transmit
-<LI><a href="#[2a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SetupHardware
+<BR>[Calls]<UL><LI><a href="#[33]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CANMessageSet
+</UL>
+<BR>[Called By]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;trial_recieve
+</UL>
+
+<P><STRONG><a name="[4]"></a>main</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, project.o(i.main))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = main &rArr; trial_recieve &rArr; initReceiver &rArr; CANMessageSet
+</UL>
+<BR>[Calls]<UL><LI><a href="#[35]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;trial_recieve
+<LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setupHardware
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> entry9a.o(.ARM.Collect$$$$0000000B)
 </UL>
-<P><STRONG><a name="[35]"></a>transmit</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, project.o(i.transmit))
-<BR><BR>[Stack]<UL><LI>Max Depth = 84<LI>Call Chain = transmit &rArr; CAN_Transmit &rArr; CANMessageSet
+<P><STRONG><a name="[34]"></a>setupHardware</STRONG> (Thumb, 46 bytes, Stack size 8 bytes, project.o(i.setupHardware))
+<BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = setupHardware &rArr; UartSetup &rArr; GPIOPinTypeUART &rArr; GPIOPadConfigSet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
+<BR>[Calls]<UL><LI><a href="#[29]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UartSetup
+<LI><a href="#[27]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Setup
+<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ClockSetup
+<LI><a href="#[15]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Init
 <LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
-<LI><a href="#[34]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getc
+</UL>
+<BR>[Called By]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+</UL>
+
+<P><STRONG><a name="[35]"></a>trial_recieve</STRONG> (Thumb, 134 bytes, Stack size 8 bytes, project.o(i.trial_recieve))
+<BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = trial_recieve &rArr; initReceiver &rArr; CANMessageSet
+</UL>
+<BR>[Calls]<UL><LI><a href="#[32]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;initReceiver
+<LI><a href="#[e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2printf
+<LI><a href="#[31]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getc
 </UL>
 <BR>[Called By]<UL><LI><a href="#[4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -426,10 +424,10 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_rvmdk.o(RESET)
 </UL>
-<P><STRONG><a name="[2f]"></a>_printf_core</STRONG> (Thumb, 336 bytes, Stack size 88 bytes, printf1.o(i._printf_core), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[30]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
+<P><STRONG><a name="[2c]"></a>_printf_core</STRONG> (Thumb, 336 bytes, Stack size 88 bytes, printf1.o(i._printf_core), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[2d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_uidivmod
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0printf$1
+<BR>[Called By]<UL><LI><a href="#[2b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__0printf$1
 </UL>
 <P>
 <H3>
