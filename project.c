@@ -19,9 +19,9 @@ __error__(char *pcFilename, uint32_t ui32Line)
 int  main(void) {
 	setupHardware();
 
-  trial_recieve();	
+//  trial_recieve();	
 	
-//	transmit();
+	transmit();
 }	
 
 

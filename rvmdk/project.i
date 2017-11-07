@@ -18549,9 +18549,9 @@ void displayData(void);
 int  main(void) {
 	setupHardware();
 
-  trial_recieve();	
-	
 
+	
+	transmit();
 }	
 
 

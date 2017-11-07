@@ -65451,9 +65451,9 @@ N
 Nint  main(void) {
 N	setupHardware();
 N
-N  trial_recieve();	
+N//  trial_recieve();	
 N	
-N//	transmit();
+N	transmit();
 N}	
 N
 N
